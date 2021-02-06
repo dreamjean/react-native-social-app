@@ -2,17 +2,39 @@ import { StatusBar } from "expo-status-bar";
 import React from "react";
 import styled from "styled-components";
 
+import { Button, TextButton } from "../components";
+import TextInput from "../components/TextInput";
 import { Text } from "../styles";
 
 const SignInScreen = () => {
   return (
     <Container>
-      <RightCircle />
-      <LeftCircle />
-      <Main>
-        <Text>Wellcome back.</Text>
-      </Main>
-
+      <HeaderGraphic>
+        <RightCircle />
+        <LeftCircle />
+      </HeaderGraphic>
+      <Text heading center marginTop={193}>
+        Wellcome back.
+      </Text>
+      <Auth>
+        <TextInput
+          title="Email Address"
+          autoCapitalize="none"
+          autoComplateType="email"
+          autoCorrect={false}
+          keyboardType="email-address"
+        />
+        <TextInput
+          title="password"
+          autoCapitalize="none"
+          autoComplateType="password"
+          autoCorrect={false}
+          keyboardType="default"
+          secureTextEntry
+        />
+        <Button title="Login" marginTop={64} />
+      </Auth>
+      <TextButton caption="New to SocialApp?" title="Sign Up" />
       <StatusBar style="light" />
     </Container>
   );
@@ -22,14 +44,12 @@ const Container = styled.View`
   flex: 1;
 `;
 
-const Main = styled.View``;
-
-// const HeaderGraphic = styled.View`
-//   position: absolute;
-//   width: 100%;
-//   top: -50px;
-//   z-index: -1;
-// `;
+const HeaderGraphic = styled.View`
+  position: absolute;
+  width: 100%;
+  top: -50px;
+  z-index: -1;
+`;
 
 const LeftCircle = styled.View`
   position: absolute;
@@ -54,6 +74,13 @@ const RightCircle = styled.View`
 
   ${({ theme: { colors } }) => ({
     backgroundColor: colors.violet,
+  })}
+`;
+
+const Auth = styled.View`
+  ${({ theme: { space } }) => ({
+    padding: space.m1,
+    marginTop: space.m1,
   })}
 `;
 

@@ -13,17 +13,22 @@ const fonts = {
 
 export default {
   colors,
+  getFont,
   size: {
     s1: 11,
-    s2: 13,
-    s3: 14,
-    m: 16,
+    s2: 12,
+    s3: 13,
+    m1: 14,
+    m2: 16,
     l: 24,
     xl: 32,
   },
-  space: {},
+  space: {
+    m1: 32,
+    l1: 64,
+  },
   radii: {
+    s1: 6,
     xxl: 100,
   },
-  getFont,
 };
