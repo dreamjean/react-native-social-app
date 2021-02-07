@@ -39,7 +39,7 @@ const button2Style = css`
   })}
 `;
 
-const errorStyle = css`
+const dangerStyle = css`
   ${({ theme: { colors, size, getFont, space } }) => ({
     fontSize: size.s2,
     fontFamily: getFont(2),
@@ -87,7 +87,7 @@ const Text = styled.Text`
 
   ${({ button1 }) => button1 && button1Style}
   ${({ button2 }) => button2 && button2Style}
-  ${({ error }) => error && errorStyle}
+  ${({ danger }) => danger && dangerStyle}
   ${({ heading }) => heading && headingStyle}
   ${({ medium }) => medium && mediumStyle}
   ${({ small }) => small && smallStyle}

@@ -6,7 +6,7 @@ import Button from "../Button";
 const SubmitButton = ({ title }) => {
   const { handleSubmit } = useFormikContext();
 
-  return <Button onPress={handleSubmit} {...{ title }} marginTop={64} />;
+  return <Button onPress={handleSubmit} {...{ title }} marginTop={32} />;
 };
 
 export default SubmitButton;

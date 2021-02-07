@@ -1,91 +1,49 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
-import styled from "styled-components";
+import * as Yup from "yup";
 
-import { Button, TextButton } from "../components";
-import TextInput from "../components/TextInput";
-import { Text } from "../styles";
+import { Container, TextButton } from "../components";
+import { Form, FormField, SubmitButton } from "../components/form";
+
+const validationSchema = Yup.object().shape({
+  email: Yup.string().required().email().label("Email"),
+  passowrd: Yup.string().required().min(5).max(50).label("Password"),
+});
 
 const SignInScreen = ({ navigation }) => {
   return (
-    <Container>
-      <HeaderGraphic>
-        <RightCircle />
-        <LeftCircle />
-      </HeaderGraphic>
-      <Text heading center marginTop={193}>
-        Wellcome back.
-      </Text>
-      <Auth>
-        <TextInput
+    <Container title="Welcome back.">
+      <Form
+        initialValues={{ email: "", password: "" }}
+        onSubmit={(values) => console.log(values)}
+        validationSchema={validationSchema}
+      >
+        <FormField
+          name="email"
           title="Email Address"
           autoCapitalize="none"
           autoComplateType="email"
           autoCorrect={false}
           keyboardType="email-address"
         />
-        <TextInput
-          title="password"
+        <FormField
+          name="passowrd"
+          title="Password"
           autoCapitalize="none"
           autoComplateType="password"
           autoCorrect={false}
           keyboardType="default"
           secureTextEntry
         />
-        <Button title="Login" marginTop={64} />
-      </Auth>
+        <SubmitButton title="Login" />
+      </Form>
       <TextButton
         caption="New to SocialApp?"
         title="Sign Up"
         onPress={() => navigation.navigate("SignUp")}
+        marginTop={16}
       />
-      <StatusBar style="light" />
     </Container>
   );
 };
-
-const Container = styled.View`
-  flex: 1;
-`;
-
-const HeaderGraphic = styled.View`
-  position: absolute;
-  width: 100%;
-  top: -50px;
-  z-index: -1;
-`;
-
-const LeftCircle = styled.View`
-  position: absolute;
-  border-radius: 100px;
-  width: 200px;
-  height: 200px;
-  left: -50px;
-  top: -50px;
-
-  ${({ theme: { colors } }) => ({
-    backgroundColor: colors.blue,
-  })}
-`;
-
-const RightCircle = styled.View`
-  position: absolute;
-  border-radius: 200px;
-  width: 400px;
-  height: 400px;
-  right: -100px;
-  top: -200px;
-
-  ${({ theme: { colors } }) => ({
-    backgroundColor: colors.violet,
-  })}
-`;
-
-const Auth = styled.View`
-  ${({ theme: { space } }) => ({
-    padding: space.m1,
-    marginTop: space.m1,
-  })}
-`;
 
 export default SignInScreen;

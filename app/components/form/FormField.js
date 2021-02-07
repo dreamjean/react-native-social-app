@@ -16,9 +16,11 @@ const FormField = ({ name, ...rest }) => {
   return (
     <>
       <TextInput
-        values={values[name]}
+        error={errors[name]}
+        value={values[name]}
         onBlur={() => setFieldTouched(name)}
         onChangeText={(text) => setFieldValue(name, text)}
+        touched={touched[name]}
         {...rest}
       />
       <ErrorMessage error={errors[name]} visible={touched[name]} />
