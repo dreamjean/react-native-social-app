@@ -17,7 +17,7 @@ const Title = styled.Text`
   ${({ error, theme: { colors, getFont, size, space } }) => ({
     fontFamily: getFont(2),
     fontSize: size.s2,
-    color: error ? colors.error : colors.text2,
+    color: error ? colors.danger : colors.text2,
     marginTop: space.m1,
   })}
 `;

@@ -6,7 +6,7 @@ import { Button, TextButton } from "../components";
 import TextInput from "../components/TextInput";
 import { Text } from "../styles";
 
-const SignInScreen = () => {
+const SignInScreen = ({ navigation }) => {
   return (
     <Container>
       <HeaderGraphic>
@@ -34,7 +34,11 @@ const SignInScreen = () => {
         />
         <Button title="Login" marginTop={64} />
       </Auth>
-      <TextButton caption="New to SocialApp?" title="Sign Up" />
+      <TextButton
+        caption="New to SocialApp?"
+        title="Sign Up"
+        onPress={() => navigation.navigate("SignUp")}
+      />
       <StatusBar style="light" />
     </Container>
   );

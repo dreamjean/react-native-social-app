@@ -31,11 +31,20 @@ const button1Style = css`
 `;
 
 const button2Style = css`
-  ${({ primary, theme: { colors, size, getFont } }) => ({
+  ${({ theme: { colors, size, getFont } }) => ({
     fontSize: size.s3,
     fontFamily: getFont(2),
-    color: primary ? colors.violet : colors.text,
+    color: colors.text,
     textTransform: "capitalize",
+  })}
+`;
+
+const errorStyle = css`
+  ${({ theme: { colors, size, getFont, space } }) => ({
+    fontSize: size.s2,
+    fontFamily: getFont(2),
+    color: colors.danger,
+    marginVertical: space.s1,
   })}
 `;
 
@@ -78,6 +87,7 @@ const Text = styled.Text`
 
   ${({ button1 }) => button1 && button1Style}
   ${({ button2 }) => button2 && button2Style}
+  ${({ error }) => error && errorStyle}
   ${({ heading }) => heading && headingStyle}
   ${({ medium }) => medium && mediumStyle}
   ${({ small }) => small && smallStyle}

@@ -24,6 +24,7 @@ export default {
     xl: 32,
   },
   space: {
+    s1: 4,
     m1: 32,
     l1: 64,
   },

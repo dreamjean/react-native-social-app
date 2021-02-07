@@ -4,4 +4,6 @@ export default {
   text: "#414959",
   text2: "#8e93a1",
   white: "#fff",
+  danger: "#FF0058",
+  danger2: "rgba(255, 0, 88, 0.1)",
 };
