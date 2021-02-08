@@ -3,10 +3,12 @@ import React from "react";
 
 import Button from "../Button";
 
-const SubmitButton = ({ title }) => {
+const SubmitButton = ({ title, loading }) => {
   const { handleSubmit } = useFormikContext();
 
-  return <Button onPress={handleSubmit} {...{ title }} marginTop={32} />;
+  return (
+    <Button onPress={handleSubmit} {...{ title, loading }} marginTop={32} />
+  );
 };
 
 export default SubmitButton;

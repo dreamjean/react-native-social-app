@@ -6,4 +6,6 @@ export default {
   white: "#fff",
   danger: "#FF0058",
   danger2: "rgba(255, 0, 88, 0.1)",
+  grey: "#e1e2e6",
+  lightBlue: "#d3eef8",
 };

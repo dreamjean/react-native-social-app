@@ -4,8 +4,9 @@ import React from "react";
 import TextInput from "../TextInput";
 import ErrorMessage from "./ErrorMessage";
 
-const FormField = ({ name, ...rest }) => {
+const FormField = ({ name, onSubmitEditing, onRef, ...rest }) => {
   const {
+    handleSubmit,
     setFieldValue,
     setFieldTouched,
     values,
@@ -20,6 +21,8 @@ const FormField = ({ name, ...rest }) => {
         value={values[name]}
         onBlur={() => setFieldTouched(name)}
         onChangeText={(text) => setFieldValue(name, text)}
+        onSubmitEditing={onSubmitEditing ? onSubmitEditing : handleSubmit}
+        ref={onRef}
         touched={touched[name]}
         {...rest}
       />

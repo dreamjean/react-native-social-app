@@ -14,6 +14,15 @@ const titleStyle = css`
   })}
 `;
 
+const inputTitleStyle = css`
+  ${({ error, touched, theme: { colors, getFont, size } }) => ({
+    fontFamily: getFont(2),
+    fontSize: size.s2,
+    color: !touched ? colors.text2 : error ? colors.danger : colors.blue,
+    textTransform: "uppercase",
+  })}
+`;
+
 const mediumStyle = css`
   ${({ theme: { size, getFont } }) => ({
     fontSize: size.m,
@@ -89,6 +98,7 @@ const Text = styled.Text`
   ${({ button2 }) => button2 && button2Style}
   ${({ danger }) => danger && dangerStyle}
   ${({ heading }) => heading && headingStyle}
+  ${({ inputTitle }) => inputTitle && inputTitleStyle}
   ${({ medium }) => medium && mediumStyle}
   ${({ small }) => small && smallStyle}
   ${({ title }) => title && titleStyle}

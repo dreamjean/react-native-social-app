@@ -26,11 +26,13 @@ export default {
   space: {
     s1: 6,
     s2: 12,
+    s3: 16,
     m1: 32,
     l1: 64,
   },
   radii: {
     s1: 6,
+    l: 40,
     xxl: 100,
   },
 };

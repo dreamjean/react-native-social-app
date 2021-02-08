@@ -1,17 +1,20 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import { StyleSheet } from "react-native";
 import styled from "styled-components";
 
 import { colors } from "../config";
+import { Text } from "../styles";
 
-const TextInput = ({ title, error, touched, ...rest }) => {
+const TextInput = forwardRef(({ title, error, touched, ...rest }, ref) => {
   return (
     <Container {...{ error, touched }}>
-      <Title {...{ error, touched }}>{title}</Title>
-      <Input {...rest} selectionColor={colors.blue} />
+      <Text inputTitle {...{ error, touched }}>
+        {title}
+      </Text>
+      <Input {...{ ref }} {...rest} selectionColor={colors.blue} />
     </Container>
   );
-};
+});
 
 const Container = styled.View`
   ${({ error, touched, theme: { colors, space } }) => ({
@@ -22,14 +25,6 @@ const Container = styled.View`
       : colors.blue,
     borderBottomWidth: StyleSheet.hairlineWidth,
     marginVertical: space.s2,
-  })}
-`;
-
-const Title = styled.Text`
-  ${({ error, touched, theme: { colors, getFont, size } }) => ({
-    fontFamily: getFont(2),
-    fontSize: size.s2,
-    color: !touched ? colors.text2 : error ? colors.danger : colors.blue,
   })}
 `;
 

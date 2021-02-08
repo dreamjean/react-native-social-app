@@ -68,6 +68,8 @@ const RightCircle = styled.View`
 `;
 
 const Auth = styled.View`
+  justify-content: center;
+
   ${({ theme: { space } }) => ({
     padding: space.m1,
     marginTop: space.s2,

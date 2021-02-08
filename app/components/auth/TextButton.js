@@ -2,7 +2,7 @@ import React from "react";
 import { Pressable } from "react-native";
 import styled from "styled-components";
 
-import { Text } from "../styles";
+import { Text } from "../../styles";
 
 const TextButton = ({ caption, title, marginTop, onPress }) => {
   return (

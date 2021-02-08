@@ -4,10 +4,10 @@ import styled from "styled-components";
 
 import { Text } from "../styles";
 
-const Button = ({ title, margin, marginTop, onPress }) => {
+const Button = ({ title, margin, marginTop, onPress, loading = false }) => {
   return (
-    <Touchable {...{ margin, marginTop, onPress }}>
-      <Text button1>{title}</Text>
+    <Touchable {...{ margin, marginTop, onPress }} disable={loading}>
+      {loading ? <Loading /> : <Text button1>{title}</Text>}
     </Touchable>
   );
 };
@@ -24,5 +24,10 @@ const Touchable = styled(RectButton)`
     margin,
   })}
 `;
+
+const Loading = styled.ActivityIndicator.attrs(({ theme: { colors } }) => ({
+  color: colors.white,
+  size: "small",
+}))``;
 
 export default Button;

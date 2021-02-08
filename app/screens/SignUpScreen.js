@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as Yup from "yup";
 
 import { Container, TextButton } from "../components";
@@ -7,10 +7,15 @@ import { Form, FormField, SubmitButton } from "../components/form";
 const validationSchema = Yup.object().shape({
   username: Yup.string().required().label("Username"),
   email: Yup.string().required().email().label("Email"),
-  passowrd: Yup.string().required().min(5).max(50).label("Password"),
+  password: Yup.string().required().min(5).max(50).label("Password"),
 });
 
 const SignUpScreen = ({ navigation }) => {
+  const [loading] = useState(false);
+  const [inputs] = useState([]);
+
+  const focusNextField = (nextField) => inputs[nextField].focus();
+
   return (
     <Container title="Let's get started.">
       <Form
@@ -19,31 +24,57 @@ const SignUpScreen = ({ navigation }) => {
         validationSchema={validationSchema}
       >
         <FormField
+          allowFontScaling={false}
+          autoCapitalize="none"
+          autoCompleteType="name"
+          autoCorrect={false}
+          blurOnSubmit={false}
+          keyboardAppearance="default"
+          keyboardType="default"
           name="username"
+          numberOfLines={1}
+          onSubmitEditing={() => focusNextField("email")}
+          returnKeyLabel="next"
+          returnKeyType="next"
+          textContentType="name"
           title="Username"
-          autoCapitalize="none"
-          autoComplateType="name"
-          autoCorrect={false}
-          keyboardType="default"
         />
         <FormField
-          name="email"
-          title="Email Address"
+          allowFontScaling={false}
           autoCapitalize="none"
-          autoComplateType="email"
+          autoCompleteType="email"
           autoCorrect={false}
+          blurOnSubmit={false}
+          keyboardAppearance="default"
           keyboardType="email-address"
+          name="email"
+          numberOfLines={1}
+          onSubmitEditing={() => focusNextField("password")}
+          onRef={(input) => (inputs["email"] = input)}
+          returnKeyLabel="next"
+          returnKeyType="next"
+          textContentType="emailAddress"
+          title="Email Address"
         />
         <FormField
-          name="passowrd"
-          title="Password"
+          allowFontScaling={false}
           autoCapitalize="none"
-          autoComplateType="password"
+          autoCompleteType="password"
           autoCorrect={false}
+          blurOnSubmit={false}
+          keyboardAppearance="default"
           keyboardType="default"
+          maxLength={50}
+          name="password"
+          numberOfLines={1}
+          onRef={(input) => (inputs["password"] = input)}
+          returnKeyLabel="go"
+          returnKeyType="go"
           secureTextEntry
+          textContentType="password"
+          title="Password"
         />
-        <SubmitButton title="Register" />
+        <SubmitButton title="Register" {...{ loading }} />
       </Form>
       <TextButton
         caption="Already have an account?"
