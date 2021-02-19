@@ -21,7 +21,7 @@ export default {
     m1: 14,
     m2: 16,
     l: 24,
-    xl: 32,
+    xl: 28,
   },
   space: {
     s1: 6,

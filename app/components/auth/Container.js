@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import { Text } from "../../styles";
 
-const Container = ({ title, children }) => {
+const Container = ({ title, signUP, children }) => {
   return (
     <KeyboardAwareScrollView
       contentContainerStyle={{ flexGrow: 1 }}
@@ -20,10 +20,10 @@ const Container = ({ title, children }) => {
           <RightCircle />
           <LeftCircle />
         </HeaderGraphic>
-        <Text heading center marginTop={193}>
+        <Text heading center marginTop={180}>
           {title}
         </Text>
-        <Auth>{children}</Auth>
+        <Auth {...{ signUP }}>{children}</Auth>
       </Wrapper>
       <StatusBar style="light" />
     </KeyboardAwareScrollView>
@@ -70,9 +70,9 @@ const RightCircle = styled.View`
 const Auth = styled.View`
   justify-content: center;
 
-  ${({ theme: { space } }) => ({
+  ${({ signUP, theme: { space } }) => ({
     padding: space.m1,
-    marginTop: space.s2,
+    marginTop: signUP ? -space.s2 : space.s2,
   })}
 `;
 

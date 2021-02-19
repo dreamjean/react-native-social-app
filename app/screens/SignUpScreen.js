@@ -2,9 +2,15 @@ import React, { useState } from "react";
 import * as Yup from "yup";
 
 import { Container, TextButton } from "../components";
-import { Form, FormField, SubmitButton } from "../components/form";
+import {
+  Form,
+  FormField,
+  FormImagePicker,
+  SubmitButton,
+} from "../components/form";
 
 const validationSchema = Yup.object().shape({
+  photo: Yup.string().required().nullable().label("Photo"),
   username: Yup.string().required().label("Username"),
   email: Yup.string().required().email().label("Email"),
   password: Yup.string().required().min(5).max(50).label("Password"),
@@ -17,12 +23,13 @@ const SignUpScreen = ({ navigation }) => {
   const focusNextField = (nextField) => inputs[nextField].focus();
 
   return (
-    <Container title="Let's get started.">
+    <Container signUP title="Let's get started.">
       <Form
-        initialValues={{ username: "", email: "", password: "" }}
+        initialValues={{ photo: null, username: "", email: "", password: "" }}
         onSubmit={(values) => console.log(values)}
         validationSchema={validationSchema}
       >
+        <FormImagePicker name="photo" />
         <FormField
           allowFontScaling={false}
           autoCapitalize="none"

@@ -1,22 +1,27 @@
 import { useFormikContext } from "formik";
-import React, { useEffect } from "react";
+import React from "react";
+import styled from "styled-components";
 
 import ImageInput from "../ImageInput";
 import ErrorMessage from "./ErrorMessage";
 
-const FormImagePicker = ({ name, data }) => {
+const FormImagePicker = ({ name }) => {
   const { setFieldValue, values, errors, touched } = useFormikContext();
 
-  useEffect(() => {
-    if (data) setFieldValue(name, data);
-  }, [data]);
-
   return (
-    <>
-      <ImageInput error={errors[name]} image={values[name]} />
+    <Wrapper>
+      <ImageInput
+        error={errors[name]}
+        image={values[name]}
+        onChangeImage={(uri) => setFieldValue(name, uri)}
+      />
       <ErrorMessage error={errors[name]} visible={touched[name]} />
-    </>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.View`
+  align-items: center;
+`;
 
 export default FormImagePicker;
