@@ -20,7 +20,7 @@ const Container = ({ title, signUP, children }) => {
           <RightCircle />
           <LeftCircle />
         </HeaderGraphic>
-        <Text heading center marginTop={180}>
+        <Text heading center marginTop={signUP ? 180 : 195}>
           {title}
         </Text>
         <Auth {...{ signUP }}>{children}</Auth>

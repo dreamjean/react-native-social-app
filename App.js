@@ -1,13 +1,22 @@
 import { NavigationContainer } from "@react-navigation/native";
 import AppLoading from "expo-app-loading";
-import React from "react";
+import React, { useState } from "react";
 
+import AuthContext from "./app/auth/authContext";
 import { Theme } from "./app/components";
 import useLoadAssets from "./app/hooks/useLoadAssets";
-import { AuthNavigator } from "./app/navigation";
+import { AppNavigator, AuthNavigator } from "./app/navigation";
+import FirebaseProvider from "./app/utility/FirebaseContext";
 
 export default function App() {
   const { assetsLoaded, setAssetsLoaded, loadAssetsAsync } = useLoadAssets();
+  const [user, setUser] = useState({
+    username: "",
+    email: "",
+    uid: "",
+    isLoggedIn: null,
+    profilePhotoUrl: "default",
+  });
 
   if (!assetsLoaded) {
     return (
@@ -20,10 +29,14 @@ export default function App() {
   }
 
   return (
-    <Theme>
-      <NavigationContainer>
-        <AuthNavigator />
-      </NavigationContainer>
-    </Theme>
+    <FirebaseProvider>
+      <AuthContext.Provider value={{ user, setUser }}>
+        <Theme>
+          <NavigationContainer>
+            {user.isLoggedIn ? <AppNavigator /> : <AuthNavigator />}
+          </NavigationContainer>
+        </Theme>
+      </AuthContext.Provider>
+    </FirebaseProvider>
   );
 }

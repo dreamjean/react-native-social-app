@@ -10,7 +10,7 @@ import {
 } from "../components/form";
 
 const validationSchema = Yup.object().shape({
-  photo: Yup.string().required().nullable().label("Photo"),
+  avatar: Yup.string().required().nullable().label("Photo"),
   username: Yup.string().required().label("Username"),
   email: Yup.string().required().email().label("Email"),
   password: Yup.string().required().min(5).max(50).label("Password"),
@@ -25,11 +25,11 @@ const SignUpScreen = ({ navigation }) => {
   return (
     <Container signUP title="Let's get started.">
       <Form
-        initialValues={{ photo: null, username: "", email: "", password: "" }}
+        initialValues={{ avatar: null, username: "", email: "", password: "" }}
         onSubmit={(values) => console.log(values)}
         validationSchema={validationSchema}
       >
-        <FormImagePicker name="photo" />
+        <FormImagePicker name="avatar" />
         <FormField
           allowFontScaling={false}
           autoCapitalize="none"
