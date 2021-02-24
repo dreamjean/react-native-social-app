@@ -32,7 +32,9 @@ export default {
   },
   radii: {
     s1: 6,
+    m: 30,
     l: 40,
+    l2: 64,
     xxl: 100,
   },
 };

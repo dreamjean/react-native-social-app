@@ -76,7 +76,7 @@ const tinyStyle = css`
 const Text = styled.Text`
   ${({
     center,
-    color,
+    white,
     marginTop,
     margin,
     opacity,
@@ -84,7 +84,7 @@ const Text = styled.Text`
     right,
     theme: { colors, size, getFont },
   }) => ({
-    color: color ? color : colors.text,
+    color: white ? colors.white : colors.text,
     fontSize: size.s3,
     fontFamily: getFont(2),
     textAlign: center ? "center" : right ? "right" : "left",
