@@ -13,9 +13,8 @@ const AppNavigator = () => {
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      {user.isLoggedIn === null ? (
-        <Stack.Screen name="Loading" component={LoadingScreen} />
-      ) : user.isLoggedIn ? (
+      <Stack.Screen name="Loading" component={LoadingScreen} />
+      {user.isLoggedIn ? (
         <Stack.Screen name="Main" component={MainNavigator} />
       ) : (
         <Stack.Screen name="Auth" component={AuthNavigator} />

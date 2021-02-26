@@ -1,11 +1,17 @@
+import { FontAwesome } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
 import styled from "styled-components";
 
-import { Text } from "../../styles";
+import { colors } from "../../config";
+import { Image, Text } from "../../styles";
+import Icon from "../Icon";
 
-const Container = ({ title, signUP, children }) => {
+const Container = ({ logo, title, big = false, children }) => {
+  const navigation = useNavigation();
+
   return (
     <KeyboardAwareScrollView
       contentContainerStyle={{ flexGrow: 1 }}
@@ -16,63 +22,52 @@ const Container = ({ title, signUP, children }) => {
       showsVerticalScrollIndicator={false}
     >
       <Wrapper>
-        <HeaderGraphic>
-          <RightCircle />
-          <LeftCircle />
-        </HeaderGraphic>
-        <Text heading center marginTop={signUP ? 180 : 195}>
+        {!logo && (
+          <IconBox>
+            <Icon
+              name="long-arrow-left"
+              color={colors.text}
+              backgroundColor={colors.white2}
+              IconComponent={FontAwesome}
+              size={30}
+              onPress={() => navigation.goBack()}
+            />
+          </IconBox>
+        )}
+        {logo && <Image logo resiMode="cover" source={logo} />}
+        <Text heading center {...{ big }}>
           {title}
         </Text>
-        <Auth {...{ signUP }}>{children}</Auth>
+        <Auth>{children}</Auth>
       </Wrapper>
-      <StatusBar style="light" />
+      <StatusBar style="dark" />
     </KeyboardAwareScrollView>
   );
 };
 
 const Wrapper = styled.View`
   flex: 1;
-`;
-
-const HeaderGraphic = styled.View`
-  position: absolute;
-  width: 100%;
-  top: -50px;
-  z-index: -1;
-`;
-
-const LeftCircle = styled.View`
-  position: absolute;
-  border-radius: 100px;
-  width: 200px;
-  height: 200px;
-  left: -50px;
-  top: -50px;
+  justify-content: center;
+  align-items: center;
 
   ${({ theme: { colors } }) => ({
-    backgroundColor: colors.blue,
+    backgroundColor: colors.white2,
   })}
 `;
 
-const RightCircle = styled.View`
+const IconBox = styled.View`
   position: absolute;
-  border-radius: 200px;
-  width: 400px;
-  height: 400px;
-  right: -100px;
-  top: -200px;
-
-  ${({ theme: { colors } }) => ({
-    backgroundColor: colors.violet,
-  })}
+  top: 30px;
+  left: 15px;
 `;
 
 const Auth = styled.View`
   justify-content: center;
+  width: 100%;
 
-  ${({ signUP, theme: { space } }) => ({
+  ${({ theme: { space } }) => ({
     padding: space.m1,
-    marginTop: signUP ? -space.s2 : space.s2,
+    marginTop: space.m1,
   })}
 `;
 

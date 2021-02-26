@@ -1,40 +1,70 @@
+import { AntDesign } from "@expo/vector-icons";
 import React, { forwardRef } from "react";
-import { StyleSheet } from "react-native";
 import styled from "styled-components";
 
-import { colors } from "../config";
-import { Text } from "../styles";
+import { calender, colors } from "../config";
 
-const TextInput = forwardRef(({ title, error, touched, ...rest }, ref) => {
+const { ROW_HEIGHT } = calender;
+
+const TextInput = forwardRef(({ iconName, error, touched, ...rest }, ref) => {
   return (
     <Container {...{ error, touched }}>
-      <Text inputTitle {...{ error, touched }}>
-        {title}
-      </Text>
-      <Input {...{ ref }} {...rest} selectionColor={colors.blue} />
+      <IconBox {...{ error, touched }}>
+        <AntDesign
+          name={iconName}
+          size={25}
+          color={!touched ? colors.grey2 : error ? colors.danger : colors.blue}
+        />
+      </IconBox>
+      <Input
+        {...{ ref }}
+        {...rest}
+        numberOfLines={1}
+        selectionColor={colors.grey2}
+        placeholderTextcolor={colors.grey2}
+      />
     </Container>
   );
 });
 
 const Container = styled.View`
-  ${({ error, touched, theme: { colors, space } }) => ({
-    borderBottomColor: !touched
-      ? colors.text2
-      : error
-      ? colors.danger
-      : colors.blue,
-    borderBottomWidth: StyleSheet.hairlineWidth,
+  flex-direction: row;
+  border-width: 1px;
+  height: ${ROW_HEIGHT}px;
+  align-items: center;
+
+  ${({ error, touched, theme: { colors, space, radii } }) => ({
+    borderColor: !touched ? colors.grey : error ? colors.danger : colors.blue,
+    borderRadius: radii.s1,
     marginVertical: space.s2,
   })}
 `;
 
-const Input = styled.TextInput`
-  height: 48px;
+const IconBox = styled.View`
+  width: 50px;
+  height: 100%;
+  border-right-width: 1px;
+  justify-content: center;
+  align-items: center;
 
-  ${({ theme: { colors, getFont, size } }) => ({
-    fontFamily: getFont(0),
+  ${({ error, touched, theme: { colors, space } }) => ({
+    borderRightColor: !touched
+      ? colors.grey
+      : error
+      ? colors.danger
+      : colors.blue,
+    padding: space.s2,
+  })}
+`;
+
+const Input = styled.TextInput`
+  flex: 1;
+
+  ${({ theme: { colors, fonts, size, space } }) => ({
+    fontFamily: fonts[4],
     fontSize: size.m1,
     color: colors.text,
+    padding: space.s2,
   })}
 `;
 

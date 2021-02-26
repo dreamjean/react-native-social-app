@@ -1,3 +1,4 @@
+import { StatusBar } from "expo-status-bar";
 import React, { useContext } from "react";
 import styled from "styled-components";
 
@@ -23,6 +24,8 @@ const ProfileScreen = () => {
         />
       </ProfilePhotoContainer>
       <Text>{user.username}</Text>
+
+      <StatusBar style="dark" />
     </Container>
   );
 };

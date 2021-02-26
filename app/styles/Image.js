@@ -6,11 +6,19 @@ const avatarStyle = css`
   border-radius: ${({ theme: { radii } }) => radii.l2}px;
 `;
 
-const Image = styled.Image`
-  width: 100%;
-  height: 100%;
+const boadingStyle = css`
+  width: 60%;
+`;
 
+const logoStyle = css`
+  width: 150px;
+  height: 150px;
+`;
+
+const Image = styled.Image`
   ${({ avatar }) => avatar && avatarStyle}
+  ${({ boading }) => boading && boadingStyle}
+  ${({ logo }) => logo && logoStyle}
 `;
 
 export default Image;

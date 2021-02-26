@@ -24,11 +24,11 @@ const Firebase = {
       await firebase
         .auth()
         .createUserWithEmailAndPassword(user.email, user.password);
-      const uid = Firebase.getCurrentUser().uid;
+      const { uid } = Firebase.getCurrentUser();
 
       let profilePhotoUrl = "default";
 
-      await db.collection("users").doc(uid).set({
+      db.collection("users").doc(uid).set({
         username: user.username,
         email: user.email,
         profilePhotoUrl,
@@ -45,7 +45,7 @@ const Firebase = {
   },
 
   uploadProfilePhoto: async (uri) => {
-    const uid = Firebase.getCurrentUser().uid;
+    const { uid } = Firebase.getCurrentUser();
 
     try {
       const photo = await Firebase.getBlob(uri);

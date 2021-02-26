@@ -2,12 +2,24 @@ import React from "react";
 import { RectButton } from "react-native-gesture-handler";
 import styled from "styled-components";
 
+import { calender, colors } from "../config";
 import { Text } from "../styles";
 
-const Button = ({ title, margin, marginTop, onPress, loading = false }) => {
+const { ROW_HEIGHT } = calender;
+
+const Button = ({
+  backgroundColor = colors.blue,
+  color = colors.white,
+  title,
+  margin,
+  onPress,
+  loading = false,
+}) => {
   return (
-    <Touchable {...{ margin, marginTop, onPress }} disable={loading}>
-      {loading ? <Loading /> : <Text button1>{title}</Text>}
+    <Touchable {...{ backgroundColor, margin, onPress }} disable={loading}>
+      <Text button1 {...{ color }}>
+        {title}
+      </Text>
     </Touchable>
   );
 };
@@ -15,19 +27,14 @@ const Button = ({ title, margin, marginTop, onPress, loading = false }) => {
 const Touchable = styled(RectButton)`
   align-items: center;
   justify-content: center;
-  height: 48px;
+  height: ${ROW_HEIGHT}px;
 
-  ${({ marginTop, margin, theme: { colors, radii } }) => ({
-    backgroundColor: colors.violet,
+  ${({ backgroundColor, margin, theme: { space, radii } }) => ({
+    backgroundColor,
     borderRadius: radii.s1,
-    marginTop,
+    marginTop: space.s2,
     margin,
   })}
 `;
-
-const Loading = styled.ActivityIndicator.attrs(({ theme: { colors } }) => ({
-  color: colors.white,
-  size: "small",
-}))``;
 
 export default Button;

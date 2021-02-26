@@ -1,9 +1,10 @@
 import styled, { css } from "styled-components";
 
 const headingStyle = css`
-  ${({ theme: { size, getFont } }) => ({
-    fontSize: size.xl,
-    fontFamily: getFont(1),
+  ${({ big, theme: { colors, size, fonts } }) => ({
+    fontSize: big ? size.xl : size.l,
+    fontFamily: fonts[0],
+    color: colors.darkBlue,
   })}
 `;
 
@@ -31,20 +32,19 @@ const mediumStyle = css`
 `;
 
 const button1Style = css`
-  ${({ theme: { colors, size, getFont } }) => ({
-    fontSize: size.m1,
-    fontFamily: getFont(2),
-    color: colors.white,
+  ${({ color, theme: { colors, fonts, size } }) => ({
+    fontSize: size.m2,
+    fontFamily: fonts[1],
+    color: color ? color : colors.white,
     textTransform: "capitalize",
   })}
 `;
 
 const button2Style = css`
-  ${({ theme: { colors, size, getFont } }) => ({
+  ${({ theme: { colors, size, fonts } }) => ({
     fontSize: size.s3,
-    fontFamily: getFont(2),
-    color: colors.text,
-    textTransform: "capitalize",
+    fontFamily: fonts[1],
+    color: colors.blue2,
   })}
 `;
 
@@ -76,15 +76,16 @@ const tinyStyle = css`
 const Text = styled.Text`
   ${({
     center,
-    white,
+    color,
     marginTop,
     margin,
     opacity,
     padding,
     right,
+    white,
     theme: { colors, size, getFont },
   }) => ({
-    color: white ? colors.white : colors.text,
+    color: color ? color : white ? colors.white : colors.text,
     fontSize: size.s3,
     fontFamily: getFont(2),
     textAlign: center ? "center" : right ? "right" : "left",
