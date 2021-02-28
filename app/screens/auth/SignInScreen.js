@@ -1,9 +1,17 @@
+import * as Google from "expo-google-app-auth";
 import React, { useState } from "react";
+import { Keyboard } from "react-native";
 import * as Yup from "yup";
 
 import { Button, Container, SocialButton, TextLinking } from "../../components";
-import { Form, FormField, SubmitButton } from "../../components/form";
+import {
+  ErrorMessage,
+  Form,
+  FormField,
+  SubmitButton,
+} from "../../components/form";
 import { colors, images } from "../../config";
+import { firebase } from "../../firebase";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -17,18 +25,50 @@ const validationSchema = Yup.object().shape({
 });
 
 const SignInScreen = ({ navigation }) => {
-  const [loading] = useState(false);
+  const [error, setError] = useState();
   const [inputs] = useState([]);
 
   const focusNextField = (nextField) => inputs[nextField].focus();
+
+  const handleSubmit = async ({ email, password }) => {
+    Keyboard.dismiss();
+
+    await firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .catch(function (error) {
+        setError(error.message);
+      });
+  };
+
+  const signInWithGoogleAsync = async () => {
+    try {
+      const result = await Google.logInAsync({
+        androidClientId:
+          "644520110653-9rprpcs1lha5po5g78d38r9skpmeqam4.apps.googleusercontent.com",
+        iosClientId:
+          "644520110653-4ct3u63l5bsg308skk0lbql1jagt4umr.apps.googleusercontent.com",
+        scopes: ["profile", "email"],
+      });
+
+      if (result.type === "success") {
+        return result.accessToken;
+      } else {
+        return { cancelled: true };
+      }
+    } catch (e) {
+      return { error: true };
+    }
+  };
 
   return (
     <Container big title="RN Social APP" logo={images[0]}>
       <Form
         initialValues={{ email: "", password: "" }}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={handleSubmit}
         validationSchema={validationSchema}
       >
+        <ErrorMessage error={error} visible={error} />
         <FormField
           allowFontScaling={false}
           autoCapitalize="none"
@@ -39,7 +79,6 @@ const SignInScreen = ({ navigation }) => {
           keyboardAppearance="default"
           keyboardType="email-address"
           name="email"
-          numberOfLines={1}
           onSubmitEditing={() => focusNextField("password")}
           placeholder="Email"
           returnKeyLabel="next"
@@ -57,7 +96,6 @@ const SignInScreen = ({ navigation }) => {
           keyboardType="default"
           maxLength={50}
           name="password"
-          numberOfLines={1}
           onRef={(input) => (inputs["password"] = input)}
           placeholder="Password"
           returnKeyLabel="go"
@@ -65,7 +103,7 @@ const SignInScreen = ({ navigation }) => {
           secureTextEntry
           textContentType="password"
         />
-        <SubmitButton title="Login" {...{ loading }} />
+        <SubmitButton title="Login" />
       </Form>
       <Button
         title="Forgot Password?"
@@ -83,6 +121,7 @@ const SignInScreen = ({ navigation }) => {
         title="Sign Up with Google"
         backgroundColor={colors.lightRed}
         color={colors.red}
+        onPress={signInWithGoogleAsync}
       />
       <TextLinking
         blue

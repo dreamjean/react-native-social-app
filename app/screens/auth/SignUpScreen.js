@@ -1,13 +1,21 @@
 import React, { useState } from "react";
+import { Keyboard } from "react-native";
 import styled from "styled-components";
 import * as Yup from "yup";
 
 import { Container, SocialButton, TextLinking } from "../../components";
-import { Form, FormField, SubmitButton } from "../../components/form";
+import {
+  ErrorMessage,
+  Form,
+  FormField,
+  SubmitButton,
+} from "../../components/form";
 import { colors } from "../../config";
+import { db, firebase } from "../../firebase";
 import { Text } from "../../styles";
 
 const validationSchema = Yup.object().shape({
+  username: Yup.string().required().max(50).label("Username"),
   email: Yup.string().required().email().label("Email"),
   password: Yup.string()
     .required()
@@ -23,21 +31,64 @@ const validationSchema = Yup.object().shape({
 });
 
 const SignUpScreen = ({ navigation }) => {
+  const [error, setError] = useState();
+  // const [loading, setLoading] = useState(false);
   const [inputs] = useState([]);
 
   const focusNextField = (nextField) => inputs[nextField].focus();
 
+  const handleSubmit = async (userInfo) => {
+    Keyboard.dismiss();
+    // setLoading(true);
+
+    try {
+      await firebase
+        .auth()
+        .createUserWithEmailAndPassword(userInfo.email, userInfo.password);
+
+      const { uid } = firebase.auth().currentUser;
+
+      db.collection("users").doc(uid).set({
+        username: userInfo.username,
+        email: userInfo.email,
+        avatar: null,
+      });
+    } catch (error) {
+      setError(error.message);
+    }
+
+    // setLoading(false);
+  };
+
   return (
-    <Container small title="Let's get started.">
+    <Container small title="Create an account">
       <Form
         initialValues={{
+          username: "",
           email: "",
           password: "",
           confirmPassword: "",
         }}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={handleSubmit}
         validationSchema={validationSchema}
       >
+        <ErrorMessage error={error} visible={error} />
+        <FormField
+          allowFontScaling={false}
+          autoCapitalize="none"
+          autoCompleteType="username"
+          autoCorrect={false}
+          blurOnSubmit={false}
+          iconName="user"
+          keyboardAppearance="default"
+          keyboardType="default"
+          name="username"
+          onSubmitEditing={() => focusNextField("email")}
+          placeholder="Username"
+          returnKeyLabel="next"
+          returnKeyType="next"
+          textContentType="username"
+        />
         <FormField
           allowFontScaling={false}
           autoCapitalize="none"

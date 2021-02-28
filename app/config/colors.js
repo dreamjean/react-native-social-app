@@ -13,6 +13,7 @@ export default {
   green: "#a6e4d0",
   light: "#e6eaf4",
   lightRed: "#f5e7ea",
+  lightWihte: "rgba(255, 255, 255, 0.15)",
   medium: "rgba(0, 0, 0, 0.3)",
   white: "#fff",
   white2: "#f9fafd",

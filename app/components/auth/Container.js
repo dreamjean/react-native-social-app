@@ -27,9 +27,8 @@ const Container = ({ logo, title, big = false, children }) => {
             <Icon
               name="long-arrow-left"
               color={colors.text}
-              backgroundColor={colors.white2}
               IconComponent={FontAwesome}
-              size={30}
+              size={32}
               onPress={() => navigation.goBack()}
             />
           </IconBox>
@@ -67,7 +66,7 @@ const Auth = styled.View`
 
   ${({ theme: { space } }) => ({
     padding: space.m1,
-    marginTop: space.m1,
+    marginTop: space.s3,
   })}
 `;
 

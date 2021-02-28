@@ -1,15 +1,41 @@
 import { NavigationContainer } from "@react-navigation/native";
+import { decode, encode } from "base-64";
 import AppLoading from "expo-app-loading";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
+import AuthContext from "./app/auth/authContext";
 import { Theme } from "./app/components";
+import { firebase } from "./app/firebase";
 import useLoadAssets from "./app/hooks/useLoadAssets";
+import AppNavigator from "./app/navigation/AppNavigator";
 import AuthNavigator from "./app/navigation/AuthNavigator";
+
+if (!global.btoa) {
+  global.btoa = encode;
+}
+if (!global.atob) {
+  global.atob = decode;
+}
 
 export default function App() {
   const { assetsLoaded, setAssetsLoaded, loadAssetsAsync } = useLoadAssets();
+  const [user, setUser] = useState();
+  const [initializing, setInitalizing] = useState(true);
 
-  if (!assetsLoaded) {
+  const onAuthStateChanged = (user) => {
+    if (user) {
+      setUser(user);
+      setInitalizing(false);
+    } else {
+      setInitalizing(false);
+    }
+  };
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(onAuthStateChanged);
+  }, []);
+
+  if (!assetsLoaded || initializing) {
     return (
       <AppLoading
         startAsync={loadAssetsAsync}
@@ -20,10 +46,12 @@ export default function App() {
   }
 
   return (
-    <Theme>
-      <NavigationContainer>
-        <AuthNavigator />
-      </NavigationContainer>
-    </Theme>
+    <AuthContext.Provider value={{ user, setUser }}>
+      <Theme>
+        <NavigationContainer>
+          {user ? <AppNavigator /> : <AuthNavigator />}
+        </NavigationContainer>
+      </Theme>
+    </AuthContext.Provider>
   );
 }

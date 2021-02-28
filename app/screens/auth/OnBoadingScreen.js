@@ -1,15 +1,32 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
+import { Pressable } from "react-native";
 import Onboarding from "react-native-onboarding-swiper";
 import styled from "styled-components";
 
 import { colors, images } from "../../config";
-import { Image } from "../../styles";
+import { Image, Text } from "../../styles";
 
 const OnBoadingScreen = ({ navigation }) => {
+  const onDone = ({ ...props }) => (
+    <Pressable
+      style={({ pressed }) => ({
+        padding: 10,
+        opacity: pressed ? 0.5 : 1,
+        backgroundColor: pressed ? colors.light : colors.lightWihte,
+        borderRadius: 8,
+        marginRight: 5,
+      })}
+      {...props}
+    >
+      <DoneText button1>Done</DoneText>
+    </Pressable>
+  );
+
   return (
     <Container>
       <Onboarding
+        DoneButtonComponent={onDone}
         DotComponent={({ selected }) => <Dot {...{ selected }} />}
         onSkip={() => navigation.replace("SignIn")}
         onDone={() => navigation.navigate("SignIn")}
@@ -42,6 +59,13 @@ const OnBoadingScreen = ({ navigation }) => {
 
 const Container = styled.View`
   flex: 1;
+`;
+
+const DoneText = styled(Text)`
+  ${({ theme: { colors, size } }) => ({
+    fontSize: size.m1,
+    color: colors.text,
+  })}
 `;
 
 const Dot = styled.View`

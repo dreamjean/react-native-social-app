@@ -27,7 +27,7 @@ export default {
     s3: 14,
     m1: 16,
     m2: 18,
-    l: 24,
+    l: 22,
     xl: 28,
   },
   space: {

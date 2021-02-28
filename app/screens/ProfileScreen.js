@@ -2,14 +2,22 @@ import { StatusBar } from "expo-status-bar";
 import React, { useContext } from "react";
 import styled from "styled-components";
 
-// import { FirebaseContext } from "../api/FirebaseContext";
 import AuthContext from "../auth/authContext";
+import { Button } from "../components";
+import { firebase } from "../firebase";
 import { Image, Text } from "../styles";
 
 const ProfileScreen = () => {
-  const { user } = useContext(AuthContext);
-  // const firebase = useContext(FirebaseContext);
-  // console.log(user);
+  const { user, setUser } = useContext(AuthContext);
+
+  const handleLogout = async () => {
+    try {
+      await firebase.auth().signOut();
+      setUser(null);
+    } catch (error) {
+      console.log("Error Logout: ", error.message);
+    }
+  };
 
   return (
     <Container>
@@ -24,7 +32,7 @@ const ProfileScreen = () => {
         />
       </ProfilePhotoContainer>
       <Text>{user.username}</Text>
-
+      <Button title="Logout" onPress={handleLogout} />
       <StatusBar style="dark" />
     </Container>
   );

@@ -2628,6 +2628,11 @@ balanced-match@^1.0.0:
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
   integrity sha1-ibTRmasr7kneFk6gK4nORi1xt2c=
 
+base-64@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/base-64/-/base-64-1.0.0.tgz#09d0f2084e32a3fd08c2475b973788eee6ae8f4a"
+  integrity sha512-kwDPIFCGx0NZHog36dj+tHiwP4QMzsZ3AgMViUBKI0+V5n4U0ufTCUMhnQ04diaRI8EX/QcPfql7zlhZ7j4zgg==
+
 base64-js@^1.1.2, base64-js@^1.2.3, base64-js@^1.3.0, base64-js@^1.3.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-1.5.1.tgz#1b1b440160a5bf7ad40b650f095963481903930a"
@@ -3835,6 +3840,13 @@ expand-brackets@^2.1.4:
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
 
+expo-app-auth@~9.3.0:
+  version "9.3.0"
+  resolved "https://registry.yarnpkg.com/expo-app-auth/-/expo-app-auth-9.3.0.tgz#072bd3faa8a34ff50f700627bd4eb8480629b915"
+  integrity sha512-f8OdQDNmC5vSdBWzwtic5pq+bmtSCYGU1KeVhKV3W8VgGIgVx40Q72q3M+SMs68bz4RCuC1g7LOGTOBWzXIuNw==
+  dependencies:
+    invariant "^2.2.4"
+
 expo-app-loading@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/expo-app-loading/-/expo-app-loading-1.0.1.tgz#a2ef73235c5dd0a99c0319ad9d3f4d278237564c"
@@ -3888,6 +3900,13 @@ expo-font@~8.4.0:
   dependencies:
     fbjs "1.0.0"
     fontfaceobserver "^2.1.0"
+
+expo-google-app-auth@^8.1.4:
+  version "8.1.4"
+  resolved "https://registry.yarnpkg.com/expo-google-app-auth/-/expo-google-app-auth-8.1.4.tgz#e87a548ee5e32c5951803781efcadf55eab7ad0d"
+  integrity sha512-2hXZCXEo7Dg3SDcc73MDniL+tJdwUzeBxTvXTGpnTKNF3JakuehLnx9ALuuEU86MKvM49/a3FiflhfEiWZ5qDw==
+  dependencies:
+    expo-app-auth "~9.3.0"
 
 expo-image-picker@~9.2.0:
   version "9.2.1"
