@@ -156,13 +156,13 @@ const SignUpScreen = ({ navigation }) => {
       </Description>
       <SocialButton
         socialIcon="facebook"
-        title="Sign Up with Facebook"
+        title="Sign In with Facebook"
         backgroundColor={colors.light}
         color={colors.blue2}
       />
       <SocialButton
         socialIcon="google"
-        title="Sign Up with Google"
+        title="Sign In with Google"
         backgroundColor={colors.lightRed}
         color={colors.red}
       />

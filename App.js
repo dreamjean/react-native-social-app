@@ -2,6 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { decode, encode } from "base-64";
 import AppLoading from "expo-app-loading";
 import React, { useEffect, useState } from "react";
+import { LogBox, Platform } from "react-native";
 
 import AuthContext from "./app/auth/authContext";
 import { Theme } from "./app/components";
@@ -15,6 +16,10 @@ if (!global.btoa) {
 }
 if (!global.atob) {
   global.atob = decode;
+}
+
+if (Platform.OS === "android") {
+  LogBox.ignoreLogs([""]); //android登錄時會有長時間計時器的黃色警告
 }
 
 export default function App() {

@@ -1,4 +1,3 @@
-import * as Google from "expo-google-app-auth";
 import React, { useState } from "react";
 import { Keyboard } from "react-native";
 import * as Yup from "yup";
@@ -12,6 +11,7 @@ import {
 } from "../../components/form";
 import { colors, images } from "../../config";
 import { firebase } from "../../firebase";
+import loginWithGoogleAsync from "../../firebase/loginWithGoogle";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -39,26 +39,6 @@ const SignInScreen = ({ navigation }) => {
       .catch(function (error) {
         setError(error.message);
       });
-  };
-
-  const signInWithGoogleAsync = async () => {
-    try {
-      const result = await Google.logInAsync({
-        androidClientId:
-          "644520110653-9rprpcs1lha5po5g78d38r9skpmeqam4.apps.googleusercontent.com",
-        iosClientId:
-          "644520110653-4ct3u63l5bsg308skk0lbql1jagt4umr.apps.googleusercontent.com",
-        scopes: ["profile", "email"],
-      });
-
-      if (result.type === "success") {
-        return result.accessToken;
-      } else {
-        return { cancelled: true };
-      }
-    } catch (e) {
-      return { error: true };
-    }
   };
 
   return (
@@ -112,16 +92,16 @@ const SignInScreen = ({ navigation }) => {
       />
       <SocialButton
         socialIcon="facebook"
-        title="Sign Up with Facebook"
+        title="Sign In with Facebook"
         backgroundColor={colors.light}
         color={colors.blue2}
       />
       <SocialButton
         socialIcon="google"
-        title="Sign Up with Google"
+        title="Sign In with Google"
         backgroundColor={colors.lightRed}
         color={colors.red}
-        onPress={signInWithGoogleAsync}
+        onPress={loginWithGoogleAsync}
       />
       <TextLinking
         blue
