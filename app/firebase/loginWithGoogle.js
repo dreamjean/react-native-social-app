@@ -11,17 +11,24 @@ const loginWithGoogleAsync = async () => {
     });
 
     if (type === "success") {
+      await firebase
+        .auth()
+        .setPersistence(firebase.auth.Auth.Persistence.LOCAL); // 设置持久身份验证状态
+
       const credential = firebase.auth.GoogleAuthProvider.credential(
         idToken,
         accessToken
       );
+
       firebase
         .auth()
         .signInWithCredential(credential)
         .catch((error) => console.log("@Login failed", error));
+    } else {
+      return { cancelled: true };
     }
   } catch (error) {
-    alert("Error @login with Google: ", error.message);
+    return { error: true };
   }
 };
 

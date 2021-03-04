@@ -11,6 +11,7 @@ import {
 } from "../../components/form";
 import { colors, images } from "../../config";
 import { firebase } from "../../firebase";
+import loginWithFacebookAsync from "../../firebase/loginWithFacebook";
 import loginWithGoogleAsync from "../../firebase/loginWithGoogle";
 
 const validationSchema = Yup.object().shape({
@@ -95,6 +96,7 @@ const SignInScreen = ({ navigation }) => {
         title="Sign In with Facebook"
         backgroundColor={colors.light}
         color={colors.blue2}
+        onPress={loginWithFacebookAsync}
       />
       <SocialButton
         socialIcon="google"

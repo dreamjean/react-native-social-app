@@ -12,6 +12,7 @@ import {
 } from "../../components/form";
 import { colors } from "../../config";
 import { db, firebase } from "../../firebase";
+import loginWithGoogleAsync from "../../firebase/loginWithGoogle";
 import { Text } from "../../styles";
 
 const validationSchema = Yup.object().shape({
@@ -165,6 +166,7 @@ const SignUpScreen = ({ navigation }) => {
         title="Sign In with Google"
         backgroundColor={colors.lightRed}
         color={colors.red}
+        onPress={loginWithGoogleAsync}
       />
       <TextLinking
         blue
