@@ -27,8 +27,8 @@ const loginWithGoogleAsync = async () => {
     } else {
       return { cancelled: true };
     }
-  } catch (error) {
-    return { error: true };
+  } catch ({ message }) {
+    alert(`Google login error: ${message}`);
   }
 };
 
