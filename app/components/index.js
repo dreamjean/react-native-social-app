@@ -1,3 +1,4 @@
+export { default as ActivityIndicator } from "./ActivityIndicator";
 export { default as Container } from "./auth/Container";
 export { default as SocialButton } from "./auth/SocialButton";
 export { default as TextLinking } from "./auth/TextLinking";

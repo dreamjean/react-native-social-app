@@ -3,7 +3,12 @@ import { Keyboard } from "react-native";
 import styled from "styled-components";
 import * as Yup from "yup";
 
-import { Container, SocialButton, TextLinking } from "../../components";
+import {
+  ActivityIndicator,
+  Container,
+  SocialButton,
+  TextLinking,
+} from "../../components";
 import {
   ErrorMessage,
   Form,
@@ -12,6 +17,7 @@ import {
 } from "../../components/form";
 import { colors } from "../../config";
 import { db, firebase } from "../../firebase";
+import loginWithFacebookAsync from "../../firebase/loginWithFacebook";
 import loginWithGoogleAsync from "../../firebase/loginWithGoogle";
 import { Text } from "../../styles";
 
@@ -33,14 +39,14 @@ const validationSchema = Yup.object().shape({
 
 const SignUpScreen = ({ navigation }) => {
   const [error, setError] = useState();
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [inputs] = useState([]);
 
   const focusNextField = (nextField) => inputs[nextField].focus();
 
   const handleSubmit = async (userInfo) => {
     Keyboard.dismiss();
-    // setLoading(true);
+    setLoading(true);
 
     try {
       await firebase
@@ -58,8 +64,10 @@ const SignUpScreen = ({ navigation }) => {
       setError(error.message);
     }
 
-    // setLoading(false);
+    setLoading(false);
   };
+
+  if (loading) return <ActivityIndicator />;
 
   return (
     <Container small title="Create an account">
@@ -160,6 +168,7 @@ const SignUpScreen = ({ navigation }) => {
         title="Sign In with Facebook"
         backgroundColor={colors.light}
         color={colors.blue2}
+        onPress={loginWithFacebookAsync}
       />
       <SocialButton
         socialIcon="google"
