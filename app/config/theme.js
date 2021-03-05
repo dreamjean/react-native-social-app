@@ -4,16 +4,8 @@ import colors from "./colors";
 
 export const isIos = Platform.OS === "ios";
 
-const getFont = (n) => (isIos ? fonts.ios[n] : fonts.android[n]);
-
-const fonts = {
-  ios: ["Proxima-Nova-Bold", "Proxima-Nova-Sbold", "Proxima-Nova-Reg"],
-  android: ["Montserrat-Bold", "Montserrat-SemiBold", "Montserrat-Regular"],
-};
-
 export default {
   colors,
-  getFont,
   fonts: [
     "Kufam-SemiBoldItalic",
     "Lato-Bold",
@@ -33,15 +25,15 @@ export default {
   space: {
     s1: 5,
     s2: 10,
+    s3: 12,
     m1: 16,
     m2: 20,
     l1: 64,
+    l2: 70,
   },
   radii: {
     s1: 3,
-    m: 30,
-    l: 40,
-    l2: 64,
-    xxl: 100,
+    s2: 10,
+    m1: 25,
   },
 };

@@ -9,25 +9,27 @@ const headingStyle = css`
 `;
 
 const titleStyle = css`
-  ${({ theme: { size, getFont } }) => ({
-    fontSize: size.l,
-    fontFamily: getFont(1),
-  })}
-`;
-
-const inputTitleStyle = css`
-  ${({ error, touched, theme: { colors, getFont, size } }) => ({
-    fontFamily: getFont(2),
-    fontSize: size.s2,
-    color: !touched ? colors.text2 : error ? colors.danger : colors.blue,
-    textTransform: "uppercase",
+  ${({ theme: { size, fonts } }) => ({
+    fontSize: size.m2,
+    fontFamily: fonts[1],
   })}
 `;
 
 const mediumStyle = css`
-  ${({ theme: { size, getFont } }) => ({
-    fontSize: size.m,
-    fontFamily: getFont(2),
+  ${({ theme: { size, fonts, colors } }) => ({
+    fontSize: size.s3,
+    fontFamily: fonts[4],
+    color: colors.text2,
+  })}
+`;
+
+const discriptionStyle = css`
+  ${({ theme: { size, fonts, colors, space } }) => ({
+    fontSize: size.m1,
+    fontFamily: fonts[4],
+    color: colors.text2,
+    lineHeight: space.m2,
+    marginBottom: space.s1,
   })}
 `;
 
@@ -49,27 +51,27 @@ const button2Style = css`
 `;
 
 const dangerStyle = css`
-  ${({ theme: { colors, size, getFont, space } }) => ({
+  ${({ theme: { colors, size, fonts, space } }) => ({
     fontSize: size.s2,
-    fontFamily: getFont(2),
+    fontFamily: fonts[4],
     color: colors.danger,
     marginVertical: space.s1,
   })}
 `;
 
 const smallStyle = css`
-  ${({ theme: { colors, size, getFont } }) => ({
+  ${({ theme: { colors, size, fonts } }) => ({
     fontSize: size.s2,
-    fontFamily: getFont(2),
+    fontFamily: fonts[4],
     color: colors.text2,
     textTransform: "uppercase",
   })}
 `;
 
 const tinyStyle = css`
-  ${({ theme: { size, getFont } }) => ({
+  ${({ theme: { size, fonts } }) => ({
     fontSize: size.s1,
-    fontFamily: getFont(2),
+    fontFamily: fonts[4],
   })}
 `;
 
@@ -83,11 +85,11 @@ const Text = styled.Text`
     padding,
     right,
     white,
-    theme: { colors, size, getFont },
+    theme: { colors, size, fonts },
   }) => ({
     color: color ? color : white ? colors.white : colors.text,
     fontSize: size.s3,
-    fontFamily: getFont(2),
+    fontFamily: fonts[4],
     textAlign: center ? "center" : right ? "right" : "left",
     margin,
     marginTop,
@@ -98,8 +100,8 @@ const Text = styled.Text`
   ${({ button1 }) => button1 && button1Style}
   ${({ button2 }) => button2 && button2Style}
   ${({ danger }) => danger && dangerStyle}
+  ${({ discription }) => discription && discriptionStyle}
   ${({ heading }) => heading && headingStyle}
-  ${({ inputTitle }) => inputTitle && inputTitleStyle}
   ${({ medium }) => medium && mediumStyle}
   ${({ small }) => small && smallStyle}
   ${({ title }) => title && titleStyle}
