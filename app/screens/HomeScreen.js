@@ -1,7 +1,7 @@
 import { Entypo } from "@expo/vector-icons";
 import Constants from "expo-constants";
 import React from "react";
-import { FlatList, Pressable } from "react-native";
+import { FlatList, Pressable, StatusBar } from "react-native";
 import styled from "styled-components";
 
 import Card from "../components/home/Card";
@@ -103,10 +103,15 @@ const HomeScreen = () => {
               description={item.post}
               likes={item.likes}
               comments={item.comments}
+              isLike={item.liked}
+              onLike={() => true}
+              onShare={() => true}
+              onComment={() => true}
             />
           )}
         />
       </Listings>
+      <StatusBar barStyle="dark-content" />
     </Container>
   );
 };
@@ -136,10 +141,6 @@ const Title = styled(Text)`
 
 const Listings = styled.View`
   flex: 1;
-
-  ${({ theme: { space } }) => ({
-    paddingHorizontal: space.m1,
-  })}
 `;
 
 export default HomeScreen;

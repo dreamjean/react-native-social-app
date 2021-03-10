@@ -69,9 +69,11 @@ const smallStyle = css`
 `;
 
 const tinyStyle = css`
-  ${({ theme: { size, fonts } }) => ({
+  ${({ active, theme: { size, fonts, colors } }) => ({
     fontSize: size.s1,
     fontFamily: fonts[4],
+    color: active ? colors.red : colors.text2,
+    textTransform: "capitalize",
   })}
 `;
 
