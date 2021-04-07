@@ -9,7 +9,7 @@ const avatarStyle = css`
   })}
 `;
 
-const boadingStyle = css`
+const boardingStyle = css`
   width: 60%;
 `;
 
@@ -21,7 +21,7 @@ const cardStyle = css`
     resizeMode: "cover",
     borderRadius: radii.s2,
     marginRight: space.s1,
-    marginTop: space.s1,
+    marginTop: space.s2,
   })}
 `;
 
@@ -32,7 +32,7 @@ const logoStyle = css`
 
 const Image = styled.Image`
   ${({ avatar }) => avatar && avatarStyle}
-  ${({ boading }) => boading && boadingStyle}
+  ${({ boarding }) => boarding && boardingStyle}
   ${({ card }) => card && cardStyle}
   ${({ logo }) => logo && logoStyle}
 `;

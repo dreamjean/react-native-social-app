@@ -1,17 +1,14 @@
-import { Entypo } from "@expo/vector-icons";
 import Constants from "expo-constants";
 import React from "react";
-import { FlatList, Pressable, StatusBar } from "react-native";
+import { FlatList, StatusBar } from "react-native";
 import styled from "styled-components";
 
-import Card from "../components/home/Card";
-import { colors } from "../config";
+import { Card } from "../components";
 import { images } from "../config";
-import { Text } from "../styles";
 
 const listings = [
   {
-    id: "1",
+    id: 1,
     userName: "Jenny Doe",
     userImg: images[6],
     postTime: "4 mins ago",
@@ -23,7 +20,7 @@ const listings = [
     comments: "5",
   },
   {
-    id: "2",
+    id: 2,
     userName: "John Doe",
     userImg: images[4],
     postTime: "2 hours ago",
@@ -35,7 +32,7 @@ const listings = [
     comments: "0",
   },
   {
-    id: "3",
+    id: 3,
     userName: "Ken William",
     userImg: images[7],
     postTime: "1 hours ago",
@@ -47,7 +44,7 @@ const listings = [
     comments: "0",
   },
   {
-    id: "4",
+    id: 4,
     userName: "Selina Paul",
     userImg: images[9],
     postTime: "1 day ago",
@@ -59,7 +56,7 @@ const listings = [
     comments: "4",
   },
   {
-    id: "5",
+    id: 5,
     userName: "Christy Alex",
     userImg: images[10],
     postTime: "2 days ago",
@@ -75,20 +72,6 @@ const listings = [
 const HomeScreen = () => {
   return (
     <Container>
-      <Header>
-        <Title heading>RN Social</Title>
-        <Pressable
-          style={({ pressed }) => ({
-            position: "absolute",
-            top: 10,
-            right: 20,
-            opacity: pressed ? 0.5 : 1,
-          })}
-          onPress={() => true}
-        >
-          <Entypo name="plus" size={30} color={colors.blue} />
-        </Pressable>
-      </Header>
       <Listings>
         <FlatList
           data={listings}
@@ -122,20 +105,6 @@ const Container = styled.View`
   ${({ theme: { colors } }) => ({
     backgroundColor: colors.white,
     paddingTop: Constants.statusBarHeight,
-  })}
-`;
-const Header = styled.View`
-  align-items: center;
-
-  ${({ theme: { space } }) => ({
-    padding: space.s2,
-  })}
-`;
-
-const Title = styled(Text)`
-  ${({ theme: { colors, size } }) => ({
-    color: colors.blue,
-    fontSize: size.m2,
   })}
 `;
 

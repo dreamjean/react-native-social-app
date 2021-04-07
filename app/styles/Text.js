@@ -9,9 +9,11 @@ const headingStyle = css`
 `;
 
 const titleStyle = css`
-  ${({ theme: { size, fonts } }) => ({
-    fontSize: size.m2,
+  ${({ theme: { colors, size, fonts } }) => ({
+    fontSize: size.m1,
     fontFamily: fonts[1],
+    color: colors.text,
+    opacity: 0.8,
   })}
 `;
 
@@ -23,12 +25,13 @@ const mediumStyle = css`
   })}
 `;
 
-const discriptionStyle = css`
+const descriptionStyle = css`
+  line-height: 20px;
+
   ${({ theme: { size, fonts, colors, space } }) => ({
     fontSize: size.m1,
     fontFamily: fonts[4],
     color: colors.text2,
-    lineHeight: space.m2,
     marginBottom: space.s1,
   })}
 `;
@@ -102,7 +105,7 @@ const Text = styled.Text`
   ${({ button1 }) => button1 && button1Style}
   ${({ button2 }) => button2 && button2Style}
   ${({ danger }) => danger && dangerStyle}
-  ${({ discription }) => discription && discriptionStyle}
+  ${({ description }) => description && descriptionStyle}
   ${({ heading }) => heading && headingStyle}
   ${({ medium }) => medium && mediumStyle}
   ${({ small }) => small && smallStyle}

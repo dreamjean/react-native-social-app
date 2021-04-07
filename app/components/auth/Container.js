@@ -33,7 +33,7 @@ const Container = ({ logo, title, big = false, children }) => {
             />
           </IconBox>
         )}
-        {logo && <Image logo resiMode="cover" source={logo} />}
+        {logo && <Image logo resizeMode="cover" source={logo} />}
         <Text heading center {...{ big }}>
           {title}
         </Text>

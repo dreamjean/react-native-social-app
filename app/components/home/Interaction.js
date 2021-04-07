@@ -1,4 +1,4 @@
-import { Ionicons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
 import { Pressable } from "react-native";
 import styled from "styled-components";
@@ -6,28 +6,19 @@ import styled from "styled-components";
 import { colors } from "../../config";
 import { Text } from "../../styles";
 
-const Interaction = ({ active, activeIcon, number, unactiveIcon, onPress }) => {
+const Interaction = ({ active = false, icon, number, onPress }) => {
   return (
     <Pressable
       style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}
       {...{ onPress }}
     >
       <Container>
-        {active ? (
-          <Ionicons
-            style={{ marginRight: 5 }}
-            name={activeIcon}
-            size={20}
-            color={colors.red}
-          />
-        ) : (
-          <Ionicons
-            style={{ marginRight: 5 }}
-            name={unactiveIcon}
-            size={20}
-            color={colors.text2}
-          />
-        )}
+        <MaterialCommunityIcons
+          style={{ marginRight: 5 }}
+          name={icon}
+          size={22}
+          color={active ? colors.red : colors.text2}
+        />
         {number && (
           <Text tiny {...{ active }}>
             {number}

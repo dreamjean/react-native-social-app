@@ -12,11 +12,15 @@ const Button = ({
   color = colors.white,
   title,
   margin,
+  padding,
   onPress,
   loading = false,
 }) => {
   return (
-    <Touchable {...{ backgroundColor, margin, onPress }} disable={loading}>
+    <Touchable
+      {...{ backgroundColor, margin, padding, onPress }}
+      disable={loading}
+    >
       <Text button1 {...{ color }}>
         {title}
       </Text>
@@ -29,10 +33,11 @@ const Touchable = styled(RectButton)`
   justify-content: center;
   height: ${ROW_HEIGHT}px;
 
-  ${({ backgroundColor, margin, theme: { space, radii } }) => ({
+  ${({ backgroundColor, margin, padding, theme: { space, radii } }) => ({
     backgroundColor,
     borderRadius: radii.s1,
     marginTop: space.s2,
+    padding,
     margin,
   })}
 `;

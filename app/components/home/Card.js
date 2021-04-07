@@ -20,22 +20,21 @@ const Card = ({
     <Container>
       <UserInfo {...rest} />
       <Details>
-        <Text discription numberOfLines={4}>
+        <Text description numberOfLines={4}>
           {description}
         </Text>
-
         {image !== "none" && <Image card source={image} />}
+        {image === "none" && <Separator />}
         <InteractionWrapper>
-          <Interaction unactiveIcon="ios-share-outline" onPress={onShare} />
+          <Interaction icon="share-outline" onPress={onShare} />
           <Interaction
-            unactiveIcon="ios-chatbubble-outline"
+            icon="chat-processing-outline"
             number={comments}
             onPress={onComment}
           />
           <Interaction
             active={isLike}
-            activeIcon="heart"
-            unactiveIcon="ios-heart-outline"
+            icon={isLike ? "heart" : "heart-outline"}
             number={likes}
             onPress={onLike}
           />
@@ -58,6 +57,16 @@ const Details = styled.View`
   ${({ theme: { space } }) => ({
     marginLeft: space.l2,
     marginRight: space.s2,
+  })}
+`;
+
+const Separator = styled.View`
+  height: 1px;
+
+  ${({ theme: { colors, space } }) => ({
+    backgroundColor: colors.grey,
+    opacity: 0.6,
+    marginTop: space.s2,
   })}
 `;
 

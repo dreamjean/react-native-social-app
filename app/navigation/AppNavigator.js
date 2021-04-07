@@ -2,14 +2,15 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
 
-import { HomeScreen, MessageScreen, ProfileScreen } from "../screens";
+import { MessageScreen, ProfileScreen } from "../screens";
+import FeedNavigator from "./FeedNavigator";
 
 const screenOptions = ({ route }) => ({
   tabBarIcon: ({ color, size }) => {
     let iconName;
 
     switch (route.name) {
-      case "Home":
+      case "Feed":
         iconName = "home-outline";
         break;
 
@@ -40,7 +41,7 @@ const AppNavigator = () => (
       },
     }}
   >
-    <Tab.Screen name="Home" component={HomeScreen} />
+    <Tab.Screen name="Feed" component={FeedNavigator} />
     <Tab.Screen name="Message" component={MessageScreen} />
     <Tab.Screen name="Profile" component={ProfileScreen} />
   </Tab.Navigator>
