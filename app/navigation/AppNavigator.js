@@ -2,8 +2,10 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
 
-import { MessageScreen, ProfileScreen } from "../screens";
-import FeedNavigator from "./FeedNavigator";
+import { HomeScreen, NotificationScreen, ProfileScreen } from "../screens";
+import MessageStack from "./MessageStack";
+import NewButton from "./NewButton";
+import PostNavigator from "./PostNavigator";
 
 const screenOptions = ({ route }) => ({
   tabBarIcon: ({ color, size }) => {
@@ -16,6 +18,10 @@ const screenOptions = ({ route }) => ({
 
       case "Message":
         iconName = "message-processing-outline";
+        break;
+
+      case "Notification":
+        iconName = "bell-outline";
         break;
 
       case "Profile":
@@ -32,19 +38,30 @@ const screenOptions = ({ route }) => ({
 
 const Tab = createBottomTabNavigator();
 
-const AppNavigator = () => (
+const MainNavigator = () => (
   <Tab.Navigator
     {...{ screenOptions }}
     tabBarOptions={{
       safeAreaInsets: {
         bottom: 3,
       },
+      showLabel: false,
     }}
   >
-    <Tab.Screen name="Feed" component={FeedNavigator} />
-    <Tab.Screen name="Message" component={MessageScreen} />
+    <Tab.Screen name="Home" component={HomeScreen} />
+    <Tab.Screen name="Message" component={MessageStack} />
+    <Tab.Screen
+      name="Post"
+      component={PostNavigator}
+      options={({ navigation }) => ({
+        tabBarButton: () => (
+          <NewButton onPress={() => navigation.navigate("Post")} />
+        ),
+      })}
+    />
+    <Tab.Screen name="Notification" component={NotificationScreen} />
     <Tab.Screen name="Profile" component={ProfileScreen} />
   </Tab.Navigator>
 );
 
-export default AppNavigator;
+export default MainNavigator;

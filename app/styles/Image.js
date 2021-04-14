@@ -5,6 +5,7 @@ const avatarStyle = css`
   height: 50px;
 
   ${({ theme: { radii } }) => ({
+    resizeMode: "cover",
     borderRadius: radii.m1,
   })}
 `;

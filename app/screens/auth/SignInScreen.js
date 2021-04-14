@@ -13,6 +13,7 @@ import { colors, images } from "../../config";
 import { firebase } from "../../firebase";
 import loginWithFacebookAsync from "../../firebase/loginWithFacebook";
 import loginWithGoogleAsync from "../../firebase/loginWithGoogle";
+import routes from "../../navigation/routes";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -109,7 +110,7 @@ const SignInScreen = ({ navigation }) => {
         blue
         caption="Don't have an account? "
         title="Create here"
-        onPress={() => navigation.navigate("SignUp")}
+        onPress={() => navigation.navigate(routes.SIGNUP)}
       />
     </Container>
   );

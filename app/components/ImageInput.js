@@ -67,7 +67,6 @@ const Container = styled.View`
   overflow: hidden;
   align-items: center;
   justify-content: center;
-
   ${({ error, theme: { colors, space, radii } }) => ({
     borderRadius: radii.l,
     backgroundColor: error ? colors.lightDanger : colors.grey,

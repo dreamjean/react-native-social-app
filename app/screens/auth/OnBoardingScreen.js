@@ -5,6 +5,7 @@ import Onboarding from "react-native-onboarding-swiper";
 import styled from "styled-components";
 
 import { colors, images } from "../../config";
+import routes from "../../navigation/routes";
 import { Image, Text } from "../../styles";
 
 const OnBoardingScreen = ({ navigation }) => {
@@ -28,8 +29,8 @@ const OnBoardingScreen = ({ navigation }) => {
       <Onboarding
         DoneButtonComponent={onDone}
         DotComponent={({ selected }) => <Dot {...{ selected }} />}
-        onSkip={() => navigation.replace("SignIn")}
-        onDone={() => navigation.navigate("SignIn")}
+        onSkip={() => navigation.replace(routes.SIGNIN)}
+        onDone={() => navigation.navigate(routes.SIGNIN)}
         pages={[
           {
             backgroundColor: colors.green,

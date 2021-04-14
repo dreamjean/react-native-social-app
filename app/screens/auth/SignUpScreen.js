@@ -19,6 +19,7 @@ import { colors } from "../../config";
 import { db, firebase } from "../../firebase";
 import loginWithFacebookAsync from "../../firebase/loginWithFacebook";
 import loginWithGoogleAsync from "../../firebase/loginWithGoogle";
+import routes from "../../navigation/routes";
 import { Text } from "../../styles";
 
 const validationSchema = Yup.object().shape({
@@ -181,7 +182,7 @@ const SignUpScreen = ({ navigation }) => {
         blue
         caption="Already have an account?"
         title="Sign In"
-        onPress={() => navigation.navigate("SignIn")}
+        onPress={() => navigation.navigate(routes.SIGNIN)}
       />
     </Container>
   );

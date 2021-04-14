@@ -1,11 +1,11 @@
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
-import { Pressable } from "react-native";
-import Animated from "react-native-reanimated";
 import styled from "styled-components";
 
-import { Button, Icon } from "../components";
-import { colors } from "../config";
+import { Button, Icon, ImageInputList } from "../components";
+import { calender, colors, images } from "../config";
+import { Image } from "../styles";
+
+const { KEYBOARD_HEIGHT } = calender;
 
 const PostScreen = ({ navigation }) => {
   return (
@@ -14,7 +14,7 @@ const PostScreen = ({ navigation }) => {
         <Icon
           name="chevron-left"
           size={50}
-          color={colors.blue}
+          color={colors.grey}
           onPress={() => navigation.goBack()}
         />
         <Button
@@ -26,38 +26,64 @@ const PostScreen = ({ navigation }) => {
           onPress={() => true}
         />
       </Header>
-      <ButtonWrapper>
-        <Pressable onPress={() => true}>
-          <Animated.View>
-            <MaterialCommunityIcons
-              name="plus"
-              size={24}
-              color={colors.white}
-            />
-          </Animated.View>
-        </Pressable>
-      </ButtonWrapper>
+      <InputWrapper>
+        <Image avatar source={images[4]} />
+        <Input
+          // eslint-disable-next-line jsx-a11y/no-autofocus
+          autoFocus
+          placeholder="Want to share something..."
+          multiline
+          numberOfLines={4}
+        />
+      </InputWrapper>
+      <ImagesWrapper>
+        <ImageInputList />
+      </ImagesWrapper>
     </Container>
   );
 };
 
-const Container = styled.View``;
+const Container = styled.View`
+  flex: 1;
+`;
 
 const Header = styled.View`
+  width: 100%;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  border-bottom-width: 1px;
 
   ${({ theme: { colors, space } }) => ({
-    backgroundColor: colors.lightBlue,
-    paddingTop: space.m2,
+    borderColor: colors.grey,
+    paddingTop: space.m1,
   })}
 `;
 
-const ButtonWrapper = styled.View`
+const InputWrapper = styled.View`
+  flex: 1;
+  flex-direction: row;
+
+  ${({ theme: { space } }) => ({
+    padding: space.m1,
+  })}
+`;
+
+const Input = styled.TextInput`
+  flex: 1;
+  line-height: 26px;
+  ${({ theme: { size, fonts, colors, space } }) => ({
+    fontSize: size.m1,
+    fontFamily: fonts[4],
+    color: colors.dark,
+    marginLeft: space.s3,
+  })}
+`;
+
+const ImagesWrapper = styled.View`
   position: absolute;
-  bottom: 20px;
-  right: 20px;
+  bottom: ${KEYBOARD_HEIGHT}px;
+  left: 20px;
 `;
 
 export default PostScreen;
