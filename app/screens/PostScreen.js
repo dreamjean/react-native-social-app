@@ -7,19 +7,26 @@ import { Image } from "../styles";
 
 const { KEYBOARD_HEIGHT } = calender;
 
-const CreatePostScreen = ({ navigation, route }) => {
+const PostScreen = ({ navigation, route }) => {
   const data = route?.params?.data;
+  const inititalImages = data ? data : [];
   const [value, setValue] = useState("");
-  const [selectImages, setSelectImages] = useState([]);
+  const [selectedImages, setSelectedImages] = useState(inititalImages);
 
   useEffect(() => {
-    if (data) setSelectImages(data);
+    if (data) setSelectedImages(data);
   }, [data]);
 
   return (
     <Container>
       <Header>
-        <Icon name="chevron-left" size={50} color={colors.grey} />
+        <Icon
+          name="close-outline"
+          size={40}
+          color={colors.grey2}
+          style={{ marginLeft: 8 }}
+          onPress={() => navigation.goBack()}
+        />
         <Button
           title="Post"
           color={colors.blue}
@@ -43,9 +50,9 @@ const CreatePostScreen = ({ navigation, route }) => {
       </InputWrapper>
       <ImagesWrapper>
         <ImageInputList
-          images={selectImages}
+          images={selectedImages}
           onRemoveImage={(uri) =>
-            setSelectImages(selectImages.fileter((img) => img.uri !== uri))
+            setSelectedImages(selectedImages.filter((img) => img.uri !== uri))
           }
         />
       </ImagesWrapper>
@@ -96,4 +103,4 @@ const ImagesWrapper = styled.View`
   left: 20px;
 `;
 
-export default CreatePostScreen;
+export default PostScreen;

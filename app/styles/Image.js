@@ -32,6 +32,9 @@ const logoStyle = css`
 `;
 
 const Image = styled.Image`
+  width: 100%;
+  height: 100%;
+
   ${({ avatar }) => avatar && avatarStyle}
   ${({ boarding }) => boarding && boardingStyle}
   ${({ card }) => card && cardStyle}

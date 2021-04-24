@@ -10,7 +10,7 @@ const { colors, fonts, size, radii } = theme;
 
 const MediaSelectionScreen = ({ navigation }) => {
   const onDone = (data) => {
-    navigation.navigate(routes.CREATE_POST, { data });
+    navigation.navigate(routes.POST, { data });
   };
 
   return (
@@ -18,7 +18,7 @@ const MediaSelectionScreen = ({ navigation }) => {
       <AssetsSelector
         options={{
           assetsType: ["photo"],
-          maxSelections: 5,
+          maxSelections: 4,
           margin: 3,
           portraitCols: 4,
           landscapeCols: 5,
@@ -32,29 +32,29 @@ const MediaSelectionScreen = ({ navigation }) => {
           },
           selectedIcon: {
             Component: Ionicons,
-            iconName: "checkmark-circle-sharp",
+            iconName: "checkmark-circle-outline",
             color: colors.white,
-            bg: colors.green,
+            bg: colors.lightBlue2,
             size: 28,
           },
           defaultTopNavigator: {
-            continueText: "Continue",
+            selectedText: "Selected",
+            continueText: "Finish",
             goBackText: "Back",
+            midTextColor: colors.darkBlue,
             buttonStyle: {
               backgroundColor: colors.blue,
               borderRadius: radii.s2,
             },
-            textStyle: {
+            buttonTextStyle: {
               fontFamily: fonts[1],
-              fontSize: size.s1,
+              fontSize: size.s3,
               color: colors.white,
             },
             backFunction: () => navigation.goBack(),
             doneFunction: (data) => onDone(data),
           },
-          noAssets: {
-            Component: () => <Container />,
-          },
+          noAssets: () => <Container />,
         }}
       />
     </Container>

@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import ImageInput from "./ImageInput";
 
-const ImageInputList = ({ error, images = [], onRemoveImage }) => {
+const ImageInputList = ({ images = [], onRemoveImage }) => {
   const scrollView = useRef();
 
   return (
@@ -21,7 +21,7 @@ const ImageInputList = ({ error, images = [], onRemoveImage }) => {
             onRemoveImage={() => onRemoveImage(uri)}
           />
         ))}
-        <ImageInput {...{ error }} />
+        <ImageInput />
       </ScrollView>
     </Container>
   );

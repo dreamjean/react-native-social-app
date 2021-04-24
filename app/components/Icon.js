@@ -12,12 +12,16 @@ const Icon = ({
   margin,
   onPress,
   size,
+  style,
 }) => {
   return (
     <Pressable
-      style={({ pressed }) => ({
-        opacity: pressed ? 0.5 : 1,
-      })}
+      style={[
+        ({ pressed }) => ({
+          opacity: pressed ? 0.5 : 1,
+        }),
+        style,
+      ]}
       {...{ onPress }}
     >
       <Container {...{ size, backgroundColor, margin }}>

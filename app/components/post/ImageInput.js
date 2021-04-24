@@ -8,14 +8,14 @@ import { colors } from "../../config";
 import routes from "../../navigation/routes";
 import { Image } from "../../styles";
 
-const ImageInput = ({ error, imageUri, onRemoveImage }) => {
+const ImageInput = ({ imageUri, onRemoveImage }) => {
   const navigation = useNavigation();
 
   return (
-    <Container {...{ error }}>
+    <Container>
       {imageUri && (
         <>
-          <Image source={{ uri: imageUri }} />
+          <Image resizeMode="contain" source={{ uri: imageUri }} />
           <Pressable
             style={({ pressed }) => ({
               opacity: pressed ? 0.5 : 1,
@@ -27,8 +27,8 @@ const ImageInput = ({ error, imageUri, onRemoveImage }) => {
           >
             <MaterialCommunityIcons
               name="close-circle"
-              size={20}
-              color={colors.white}
+              size={22}
+              color={colors.medium}
             />
           </Pressable>
         </>
@@ -36,7 +36,7 @@ const ImageInput = ({ error, imageUri, onRemoveImage }) => {
       {!imageUri && (
         <Pressable
           style={({ pressed }) => ({
-            backgroundColor: pressed ? colors.lightCyan1 : "transparent",
+            backgroundColor: pressed ? colors.lightBlue2 : "transparent",
             width: "100%",
             height: "100%",
             opacity: pressed ? 0.5 : 1,
@@ -45,11 +45,7 @@ const ImageInput = ({ error, imageUri, onRemoveImage }) => {
           })}
           onPress={() => navigation.navigate(routes.MEDIA_SELECTION)}
         >
-          <MaterialCommunityIcons
-            name="camera-plus"
-            size={38}
-            color={colors.grey}
-          />
+          <MaterialCommunityIcons name="plus" size={50} color={colors.medium} />
         </Pressable>
       )}
     </Container>
@@ -62,11 +58,12 @@ const Container = styled.View`
   height: 100px;
   align-items: center;
   justify-content: center;
+
   ${({ theme: { colors, space, radii } }) => ({
     borderRadius: radii.s2,
     background: colors.light,
     marginVertical: space.s3,
-    marginRight: space.s3,
+    marginRight: space.s2,
   })}
 `;
 

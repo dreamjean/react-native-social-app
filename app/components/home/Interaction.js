@@ -1,4 +1,4 @@
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { Pressable } from "react-native";
 import styled from "styled-components";
@@ -13,7 +13,7 @@ const Interaction = ({ active = false, icon, number, onPress }) => {
       {...{ onPress }}
     >
       <Container>
-        <MaterialCommunityIcons
+        <Ionicons
           style={{ marginRight: 5 }}
           name={icon}
           size={22}

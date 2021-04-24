@@ -1,4 +1,4 @@
-import LottieView from "lottie-react-native";
+// import LottieView from "lottie-react-native";
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 
@@ -10,10 +10,10 @@ const ActivityIndicator = () => {
 
   return (
     <Container>
-      <LottieView
+      {/* <LottieView
         ref={animation}
         source={require("../assets/animations/690-loading.json")}
-      />
+      /> */}
     </Container>
   );
 };

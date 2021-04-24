@@ -1,67 +1,33 @@
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import {
+  createStackNavigator,
+  TransitionPresets,
+} from "@react-navigation/stack";
 import React from "react";
 
-import { HomeScreen, NotificationScreen, ProfileScreen } from "../screens";
-import MessageStack from "./MessageStack";
-import NewButton from "./NewButton";
-import PostNavigator from "./PostNavigator";
+import { ChatScreen, MediaSelectionScreen } from "../screens";
+import MainNavigator from "./MainNavigator";
 
-const screenOptions = ({ route }) => ({
-  tabBarIcon: ({ color, size }) => {
-    let iconName;
-
-    switch (route.name) {
-      case "Feed":
-        iconName = "home-outline";
-        break;
-
-      case "Message":
-        iconName = "message-processing-outline";
-        break;
-
-      case "Notification":
-        iconName = "bell-outline";
-        break;
-
-      case "Profile":
-        iconName = "account-outline";
-        break;
-
-      default:
-        iconName = "home-outline";
-    }
-
-    return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
-  },
-});
-
-const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 const AppNavigator = () => (
-  <Tab.Navigator
-    {...{ screenOptions }}
-    tabBarOptions={{
-      safeAreaInsets: {
-        bottom: 3,
-      },
-      showLabel: false,
-    }}
+  <Stack.Navigator
+    mode="modal"
+    screenOptions={({ route, navigation }) => ({
+      headerShown: false,
+      cardOverlayEnabled: true,
+      headerStatusBarHeight:
+        navigation
+          .dangerouslyGetState()
+          .routes.findIndex((r) => r.key === route.key) > 0
+          ? 0
+          : undefined,
+      ...TransitionPresets.ModalPresentationIOS,
+    })}
   >
-    <Tab.Screen name="Home" component={HomeScreen} />
-    <Tab.Screen name="Message" component={MessageStack} />
-    <Tab.Screen
-      name="Post"
-      component={PostNavigator}
-      options={({ navigation }) => ({
-        tabBarButton: () => (
-          <NewButton onPress={() => navigation.navigate("Post")} />
-        ),
-      })}
-    />
-    <Tab.Screen name="Notification" component={NotificationScreen} />
-    <Tab.Screen name="Profile" component={ProfileScreen} />
-  </Tab.Navigator>
+    <Stack.Screen name="Main" component={MainNavigator} />
+    <Stack.Screen name="MediaSelection" component={MediaSelectionScreen} />
+    <Stack.Screen name="Chat" component={ChatScreen} />
+  </Stack.Navigator>
 );
 
 export default AppNavigator;

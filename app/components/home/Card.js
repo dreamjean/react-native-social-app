@@ -28,7 +28,7 @@ const Card = ({
         <InteractionWrapper>
           <Interaction icon="share-outline" onPress={onShare} />
           <Interaction
-            icon="chat-processing-outline"
+            icon="chatbubble-ellipses-outline"
             number={comments}
             onPress={onComment}
           />

@@ -4,5 +4,5 @@ export default Object.freeze({
   MESSAGES: "Messages",
   SIGNIN: "SignIn",
   SIGNUP: "SignUp",
-  CREATE_POST: "CreatePost",
+  POST: "Post",
 });
