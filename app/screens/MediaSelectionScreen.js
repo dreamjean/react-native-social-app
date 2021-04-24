@@ -10,7 +10,7 @@ const { colors, fonts, size, radii } = theme;
 
 const MediaSelectionScreen = ({ navigation }) => {
   const onDone = (data) => {
-    navigation.navigate(routes.POST, { data });
+    navigation.navigate(routes.CREATE_POST, { data });
   };
 
   return (
@@ -34,20 +34,20 @@ const MediaSelectionScreen = ({ navigation }) => {
             Component: Ionicons,
             iconName: "checkmark-circle-sharp",
             color: colors.white,
-            bg: colors.lightCyan1,
+            bg: colors.green,
             size: 28,
           },
           defaultTopNavigator: {
             continueText: "Continue",
             goBackText: "Back",
             buttonStyle: {
-              backgroundColor: colors.secondary,
-              borderRadius: radii.m,
+              backgroundColor: colors.blue,
+              borderRadius: radii.s2,
             },
             textStyle: {
               fontFamily: fonts[1],
               fontSize: size.s1,
-              color: colors.grey,
+              color: colors.white,
             },
             backFunction: () => navigation.goBack(),
             doneFunction: (data) => onDone(data),

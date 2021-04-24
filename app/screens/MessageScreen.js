@@ -52,7 +52,15 @@ const MessageScreen = () => {
   );
 };
 
-const Container = styled.View``;
+const Container = styled.View`
+  flex: 1;
+  align-items: center;
+
+  ${({ theme: { colors, space } }) => ({
+    paddingHorizontal: space.m2,
+    backgroundColor: colors.white,
+  })}
+`;
 const Text = styled.Text``;
 
 export default MessageScreen;

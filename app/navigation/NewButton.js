@@ -11,7 +11,7 @@ const NewButton = ({ onPress }) => {
       style={({ pressed }) => ({
         opacity: pressed ? 0.5 : 1,
         top: 4,
-        marginHorizontal: 15,
+        marginHorizontal: 20,
       })}
       {...{ onPress }}
     >

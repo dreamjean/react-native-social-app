@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { Button, Icon, ImageInputList } from "../components";
@@ -7,23 +7,26 @@ import { Image } from "../styles";
 
 const { KEYBOARD_HEIGHT } = calender;
 
-const PostScreen = ({ navigation }) => {
+const CreatePostScreen = ({ navigation, route }) => {
+  const data = route?.params?.data;
+  const [value, setValue] = useState("");
+  const [selectImages, setSelectImages] = useState([]);
+
+  useEffect(() => {
+    if (data) setSelectImages(data);
+  }, [data]);
+
   return (
     <Container>
       <Header>
-        <Icon
-          name="chevron-left"
-          size={50}
-          color={colors.grey}
-          onPress={() => navigation.goBack()}
-        />
+        <Icon name="chevron-left" size={50} color={colors.grey} />
         <Button
           title="Post"
           color={colors.blue}
           backgroundColor="transparent"
           padding={12}
           margin={6}
-          onPress={() => true}
+          onPress={() => navigation.navigate("MediaSelection")}
         />
       </Header>
       <InputWrapper>
@@ -34,10 +37,17 @@ const PostScreen = ({ navigation }) => {
           placeholder="Want to share something..."
           multiline
           numberOfLines={4}
+          values={value}
+          onChangeText={() => setValue(value)}
         />
       </InputWrapper>
       <ImagesWrapper>
-        <ImageInputList />
+        <ImageInputList
+          images={selectImages}
+          onRemoveImage={(uri) =>
+            setSelectImages(selectImages.fileter((img) => img.uri !== uri))
+          }
+        />
       </ImagesWrapper>
     </Container>
   );
@@ -86,4 +96,4 @@ const ImagesWrapper = styled.View`
   left: 20px;
 `;
 
-export default PostScreen;
+export default CreatePostScreen;

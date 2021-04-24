@@ -38,7 +38,7 @@ const screenOptions = ({ route }) => ({
 
 const Tab = createBottomTabNavigator();
 
-const MainNavigator = () => (
+const AppNavigator = () => (
   <Tab.Navigator
     {...{ screenOptions }}
     tabBarOptions={{
@@ -64,4 +64,4 @@ const MainNavigator = () => (
   </Tab.Navigator>
 );
 
-export default MainNavigator;
+export default AppNavigator;

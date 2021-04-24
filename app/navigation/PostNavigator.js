@@ -4,13 +4,13 @@ import {
 } from "@react-navigation/stack";
 import React from "react";
 
-import { MediaSelectionScreen, PostScreen } from "../screens";
+import { CreatePostScreen, MediaSelectionScreen } from "../screens";
 
 const Stack = createStackNavigator();
 
 const PostNavigator = () => (
   <Stack.Navigator
-    initialRouteName="Post"
+    initialRouteName="CreatePost"
     mode="modal"
     screenOptions={({ route, navigation }) => ({
       headerShown: false,
@@ -24,7 +24,7 @@ const PostNavigator = () => (
       ...TransitionPresets.ModalPresentationIOS,
     })}
   >
-    <Stack.Screen name="Post" component={PostScreen} />
+    <Stack.Screen name="CeatePost" component={CreatePostScreen} />
     <Stack.Screen name="MediaSelection" component={MediaSelectionScreen} />
   </Stack.Navigator>
 );
