@@ -10,10 +10,6 @@ const avatarStyle = css`
   })}
 `;
 
-const boardingStyle = css`
-  width: 60%;
-`;
-
 const cardStyle = css`
   width: 100%;
   height: 150px;
@@ -36,7 +32,6 @@ const Image = styled.Image`
   height: 100%;
 
   ${({ avatar }) => avatar && avatarStyle}
-  ${({ boarding }) => boarding && boardingStyle}
   ${({ card }) => card && cardStyle}
   ${({ logo }) => logo && logoStyle}
 `;

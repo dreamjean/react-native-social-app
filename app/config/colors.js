@@ -3,7 +3,7 @@ export default {
   blue2: "#4867aa",
   darkBlue: "#051d5f",
   danger: "#FF0058",
-  dark: "rgba(0, 0, 0, 0.8)",
+  dark: "rgba(0, 0, 0, 0.7)",
   grey: "#ccc",
   grey2: "#666",
   green: "#a6e4d0",

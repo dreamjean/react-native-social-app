@@ -2,9 +2,9 @@ import { AntDesign } from "@expo/vector-icons";
 import React, { forwardRef } from "react";
 import styled from "styled-components";
 
-import { calender, colors } from "../config";
+import { colors, constants } from "../config";
 
-const { ROW_HEIGHT } = calender;
+const { ROW_HEIGHT } = constants;
 
 const TextInput = forwardRef(({ iconName, error, touched, ...rest }, ref) => {
   return (

@@ -2,10 +2,10 @@ import React from "react";
 import { RectButton } from "react-native-gesture-handler";
 import styled from "styled-components";
 
-import { calender, colors } from "../config";
+import { colors, constants } from "../config";
 import { Text } from "../styles";
 
-const { ROW_HEIGHT } = calender;
+const { ROW_HEIGHT } = constants;
 
 const Button = ({
   backgroundColor = colors.blue,

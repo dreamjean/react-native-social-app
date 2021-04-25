@@ -3,10 +3,10 @@ import React from "react";
 import { RectButton } from "react-native-gesture-handler";
 import styled from "styled-components";
 
-import { calender } from "../../config";
+import { constants } from "../../config";
 import { Text } from "../../styles";
 
-const { ROW_HEIGHT } = calender;
+const { ROW_HEIGHT } = constants;
 
 const SocialButton = ({
   backgroundColor,

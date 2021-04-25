@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { Button, Icon, ImageInputList } from "../components";
-import { calender, colors, images } from "../config";
+import { colors, constants, images } from "../config";
 import { Image } from "../styles";
 
-const { KEYBOARD_HEIGHT } = calender;
+const { KEYBOARD_HEIGHT } = constants;
 
 const PostScreen = ({ navigation, route }) => {
   const data = route?.params?.data;
   const inititalImages = data ? data : [];
-  const [value, setValue] = useState("");
+  const [description, setDescription] = useState("");
   const [selectedImages, setSelectedImages] = useState(inititalImages);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const PostScreen = ({ navigation, route }) => {
       <Header>
         <Icon
           name="close-outline"
-          size={40}
+          size={35}
           color={colors.grey2}
           style={{ marginLeft: 8 }}
           onPress={() => navigation.goBack()}
@@ -44,8 +44,8 @@ const PostScreen = ({ navigation, route }) => {
           placeholder="Want to share something..."
           multiline
           numberOfLines={4}
-          values={value}
-          onChangeText={() => setValue(value)}
+          values={description}
+          onChangeText={() => setDescription(description)}
         />
       </InputWrapper>
       <ImagesWrapper>
