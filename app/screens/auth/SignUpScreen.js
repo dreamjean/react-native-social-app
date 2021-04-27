@@ -23,7 +23,7 @@ import routes from "../../navigation/routes";
 import { Text } from "../../styles";
 
 const validationSchema = Yup.object().shape({
-  username: Yup.string().required().max(50).label("Username"),
+  name: Yup.string().required().max(50).label("name"),
   email: Yup.string().required().email().label("Email"),
   password: Yup.string()
     .required()
@@ -32,10 +32,6 @@ const validationSchema = Yup.object().shape({
     .matches(/\w*[a-z]\w*/, "Password must have a small letter")
     .matches(/\d/, "Password must have a number")
     .label("Password"),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password")], "Passwords do not match")
-    .required()
-    .label("Confirm Password"),
 });
 
 const SignUpScreen = ({ navigation }) => {
@@ -57,9 +53,8 @@ const SignUpScreen = ({ navigation }) => {
       const { uid } = firebase.auth().currentUser;
 
       db.collection("users").doc(uid).set({
-        username: userInfo.username,
+        name: userInfo.name,
         email: userInfo.email,
-        avatar: null,
       });
     } catch (error) {
       setError(error.message);
@@ -74,10 +69,9 @@ const SignUpScreen = ({ navigation }) => {
     <Container small title="Create an account">
       <Form
         initialValues={{
-          username: "",
+          name: "",
           email: "",
           password: "",
-          confirmPassword: "",
         }}
         onSubmit={handleSubmit}
         validationSchema={validationSchema}
@@ -86,18 +80,18 @@ const SignUpScreen = ({ navigation }) => {
         <FormField
           allowFontScaling={false}
           autoCapitalize="none"
-          autoCompleteType="username"
+          autoCompleteType="name"
           autoCorrect={false}
           blurOnSubmit={false}
           iconName="user"
           keyboardAppearance="default"
           keyboardType="default"
-          name="username"
+          name="name"
           onSubmitEditing={() => focusNextField("email")}
-          placeholder="Username"
+          placeholder="name"
           returnKeyLabel="next"
           returnKeyType="next"
-          textContentType="username"
+          textContentType="name"
         />
         <FormField
           allowFontScaling={false}
@@ -127,32 +121,14 @@ const SignUpScreen = ({ navigation }) => {
           keyboardType="default"
           maxLength={50}
           name="password"
-          onSubmitEditing={() => focusNextField("confirmPassword")}
           onRef={(input) => (inputs["password"] = input)}
           placeholder="Password"
-          returnKeyLabel="next"
-          returnKeyType="next"
-          secureTextEntry
-          textContentType="password"
-        />
-        <FormField
-          allowFontScaling={false}
-          autoCapitalize="none"
-          autoCompleteType="password"
-          autoCorrect={false}
-          blurOnSubmit={false}
-          iconName="lock1"
-          keyboardAppearance="default"
-          keyboardType="default"
-          maxLength={50}
-          name="confirmPassword"
-          onRef={(input) => (inputs["confirmPassword"] = input)}
-          placeholder="Confirm Password"
           returnKeyLabel="go"
           returnKeyType="go"
           secureTextEntry
           textContentType="password"
         />
+
         <SubmitButton title="Register" />
       </Form>
       <Description>

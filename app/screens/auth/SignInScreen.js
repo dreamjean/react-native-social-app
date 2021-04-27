@@ -35,6 +35,8 @@ const SignInScreen = ({ navigation }) => {
   const handleSubmit = async ({ email, password }) => {
     Keyboard.dismiss();
 
+    await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+
     await firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
@@ -89,8 +91,8 @@ const SignInScreen = ({ navigation }) => {
       </Form>
       <Button
         title="Forgot Password?"
-        backgroundColor="transparent"
-        color={colors.blue}
+        borderColor={colors.transparent}
+        width="100%"
       />
       <SocialButton
         socialIcon="facebook"

@@ -27,18 +27,18 @@ export default function App() {
   const [user, setUser] = useState();
   const [initializing, setInitalizing] = useState(true);
 
-  const onAuthStateChanged = (user) => {
-    if (user) {
-      setUser(user);
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(onAuthStateChanged);
+  }, []);
+
+  const onAuthStateChanged = (userExist) => {
+    if (userExist) {
+      setUser(userExist);
       setInitalizing(false);
     } else {
       setInitalizing(false);
     }
   };
-
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged(onAuthStateChanged);
-  }, []);
 
   if (!assetsLoaded || initializing) {
     return (

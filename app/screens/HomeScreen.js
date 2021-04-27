@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 import { Card } from "../components";
 import { images } from "../config";
+import { Text } from "../styles";
 
 const listings = [
   {
@@ -72,9 +73,15 @@ const listings = [
 const HomeScreen = () => {
   return (
     <Container>
+      <Header>
+        <Text heading blue>
+          RN Social
+        </Text>
+      </Header>
       <Listings>
         <FlatList
           data={listings}
+          contentContainerStyle={{ paddingBottom: 18 }}
           keyExtractor={(listing) => listing.id.toString()}
           renderItem={({ item }) => (
             <Card
@@ -92,6 +99,7 @@ const HomeScreen = () => {
               onComment={() => true}
             />
           )}
+          showsVerticalScrollIndicator={false}
         />
       </Listings>
       <StatusBar barStyle="dark-content" />
@@ -105,6 +113,17 @@ const Container = styled.View`
   ${({ theme: { colors } }) => ({
     backgroundColor: colors.white,
     paddingTop: Constants.statusBarHeight,
+  })}
+`;
+
+const Header = styled.View`
+  align-items: center;
+  border-bottom-width: 1px;
+
+  ${({ theme: { colors, space } }) => ({
+    borderColor: colors.blue,
+    paddingTop: space.m1,
+    paddingBottom: space.s1,
   })}
 `;
 

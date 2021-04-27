@@ -16,9 +16,9 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "facebookAppId": "238942324575118",
-    "facebookScheme": "fb238942324575118",
-    "facebookDisplayName": "socialdev",
+    "facebookAppId": "2590868754550621",
+    "facebookDisplayName": "SocialApp",
+    "facebookScheme": "fb2590868754550621",
     "ios": {
       "supportsTablet": true
     },

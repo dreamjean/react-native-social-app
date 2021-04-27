@@ -10,8 +10,9 @@ const loginWithFacebookAsync = async () => {
     });
 
     const { type, token } = await Facebook.logInWithReadPermissionsAsync({
-      permissions: ["public_profile"], // 指定要从Facebook要求登录的权限,
+      permissions: ["public_profile", "email"], // 指定要从Facebook要求登录的权限,
     });
+    console.log(token);
 
     if (type === "success") {
       await firebase
@@ -20,15 +21,12 @@ const loginWithFacebookAsync = async () => {
 
       const credential = firebase.auth.FacebookAuthProvider.credential(token);
 
-      await firebase
-        .auth()
-        .signInWithCredential(credential)
-        .catch((error) => console.log("@Login failed: ", error));
+      await firebase.auth().signInWithCredential(credential);
     } else {
       return { type: "cancel" };
     }
   } catch ({ message }) {
-    alert(`Facebook login error: ${message}`);
+    alert(`Facebook Login Error: ${message}`);
   }
 };
 

@@ -4,11 +4,12 @@ import React from "react";
 
 import {
   HomeScreen,
-  MessageScreen,
+  // MessageScreen,
   NotificationScreen,
   PostScreen,
   ProfileScreen,
 } from "../screens";
+import MessageStack from "./MessageStack";
 import NewButton from "./NewButton";
 
 const screenOptions = ({ route }) => ({
@@ -53,7 +54,7 @@ const MainNavigator = () => (
     }}
   >
     <Tab.Screen name="Home" component={HomeScreen} />
-    <Tab.Screen name="Message" component={MessageScreen} />
+    <Tab.Screen name="Message" component={MessageStack} />
     <Tab.Screen
       name="Post"
       component={PostScreen}

@@ -1,10 +1,10 @@
 import styled, { css } from "styled-components";
 
 const headingStyle = css`
-  ${({ big, theme: { colors, size, fonts } }) => ({
+  ${({ big, blue, theme: { colors, size, fonts } }) => ({
     fontSize: big ? size.xl : size.l,
     fontFamily: fonts[0],
-    color: colors.darkBlue,
+    color: blue ? colors.blue : colors.darkBlue,
   })}
 `;
 
@@ -14,6 +14,14 @@ const titleStyle = css`
     fontFamily: fonts[1],
     color: colors.text,
     opacity: 0.8,
+  })}
+`;
+
+const title2Style = css`
+  ${({ theme: { colors, size, fonts } }) => ({
+    fontSize: size.m2,
+    fontFamily: fonts[1],
+    color: colors.text,
   })}
 `;
 
@@ -33,6 +41,14 @@ const descriptionStyle = css`
     fontFamily: fonts[4],
     color: colors.text2,
     marginBottom: space.s1,
+  })}
+`;
+
+const statNumStyle = css`
+  ${({ theme: { size, fonts, colors } }) => ({
+    fontSize: size.l,
+    fontFamily: fonts[4],
+    color: colors.text2,
   })}
 `;
 
@@ -109,7 +125,9 @@ const Text = styled.Text`
   ${({ heading }) => heading && headingStyle}
   ${({ medium }) => medium && mediumStyle}
   ${({ small }) => small && smallStyle}
+  ${({ statNum }) => statNum && statNumStyle}
   ${({ title }) => title && titleStyle}
+  ${({ title2 }) => title2 && title2Style}
   ${({ tiny }) => tiny && tinyStyle}
 `;
 

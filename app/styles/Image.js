@@ -10,6 +10,16 @@ const avatarStyle = css`
   })}
 `;
 
+const avatar2Style = css`
+  width: 120px;
+  height: 120px;
+
+  ${({ theme: { radii } }) => ({
+    resizeMode: "cover",
+    borderRadius: radii.l,
+  })}
+`;
+
 const cardStyle = css`
   width: 100%;
   height: 150px;
@@ -32,6 +42,7 @@ const Image = styled.Image`
   height: 100%;
 
   ${({ avatar }) => avatar && avatarStyle}
+  ${({ avatar2 }) => avatar2 && avatar2Style}
   ${({ card }) => card && cardStyle}
   ${({ logo }) => logo && logoStyle}
 `;

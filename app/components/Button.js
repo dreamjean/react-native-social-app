@@ -8,37 +8,46 @@ import { Text } from "../styles";
 const { ROW_HEIGHT } = constants;
 
 const Button = ({
-  backgroundColor = colors.blue,
-  color = colors.white,
+  bgColor = colors.transparent,
+  borderColor = colors.blue,
+  color = colors.blue,
   title,
   margin,
-  padding,
+  width = 100,
   onPress,
-  loading = false,
 }) => {
   return (
-    <Touchable
-      {...{ backgroundColor, margin, padding, onPress }}
-      disable={loading}
-    >
-      <Text button1 {...{ color }}>
-        {title}
-      </Text>
+    <Touchable {...{ margin, onPress }}>
+      <Container {...{ bgColor, borderColor, width }}>
+        <Text button1 {...{ color }}>
+          {title}
+        </Text>
+      </Container>
     </Touchable>
   );
 };
 
 const Touchable = styled(RectButton)`
-  align-items: center;
-  justify-content: center;
   height: ${ROW_HEIGHT}px;
+  overflow: hidden;
 
-  ${({ backgroundColor, margin, padding, theme: { space, radii } }) => ({
-    backgroundColor,
+  ${({ margin, theme: { space, radii } }) => ({
     borderRadius: radii.s1,
     marginTop: space.s2,
-    padding,
     margin,
+  })}
+`;
+
+const Container = styled.View`
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+
+  ${({ bgColor, borderColor, width }) => ({
+    backgroundColor: bgColor,
+    borderColor,
+    borderWidth: borderColor ? 2 : 0,
+    width,
   })}
 `;
 

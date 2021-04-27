@@ -4939,9 +4939,9 @@ is-ci@^2.0.0:
     ci-info "^2.0.0"
 
 is-core-module@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/is-core-module/-/is-core-module-2.2.0.tgz#97037ef3d52224d85163f5597b2b63d9afed981a"
-  integrity sha512-XRAfAdyyY5F5cOXn7hYQDqh2Xmii+DEfIcQGxK/uNwMHhIkPWO0g8msXcbzLe+MpGoR951MlqM/2iIlU4vKDdQ==
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/is-core-module/-/is-core-module-2.3.0.tgz#d341652e3408bca69c4671b79a0954a3d349f887"
+  integrity sha512-xSphU2KG9867tsYdLD4RWQ1VqdFl4HTO9Thf3I/3dLEfr0dbPTWKsuCKrgqMljg4nPE+Gq0VCnzT3gr0CyBmsw==
   dependencies:
     has "^1.0.3"
 
@@ -5512,9 +5512,9 @@ lint-staged@^10.5.4:
     stringify-object "^3.3.0"
 
 listr2@^3.2.2:
-  version "3.7.1"
-  resolved "https://registry.yarnpkg.com/listr2/-/listr2-3.7.1.tgz#ff0c410b10eb1c5c76735e4814128ec8f7d2b983"
-  integrity sha512-cNd368GTrk8351/ov/IV+BSwyf9sJRgI0UIvfORonCZA1u9UHAtAlqSEv9dgafoQIA1CgB3nu4No79pJtK2LHw==
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/listr2/-/listr2-3.8.0.tgz#40dcbcae83cca1005570ff0cc76cc35b51576d09"
+  integrity sha512-TWxRzND4v6UI+Fs3FrNohYcz48jyZUyzvSLgrGTe9TXKLf84T0EfjmP5e27p6e031q3VGl6vBbHdueGFUxgczQ==
   dependencies:
     chalk "^4.1.0"
     cli-truncate "^2.1.0"
@@ -7833,7 +7833,7 @@ strip-json-comments@^3.1.0, strip-json-comments@^3.1.1:
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-3.1.1.tgz#31f1281b3832630434831c310c01cccda8cbe006"
   integrity sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==
 
-styled-components@^5.1.1, styled-components@^5.2.1:
+styled-components@^5.1.1, styled-components@^5.2.1, styled-components@^5.2.3:
   version "5.2.3"
   resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-5.2.3.tgz#752669fd694aac10de814d96efc287dde0d11385"
   integrity sha512-BlR+KrLW3NL1yhvEB+9Nu9Dt51CuOnHoxd+Hj+rYPdtyR8X11uIW9rvhpy3Dk4dXXBsiW1u5U78f00Lf/afGoA==

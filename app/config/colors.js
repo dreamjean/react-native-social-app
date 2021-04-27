@@ -21,5 +21,6 @@ export default {
   red: "#de4d41",
   text: "#333",
   text2: "#8e93a1",
+  transparent: "rgba(255, 255, 255, 0)",
   yellow: "#fdeb93",
 };

@@ -20,10 +20,7 @@ const loginWithGoogleAsync = async () => {
         accessToken
       );
 
-      firebase
-        .auth()
-        .signInWithCredential(credential)
-        .catch((error) => console.log("@Login failed", error));
+      await firebase.auth().signInWithCredential(credential);
     } else {
       return { cancelled: true };
     }

@@ -4,7 +4,7 @@ import {
 } from "@react-navigation/stack";
 import React from "react";
 
-import { ChatScreen, MediaSelectionScreen } from "../screens";
+import { MediaSelectionScreen } from "../screens";
 import MainNavigator from "./MainNavigator";
 
 const Stack = createStackNavigator();
@@ -26,7 +26,7 @@ const AppNavigator = () => (
   >
     <Stack.Screen name="Main" component={MainNavigator} />
     <Stack.Screen name="MediaSelection" component={MediaSelectionScreen} />
-    <Stack.Screen name="Chat" component={ChatScreen} />
+    {/* <Stack.Screen name="Chat" component={ChatScreen} /> */}
   </Stack.Navigator>
 );
 

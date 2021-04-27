@@ -49,7 +49,7 @@ const Container = styled.View`
     backgroundColor: colors.light2,
     borderRadius: radii.s2,
     margin: space.m1,
-    marginTop: 0,
+    marginBottom: 0,
   })}
 `;
 

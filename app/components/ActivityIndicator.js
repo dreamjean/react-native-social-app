@@ -1,19 +1,15 @@
-// import LottieView from "lottie-react-native";
-import React, { useEffect, useRef } from "react";
+import LottieView from "lottie-react-native";
+import React from "react";
 import styled from "styled-components";
 
 const ActivityIndicator = () => {
-  const animation = useRef();
-  useEffect(() => {
-    animation.current.play();
-  }, []);
-
   return (
     <Container>
-      {/* <LottieView
-        ref={animation}
+      <LottieView
+        autoPlay
+        loop
         source={require("../assets/animations/690-loading.json")}
-      /> */}
+      />
     </Container>
   );
 };
