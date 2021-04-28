@@ -70,8 +70,9 @@ const PostScreen = ({ navigation, route }) => {
         <Icon
           name="close-outline"
           size={35}
-          color={colors.grey2}
-          style={{ marginLeft: 8, marginTop: 18 }}
+          color={colors.medium}
+          style={{ top: 20, left: 15 }}
+          backgroundColor={colors.transparent}
           onPress={cancelPost}
         />
         <Button
@@ -82,26 +83,31 @@ const PostScreen = ({ navigation, route }) => {
           onPress={handleSubmit}
         />
       </Header>
+
       <InputWrapper>
         <Image avatar source={images[4]} />
         <Input
           // eslint-disable-next-line jsx-a11y/no-autofocus
           autoFocus
-          placeholder="Want to share something..."
+          dataDetectorTypes="link"
+          importantForAutofill="auto"
           multiline
+          maxLength={200}
           numberOfLines={4}
-          values={postText}
           onChangeText={(text) => setPostText(text)}
+          placeholder="Want to share something..."
+          textAlign="left"
+          values={postText}
         />
       </InputWrapper>
-      <ImagesWrapper>
+      <Wrapper>
         <ImageInputList
           images={selectedImages}
           onRemoveImage={(uri) =>
             setSelectedImages(selectedImages.filter((img) => img.uri !== uri))
           }
         />
-      </ImagesWrapper>
+      </Wrapper>
       <DraftModal
         visible={modalVisible}
         onSave={() => {
@@ -147,15 +153,20 @@ const InputWrapper = styled.View`
 const Input = styled.TextInput`
   flex: 1;
   line-height: 26px;
+  align-self: flex-start;
+  padding: 0;
+
   ${({ theme: { size, fonts, colors, space } }) => ({
     fontSize: size.m1,
     fontFamily: fonts[4],
     color: colors.dark,
     marginLeft: space.s3,
+    marginTop: space.s2,
+    textAlignVertical: "top",
   })}
 `;
 
-const ImagesWrapper = styled.View`
+const Wrapper = styled.View`
   position: absolute;
   bottom: ${KEYBOARD_HEIGHT}px;
   left: 20px;

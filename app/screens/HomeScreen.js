@@ -1,10 +1,11 @@
 import Constants from "expo-constants";
 import React from "react";
-import { FlatList, StatusBar } from "react-native";
+import { FlatList, StatusBar, StyleSheet } from "react-native";
 import styled from "styled-components";
 
-import { Card } from "../components";
-import { images } from "../config";
+import { Card, Icon } from "../components";
+import { colors, images } from "../config";
+import routes from "../navigation/routes";
 import { Text } from "../styles";
 
 const listings = [
@@ -70,7 +71,7 @@ const listings = [
   },
 ];
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   return (
     <Container>
       <Header>
@@ -102,6 +103,17 @@ const HomeScreen = () => {
           showsVerticalScrollIndicator={false}
         />
       </Listings>
+      <Icon
+        name="pen-plus"
+        backgroundColor={colors.blue}
+        size={50}
+        style={{
+          position: "absolute",
+          bottom: 15,
+          right: 18,
+        }}
+        onPress={() => navigation.navigate(routes.POST)}
+      />
       <StatusBar barStyle="dark-content" />
     </Container>
   );
@@ -118,7 +130,7 @@ const Container = styled.View`
 
 const Header = styled.View`
   align-items: center;
-  border-bottom-width: 1px;
+  border-bottom-width: ${StyleSheet.hairlineWidth}px;
 
   ${({ theme: { colors, space } }) => ({
     borderColor: colors.blue,

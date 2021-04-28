@@ -4,7 +4,12 @@ import {
 } from "@react-navigation/stack";
 import React from "react";
 
-import { MediaSelectionScreen } from "../screens";
+import {
+  ChatScreen,
+  EditProfileScreen,
+  MediaSelectionScreen,
+  PostScreen,
+} from "../screens";
 import MainNavigator from "./MainNavigator";
 
 const Stack = createStackNavigator();
@@ -13,7 +18,6 @@ const AppNavigator = () => (
   <Stack.Navigator
     mode="modal"
     screenOptions={({ route, navigation }) => ({
-      headerShown: false,
       cardOverlayEnabled: true,
       headerStatusBarHeight:
         navigation
@@ -21,12 +25,48 @@ const AppNavigator = () => (
           .routes.findIndex((r) => r.key === route.key) > 0
           ? 0
           : undefined,
-      ...TransitionPresets.ModalPresentationIOS,
     })}
   >
-    <Stack.Screen name="Main" component={MainNavigator} />
-    <Stack.Screen name="MediaSelection" component={MediaSelectionScreen} />
-    {/* <Stack.Screen name="Chat" component={ChatScreen} /> */}
+    <Stack.Screen
+      name="Main"
+      component={MainNavigator}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="EditProfile"
+      component={EditProfileScreen}
+      options={{
+        headerBackTitleVisible: false,
+        headerStatusBarHeight: undefined,
+        ...TransitionPresets.SlideFromRightIOS,
+      }}
+    />
+    <Stack.Screen
+      name="Post"
+      component={PostScreen}
+      options={{
+        headerShown: false,
+        ...TransitionPresets.ModalSlideFromBottomIOS,
+      }}
+    />
+    <Stack.Screen
+      name="MediaSelection"
+      component={MediaSelectionScreen}
+      options={{
+        headerShown: false,
+        ...TransitionPresets.ModalPresentationIOS,
+      }}
+    />
+    <Stack.Screen
+      name="Chat"
+      component={ChatScreen}
+      options={({ route }) => ({
+        title: route?.params?.userName,
+        headerBackTitleVisible: false,
+        headerStatusBarHeight: undefined,
+        ...TransitionPresets.SlideFromRightIOS,
+      })}
+    />
   </Stack.Navigator>
 );
 

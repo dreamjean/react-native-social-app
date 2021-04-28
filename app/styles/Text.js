@@ -46,7 +46,7 @@ const descriptionStyle = css`
 
 const statNumStyle = css`
   ${({ theme: { size, fonts, colors } }) => ({
-    fontSize: size.l,
+    fontSize: size.m2,
     fontFamily: fonts[4],
     color: colors.text2,
   })}

@@ -1,6 +1,6 @@
 import * as Facebook from "expo-facebook";
 
-import { firebase } from ".";
+import { auth, firebase } from ".";
 import keys from "./keys";
 
 const loginWithFacebookAsync = async () => {
@@ -12,16 +12,13 @@ const loginWithFacebookAsync = async () => {
     const { type, token } = await Facebook.logInWithReadPermissionsAsync({
       permissions: ["public_profile", "email"], // 指定要从Facebook要求登录的权限,
     });
-    console.log(token);
 
     if (type === "success") {
-      await firebase
-        .auth()
-        .setPersistence(firebase.auth.Auth.Persistence.LOCAL); //设置持久身份验证状态
+      await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL); //设置持久身份验证状态
 
       const credential = firebase.auth.FacebookAuthProvider.credential(token);
 
-      await firebase.auth().signInWithCredential(credential);
+      await auth.signInWithCredential(credential);
     } else {
       return { type: "cancel" };
     }

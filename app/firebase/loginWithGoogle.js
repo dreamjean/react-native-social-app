@@ -1,6 +1,6 @@
 import * as Google from "expo-google-app-auth";
 
-import { firebase } from ".";
+import { auth, firebase } from ".";
 import keys from "./keys";
 
 const loginWithGoogleAsync = async () => {
@@ -11,16 +11,14 @@ const loginWithGoogleAsync = async () => {
     });
 
     if (type === "success") {
-      await firebase
-        .auth()
-        .setPersistence(firebase.auth.Auth.Persistence.LOCAL); // 设置持久身份验证状态
+      await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL); // 设置持久身份验证状态
 
       const credential = firebase.auth.GoogleAuthProvider.credential(
         idToken,
         accessToken
       );
 
-      await firebase.auth().signInWithCredential(credential);
+      await auth.signInWithCredential(credential);
     } else {
       return { cancelled: true };
     }

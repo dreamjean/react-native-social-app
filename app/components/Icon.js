@@ -3,6 +3,8 @@ import React from "react";
 import { Pressable } from "react-native";
 import styled from "styled-components";
 
+import { colors } from "../config";
+
 const Icon = ({
   backgroundColor,
   color = "white",
@@ -16,15 +18,20 @@ const Icon = ({
 }) => {
   return (
     <Pressable
-      style={[
-        ({ pressed }) => ({
+      style={({ pressed }) => [
+        {
           opacity: pressed ? 0.5 : 1,
-        }),
+          backgroundColor: pressed ? colors.green : backgroundColor,
+          borderRadius: size / 2,
+          width: size,
+          height: size,
+          margin,
+        },
         style,
       ]}
       {...{ onPress }}
     >
-      <Container {...{ size, backgroundColor, margin }}>
+      <Container {...{ size }}>
         <IconComponent name={name} color={color} size={size * iconRatio} />
       </Container>
     </Pressable>
@@ -34,13 +41,12 @@ const Icon = ({
 const Container = styled.View`
   justify-content: center;
   align-items: center;
+  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.25);
 
-  ${({ size, backgroundColor, margin }) => ({
+  ${({ size }) => ({
     width: size,
     height: size,
     borderRadius: size / 2,
-    backgroundColor,
-    margin,
   })}
 `;
 

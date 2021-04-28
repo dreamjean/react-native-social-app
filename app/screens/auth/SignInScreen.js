@@ -10,7 +10,7 @@ import {
   SubmitButton,
 } from "../../components/form";
 import { colors, images } from "../../config";
-import { firebase } from "../../firebase";
+import { auth } from "../../firebase";
 import loginWithFacebookAsync from "../../firebase/loginWithFacebook";
 import loginWithGoogleAsync from "../../firebase/loginWithGoogle";
 import routes from "../../navigation/routes";
@@ -35,10 +35,7 @@ const SignInScreen = ({ navigation }) => {
   const handleSubmit = async ({ email, password }) => {
     Keyboard.dismiss();
 
-    await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-
-    await firebase
-      .auth()
+    await auth
       .signInWithEmailAndPassword(email, password)
       .catch(function (error) {
         setError(error.message);

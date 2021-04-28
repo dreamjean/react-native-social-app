@@ -17,9 +17,8 @@ function DraftModal({ visible, onSave, onUnsave, onCloseModal }) {
         <CancleBox>
           <Button
             title="cancle"
-            backgroundColor="transparent"
+            borderColor={colors.transparent}
             color={colors.blue}
-            margin={4}
             onPress={onCloseModal}
           />
         </CancleBox>
@@ -36,7 +35,7 @@ const Container = styled.View`
   justify-content: flex-end;
 
   ${({ theme: { colors, radii } }) => ({
-    backgroundColor: colors.light,
+    backgroundColor: colors.white,
     borderTopLeftRadius: radii.m2,
     borderTopRightRadius: radii.m2,
   })}
@@ -48,12 +47,13 @@ const Box = styled.View`
   align-items: center;
 
   ${({ theme: { space } }) => ({
-    padding: space.m3,
+    margin: space.m2,
+    marginBottom: 0,
   })}
 `;
 
 const CancleBox = styled.View`
-  justify-content: center;
+  align-items: center;
 `;
 
 export default DraftModal;

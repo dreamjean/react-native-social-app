@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const NotificationScreen = () => {
+const EditProfileScreen = () => {
   return (
     <Container>
       <Text>Notification screen</Text>
@@ -12,4 +12,4 @@ const NotificationScreen = () => {
 const Container = styled.View``;
 const Text = styled.Text``;
 
-export default NotificationScreen;
+export default EditProfileScreen;

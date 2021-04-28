@@ -16,7 +16,7 @@ import {
   SubmitButton,
 } from "../../components/form";
 import { colors } from "../../config";
-import { db, firebase } from "../../firebase";
+import { auth, db } from "../../firebase";
 import loginWithFacebookAsync from "../../firebase/loginWithFacebook";
 import loginWithGoogleAsync from "../../firebase/loginWithGoogle";
 import routes from "../../navigation/routes";
@@ -46,16 +46,15 @@ const SignUpScreen = ({ navigation }) => {
     setLoading(true);
 
     try {
-      await firebase
-        .auth()
-        .createUserWithEmailAndPassword(userInfo.email, userInfo.password);
-
-      const { uid } = firebase.auth().currentUser;
-
-      db.collection("users").doc(uid).set({
-        name: userInfo.name,
-        email: userInfo.email,
-      });
+      await auth
+        .createUserWithEmailAndPassword(userInfo.email, userInfo.password)
+        .then((result) => {
+          db.collection("users").doc(auth.currentUser.uid).set({
+            name: userInfo.name,
+            email: userInfo.email,
+          });
+          console.log(result);
+        });
     } catch (error) {
       setError(error.message);
     }

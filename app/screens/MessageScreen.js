@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 import styled from "styled-components";
 
 import { UserInfo } from "../components";
@@ -52,19 +52,27 @@ const messages = [
 const MessageScreen = ({ navigation }) => {
   return (
     <Container>
+      <Header>
+        <Text title2>Message</Text>
+      </Header>
       <FlatList
         data={messages}
         keyExtractor={(message) => message.id.toString()}
+        contentContainerStyle={{ paddingTop: 6 }}
         renderItem={({ item }) => (
           <UserInfo
             avatar={item.userImg}
             name={item.userName}
             caption={item.messageText}
-            rightTopComponent={<Text tiny>{item.messageTime}</Text>}
+            rightTopComponent={
+              <Text tiny style={{ textTransform: "none" }}>
+                {item.messageTime}
+              </Text>
+            }
             onMessage={() => navigation.navigate(routes.CHAT, item)}
           />
         )}
-        ItemSeparatorComponent={() => <View separator width="84%" />}
+        ItemSeparatorComponent={() => <View separator width="83%" />}
       />
     </Container>
   );
@@ -72,6 +80,18 @@ const MessageScreen = ({ navigation }) => {
 
 const Container = styled.View`
   flex: 1;
+`;
+
+const Header = styled.View`
+  align-items: center;
+  border-bottom-width: ${StyleSheet.hairlineWidth}px;
+
+  ${({ theme: { colors, space } }) => ({
+    backgroundColor: colors.white,
+    borderColor: colors.grey,
+    paddingTop: space.m3,
+    paddingBottom: space.s2,
+  })}
 `;
 
 export default MessageScreen;

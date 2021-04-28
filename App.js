@@ -6,7 +6,7 @@ import { LogBox, Platform } from "react-native";
 
 import AuthContext from "./app/auth/authContext";
 import { Theme } from "./app/components";
-import { firebase } from "./app/firebase";
+import { auth } from "./app/firebase";
 import useLoadAssets from "./app/hooks/useLoadAssets";
 import AppNavigator from "./app/navigation/AppNavigator";
 import AuthNavigator from "./app/navigation/AuthNavigator";
@@ -19,7 +19,7 @@ if (!global.atob) {
 }
 
 if (Platform.OS === "android") {
-  LogBox.ignoreLogs([""]); //android登錄時會有長時間計時器的黃色警告
+  LogBox.ignoreLogs(["Setting a timer for a long period of time"]); //android登錄時會有長時間計時器的黃色警告
 }
 
 export default function App() {
@@ -28,7 +28,7 @@ export default function App() {
   const [initializing, setInitalizing] = useState(true);
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged(onAuthStateChanged);
+    auth.onAuthStateChanged(onAuthStateChanged);
   }, []);
 
   const onAuthStateChanged = (userExist) => {
