@@ -14,9 +14,9 @@ const ImageInputList = ({ images = [], onRemoveImage }) => {
         onContentSizeChange={() => scrollView.current.scrollToEnd()}
         showsHorizontalScrollIndicator={false}
       >
-        {images.map(({ uri, id }) => (
+        {images.map(({ uri }) => (
           <ImageInput
-            key={id}
+            key={uri}
             imageUri={uri}
             onRemoveImage={() => onRemoveImage(uri)}
           />

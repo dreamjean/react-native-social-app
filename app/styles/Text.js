@@ -47,8 +47,9 @@ const descriptionStyle = css`
 const statNumStyle = css`
   ${({ theme: { size, fonts, colors } }) => ({
     fontSize: size.m2,
-    fontFamily: fonts[4],
-    color: colors.text2,
+    fontFamily: fonts[1],
+    color: colors.grey2,
+    opacity: 0.9,
   })}
 `;
 
@@ -79,11 +80,11 @@ const dangerStyle = css`
 `;
 
 const smallStyle = css`
-  ${({ theme: { colors, size, fonts } }) => ({
+  ${({ upper, theme: { colors, size, fonts } }) => ({
     fontSize: size.s2,
     fontFamily: fonts[4],
     color: colors.text2,
-    textTransform: "uppercase",
+    textTransform: upper ? "uppercase" : "none",
   })}
 `;
 

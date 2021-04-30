@@ -9,6 +9,7 @@ import {
   EditProfileScreen,
   MediaSelectionScreen,
   PostScreen,
+  ProfileScreen,
 } from "../screens";
 import MainNavigator from "./MainNavigator";
 
@@ -39,6 +40,14 @@ const AppNavigator = () => (
         headerBackTitleVisible: false,
         headerStatusBarHeight: undefined,
         ...TransitionPresets.SlideFromRightIOS,
+      }}
+    />
+    <Stack.Screen
+      name="UserProfile"
+      component={ProfileScreen}
+      options={{
+        headerShown: false,
+        ...TransitionPresets.ModalSlideFromBottomIOS,
       }}
     />
     <Stack.Screen

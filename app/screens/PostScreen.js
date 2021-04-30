@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
+import { Camera } from "expo-camera";
+import * as ImagePicker from "expo-image-picker";
+import React, { useCallback, useEffect, useState } from "react";
 import { Alert } from "react-native";
+import KeyboardSpacer from "react-native-keyboard-spacer";
 import styled from "styled-components";
 
 import { Button, DraftModal, Icon, ImageInputList } from "../components";
-import { colors, constants, images } from "../config";
+import { colors, images } from "../config";
 import { db, firebase } from "../firebase";
 import { Image } from "../styles";
-
-const { KEYBOARD_HEIGHT } = constants;
 
 const PostScreen = ({ navigation, route }) => {
   const data = route?.params?.data;
@@ -16,10 +17,21 @@ const PostScreen = ({ navigation, route }) => {
   const [selectedImages, setSelectedImages] = useState(initialImages);
   // const [docRefId, setDocRefId] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const [hasCameraPermission, setHasCameraPermission] = useState(false);
 
   useEffect(() => {
-    if (data) setSelectedImages(data);
+    if (data) setSelectedImages((prev) => [...data, ...prev]);
   }, [data]);
+
+  useEffect(() => {
+    requestCameraPermission();
+  }, [hasCameraPermission]);
+
+  const requestCameraPermission = useCallback(async () => {
+    const { status } = await Camera.requestPermissionsAsync();
+
+    setHasCameraPermission(status === "granted");
+  }, []);
 
   const resetPost = () => {
     setPostText("");
@@ -29,6 +41,22 @@ const PostScreen = ({ navigation, route }) => {
   const cancelPost = () => {
     if (postText === "" && selectedImages.length === 0) navigation.goBack();
     else setModalVisible(true);
+  };
+
+  const takePhotoFromCamera = async () => {
+    try {
+      const result = await ImagePicker.launchCameraAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 0.5,
+      });
+
+      if (!result.cancelled && result.uri)
+        setSelectedImages((prev) => [{ uri: result.uri }, ...prev]);
+    } catch (error) {
+      console.log("Error @pickImage", error);
+    }
   };
 
   const handleSubmit = async () => {
@@ -83,31 +111,41 @@ const PostScreen = ({ navigation, route }) => {
           onPress={handleSubmit}
         />
       </Header>
-
-      <InputWrapper>
-        <Image avatar source={images[4]} />
-        <Input
-          // eslint-disable-next-line jsx-a11y/no-autofocus
-          autoFocus
-          dataDetectorTypes="link"
-          importantForAutofill="auto"
-          multiline
-          maxLength={200}
-          numberOfLines={4}
-          onChangeText={(text) => setPostText(text)}
-          placeholder="Want to share something..."
-          textAlign="left"
-          values={postText}
-        />
-      </InputWrapper>
       <Wrapper>
-        <ImageInputList
-          images={selectedImages}
-          onRemoveImage={(uri) =>
-            setSelectedImages(selectedImages.filter((img) => img.uri !== uri))
-          }
-        />
+        <InputWrapper>
+          <Image avatar source={images[4]} />
+          <Input
+            // eslint-disable-next-line jsx-a11y/no-autofocus
+            autoFocus
+            dataDetectorTypes="link"
+            importantForAutofill="auto"
+            multiline
+            maxLength={200}
+            numberOfLines={4}
+            onChangeText={(text) => setPostText(text)}
+            placeholder="Want to share something..."
+            textAlign="left"
+            values={postText}
+          />
+        </InputWrapper>
+        <>
+          <ImageInputList
+            images={selectedImages}
+            onRemoveImage={(uri) =>
+              setSelectedImages(selectedImages.filter((img) => img.uri !== uri))
+            }
+          />
+          <Toolbar>
+            <Icon
+              name="camera-outline"
+              size={40}
+              color={colors.blue}
+              onPress={takePhotoFromCamera}
+            />
+          </Toolbar>
+        </>
       </Wrapper>
+      <KeyboardSpacer />
       <DraftModal
         visible={modalVisible}
         onSave={() => {
@@ -141,6 +179,11 @@ const Header = styled.View`
   })}
 `;
 
+const Wrapper = styled.View`
+  flex: 1;
+  justify-content: space-between;
+`;
+
 const InputWrapper = styled.View`
   flex: 1;
   flex-direction: row;
@@ -166,10 +209,14 @@ const Input = styled.TextInput`
   })}
 `;
 
-const Wrapper = styled.View`
-  position: absolute;
-  bottom: ${KEYBOARD_HEIGHT}px;
-  left: 20px;
+const Toolbar = styled.View`
+  flex-direction: row;
+  align-items: center;
+
+  ${({ theme: { colors, space } }) => ({
+    backgroundColor: colors.white,
+    padding: space.s1,
+  })}
 `;
 
 export default PostScreen;

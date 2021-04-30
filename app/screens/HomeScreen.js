@@ -95,6 +95,9 @@ const HomeScreen = ({ navigation }) => {
               likes={item.likes}
               comments={item.comments}
               isLike={item.liked}
+              onPersonalPage={() =>
+                navigation.navigate(routes.USER_PROFILE, item)
+              }
               onLike={() => true}
               onShare={() => true}
               onComment={() => true}

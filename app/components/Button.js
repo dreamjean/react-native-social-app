@@ -1,5 +1,5 @@
 import React from "react";
-import { RectButton } from "react-native-gesture-handler";
+import { Pressable } from "react-native";
 import styled from "styled-components";
 
 import { colors, constants } from "../config";
@@ -9,7 +9,7 @@ const { ROW_HEIGHT } = constants;
 
 const Button = ({
   bgColor = colors.transparent,
-  borderColor = colors.blue,
+  borderColor,
   color = colors.blue,
   title,
   margin,
@@ -17,36 +17,38 @@ const Button = ({
   onPress,
 }) => {
   return (
-    <Touchable {...{ margin, onPress }}>
+    <Pressable
+      {...{ onPress }}
+      style={({ pressed }) => ({
+        borderRadius: 5,
+        opacity: pressed ? 0.5 : 1,
+        overflow: "hidden",
+        height: ROW_HEIGHT,
+        marginTop: 10,
+        margin,
+        justifyContent: "center",
+        alignItems: "center",
+      })}
+    >
       <Container {...{ bgColor, borderColor, width }}>
         <Text button1 {...{ color }}>
           {title}
         </Text>
       </Container>
-    </Touchable>
+    </Pressable>
   );
 };
-
-const Touchable = styled(RectButton)`
-  height: ${ROW_HEIGHT}px;
-  overflow: hidden;
-
-  ${({ margin, theme: { space, radii } }) => ({
-    borderRadius: radii.s1,
-    marginTop: space.s2,
-    margin,
-  })}
-`;
 
 const Container = styled.View`
   align-items: center;
   justify-content: center;
-  height: 100%;
 
-  ${({ bgColor, borderColor, width }) => ({
+  ${({ bgColor, borderColor, width, theme: { radii } }) => ({
     backgroundColor: bgColor,
     borderColor,
+    borderRadius: radii.s1,
     borderWidth: borderColor ? 2 : 0,
+    height: borderColor ? "85%" : "100%",
     width,
   })}
 `;

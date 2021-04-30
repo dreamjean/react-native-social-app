@@ -25,19 +25,17 @@ if (Platform.OS === "android") {
 export default function App() {
   const { assetsLoaded, setAssetsLoaded, loadAssetsAsync } = useLoadAssets();
   const [user, setUser] = useState();
-  const [initializing, setInitalizing] = useState(true);
+  const [initializing, setInitializing] = useState(true);
 
   useEffect(() => {
-    auth.onAuthStateChanged(onAuthStateChanged);
+    const subscriber = auth.onAuthStateChanged(onAuthStateChanged);
+    return subscriber;
   }, []);
 
   const onAuthStateChanged = (userExist) => {
-    if (userExist) {
-      setUser(userExist);
-      setInitalizing(false);
-    } else {
-      setInitalizing(false);
-    }
+    if (userExist) setUser(userExist);
+
+    if (initializing) setInitializing(false);
   };
 
   if (!assetsLoaded || initializing) {

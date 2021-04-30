@@ -46,15 +46,18 @@ const SignUpScreen = ({ navigation }) => {
     setLoading(true);
 
     try {
-      await auth
-        .createUserWithEmailAndPassword(userInfo.email, userInfo.password)
-        .then((result) => {
-          db.collection("users").doc(auth.currentUser.uid).set({
-            name: userInfo.name,
-            email: userInfo.email,
-          });
-          console.log(result);
-        });
+      const result = await auth.createUserWithEmailAndPassword(
+        userInfo.email,
+        userInfo.password
+      );
+
+      await db.collection("users").doc(result.user.uid).set({
+        email: userInfo.email,
+        firstName: "",
+        lastName: "",
+        createdAt: new Date(),
+        userImg: null,
+      });
     } catch (error) {
       setError(error.message);
     }
@@ -62,7 +65,7 @@ const SignUpScreen = ({ navigation }) => {
     setLoading(false);
   };
 
-  if (loading) return <ActivityIndicator />;
+  if (loading) return <ActivityIndicator visible={loading} />;
 
   return (
     <Container small title="Create an account">

@@ -6,4 +6,5 @@ export default Object.freeze({
   SIGNIN: "SignIn",
   SIGNUP: "SignUp",
   POST: "Post",
+  USER_PROFILE: "UserProfile",
 });

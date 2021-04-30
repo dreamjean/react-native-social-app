@@ -2,7 +2,9 @@ import LottieView from "lottie-react-native";
 import React from "react";
 import styled from "styled-components";
 
-const ActivityIndicator = () => {
+const ActivityIndicator = ({ visible = false }) => {
+  if (!visible) return null;
+
   return (
     <Container>
       <LottieView
@@ -16,6 +18,7 @@ const ActivityIndicator = () => {
 
 const Container = styled.View`
   flex: 1;
+  opacity: 0.7;
 
   ${({ theme: { colors } }) => ({
     backgroundColor: colors.white,

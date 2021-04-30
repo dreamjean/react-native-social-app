@@ -62,8 +62,8 @@ const Container = styled.View`
   ${({ theme: { colors, space, radii } }) => ({
     borderRadius: radii.s2,
     background: colors.light,
-    marginVertical: space.s3,
-    marginRight: space.s2,
+    marginBottom: space.s2,
+    marginLeft: space.s3,
   })}
 `;
 
