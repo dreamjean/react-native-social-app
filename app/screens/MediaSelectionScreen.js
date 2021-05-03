@@ -11,7 +11,6 @@ const { colors, fonts, size, radii } = theme;
 const MediaSelectionScreen = ({ navigation }) => {
   const onDone = (data) => {
     navigation.navigate(routes.POST, { data });
-    console.log(data);
   };
 
   return (

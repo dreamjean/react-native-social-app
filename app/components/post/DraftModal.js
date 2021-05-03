@@ -10,9 +10,21 @@ function DraftModal({ visible, onSave, onUnsave, onCloseModal }) {
     <Modal {...{ visible }} animationType="slide" transparent>
       <Container>
         <Box>
-          <Button title="Save" width={120} onPress={onSave} />
+          <Button
+            title="Save"
+            bgColor={colors.blue}
+            color={colors.white}
+            width={126}
+            onPress={onSave}
+          />
 
-          <Button title="Unsave" width={120} onPress={onUnsave} />
+          <Button
+            title="Don't save"
+            bgColor={colors.blue}
+            color={colors.white}
+            width={126}
+            onPress={onUnsave}
+          />
         </Box>
         <CancleBox>
           <Button
@@ -35,7 +47,7 @@ const Container = styled.View`
   justify-content: flex-end;
 
   ${({ theme: { colors, radii } }) => ({
-    backgroundColor: colors.white,
+    backgroundColor: colors.green,
     borderTopLeftRadius: radii.m2,
     borderTopRightRadius: radii.m2,
   })}

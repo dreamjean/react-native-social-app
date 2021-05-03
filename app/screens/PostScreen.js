@@ -1,26 +1,38 @@
+import { Feather } from "@expo/vector-icons";
 import { Camera } from "expo-camera";
 import * as ImagePicker from "expo-image-picker";
-import React, { useCallback, useEffect, useState } from "react";
-import { Alert } from "react-native";
+import React, { useCallback, useContext, useEffect, useState } from "react";
+import { Platform } from "react-native";
 import KeyboardSpacer from "react-native-keyboard-spacer";
 import styled from "styled-components";
 
-import { Button, DraftModal, Icon, ImageInputList } from "../components";
-import { colors, images } from "../config";
-import { db, firebase } from "../firebase";
+import AuthContext from "../auth/authContext";
+import {
+  Button,
+  DraftModal,
+  Icon,
+  ImageInputList,
+  UploadModal,
+} from "../components";
+import { colors } from "../config";
+import { auth, db, firebase } from "../firebase";
+import routes from "../navigation/routes";
 import { Image } from "../styles";
 
 const PostScreen = ({ navigation, route }) => {
   const data = route?.params?.data;
   const initialImages = data ? data : [];
-  const [postText, setPostText] = useState("");
-  const [selectedImages, setSelectedImages] = useState(initialImages);
-  // const [docRefId, setDocRefId] = useState(null);
+  const [caption, setCaption] = useState("");
+  const [images, setImages] = useState(initialImages);
   const [modalVisible, setModalVisible] = useState(false);
   const [hasCameraPermission, setHasCameraPermission] = useState(false);
+  const [uploadVisible, setUploadVisible] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [uploadState, SetUploadState] = useState("uploading");
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    if (data) setSelectedImages((prev) => [...data, ...prev]);
+    if (data) setImages(data);
   }, [data]);
 
   useEffect(() => {
@@ -34,13 +46,14 @@ const PostScreen = ({ navigation, route }) => {
   }, []);
 
   const resetPost = () => {
-    setPostText("");
-    setSelectedImages([]);
+    setCaption("");
+    setImages([]);
   };
 
   const cancelPost = () => {
-    if (postText === "" && selectedImages.length === 0) navigation.goBack();
-    else setModalVisible(true);
+    if (caption === "" && images.length === 0) return navigation.goBack();
+
+    setModalVisible(true);
   };
 
   const takePhotoFromCamera = async () => {
@@ -52,38 +65,82 @@ const PostScreen = ({ navigation, route }) => {
         quality: 0.5,
       });
 
-      if (!result.cancelled && result.uri)
-        setSelectedImages((prev) => [{ uri: result.uri }, ...prev]);
+      if (!result.cancelled) {
+        const image = { uri: result.uri };
+
+        if (images.length === 4) {
+          images.pop();
+          setImages([image, ...images]);
+        } else {
+          setImages((prev) => [image, ...prev]);
+        }
+      }
     } catch (error) {
       console.log("Error @pickImage", error);
     }
   };
 
-  const handleSubmit = async () => {
-    if (!postText || !selectedImages.length) {
-      alert("There is nothing to post.");
-      return;
-    }
+  const uploadImages = async () => {
+    if (!images.length) return savePost([]);
+
+    const imagesBlob = [];
+    setUploadVisible(true);
+    setProgress(0);
 
     try {
-      const { uid } = firebase.auth().currentUser;
+      await Promise.all(
+        images.map(async (image, index) => {
+          const { uid } = auth.currentUser;
+          const childPath = `post/${uid}/${Math.random().toString(36)}`;
 
-      db.collection("tweets")
+          const response = await fetch(image.uri);
+          const blob = await response.blob();
+
+          const task = firebase.storage().ref().child(childPath).put(blob);
+
+          const taskProgress = (snapshot) => {
+            const progress = Math.round(
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            );
+            setProgress(progress / 100);
+          };
+
+          const taskError = (error) => console.log(error);
+
+          const taskCompleted = () => {
+            task.snapshot.ref.getDownloadURL().then((url) => {
+              imagesBlob.push({ uri: url });
+              // setUploadVisible(false);
+              if (index === images.length - 1) {
+                SetUploadState("done");
+                savePost(imagesBlob);
+              }
+            });
+          };
+
+          task.on("state_changed", taskProgress, taskError, taskCompleted);
+        })
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const savePost = async (imagesBlob) => {
+    if (!imagesBlob) setUploadVisible(true);
+    try {
+      db.collection("posts")
         .add({
-          userId: uid,
-          text: postText,
-          images: [...selectedImages],
-          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          userId: user.uid,
+          caption,
+          images: imagesBlob ? [...imagesBlob] : null,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
           likes: null,
           comments: null,
         })
         .then(() => {
-          // setDocRefId(docRef.id);
-
-          Alert.alert(
-            "Post published!",
-            "Your post has been published Successfully!"
-          );
+          setUploadVisible(false);
+          resetPost();
 
           navigation.navigate("Home");
         });
@@ -94,6 +151,12 @@ const PostScreen = ({ navigation, route }) => {
 
   return (
     <Container>
+      <UploadModal
+        visible={uploadVisible}
+        progress={progress}
+        onDone={() => setUploadVisible(false)}
+        uploadState={uploadState}
+      />
       <Header>
         <Icon
           name="close-outline"
@@ -105,15 +168,16 @@ const PostScreen = ({ navigation, route }) => {
         />
         <Button
           title="Post"
-          color={colors.blue}
+          color={caption === "" && !images.length ? colors.medium : colors.blue}
           borderColor={colors.transparent}
+          disabled={caption === "" && !images.length}
           width={80}
-          onPress={handleSubmit}
+          onPress={uploadImages}
         />
       </Header>
       <Wrapper>
         <InputWrapper>
-          <Image avatar source={images[4]} />
+          <Image avatar source={{ uri: user.userImg }} />
           <Input
             // eslint-disable-next-line jsx-a11y/no-autofocus
             autoFocus
@@ -122,30 +186,38 @@ const PostScreen = ({ navigation, route }) => {
             multiline
             maxLength={200}
             numberOfLines={4}
-            onChangeText={(text) => setPostText(text)}
+            onChangeText={(text) => setCaption(text)}
             placeholder="Want to share something..."
             textAlign="left"
-            values={postText}
+            values={caption}
           />
         </InputWrapper>
         <>
           <ImageInputList
-            images={selectedImages}
+            images={images}
             onRemoveImage={(uri) =>
-              setSelectedImages(selectedImages.filter((img) => img.uri !== uri))
+              setImages(images.filter((img) => img.uri !== uri))
             }
           />
           <Toolbar>
             <Icon
-              name="camera-outline"
+              name="camera"
               size={40}
               color={colors.blue}
+              IconComponent={Feather}
               onPress={takePhotoFromCamera}
+            />
+            <Icon
+              name="image"
+              size={40}
+              color={colors.blue}
+              IconComponent={Feather}
+              onPress={() => navigation.navigate(routes.MEDIA_SELECTION)}
             />
           </Toolbar>
         </>
       </Wrapper>
-      <KeyboardSpacer />
+      {Platform.OS === "ios" && <KeyboardSpacer />}
       <DraftModal
         visible={modalVisible}
         onSave={() => {
@@ -195,7 +267,6 @@ const InputWrapper = styled.View`
 
 const Input = styled.TextInput`
   flex: 1;
-  line-height: 26px;
   align-self: flex-start;
   padding: 0;
 

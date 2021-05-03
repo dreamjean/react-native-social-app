@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { colors } from "../../config";
 import routes from "../../navigation/routes";
 import { Image } from "../../styles";
+import Icon from "../Icon";
 
 const ImageInput = ({ imageUri, onRemoveImage }) => {
   const navigation = useNavigation();
@@ -16,21 +17,17 @@ const ImageInput = ({ imageUri, onRemoveImage }) => {
       {imageUri && (
         <>
           <Image resizeMode="contain" source={{ uri: imageUri }} />
-          <Pressable
-            style={({ pressed }) => ({
-              opacity: pressed ? 0.5 : 1,
-              position: "absolute",
-              top: 6,
-              right: 6,
-            })}
+          <Icon
             onPress={onRemoveImage}
-          >
-            <MaterialCommunityIcons
-              name="close-circle"
-              size={22}
-              color={colors.medium}
-            />
-          </Pressable>
+            name="close"
+            size={22}
+            backgroundColor={colors.lightBlue2}
+            style={{
+              position: "absolute",
+              top: 5,
+              right: 5,
+            }}
+          />
         </>
       )}
       {!imageUri && (

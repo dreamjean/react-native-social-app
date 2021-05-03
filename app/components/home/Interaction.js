@@ -14,7 +14,7 @@ const Interaction = ({ active = false, icon, number, onPress }) => {
     >
       <Container>
         <Ionicons
-          style={{ marginRight: 5 }}
+          style={{ marginRight: 8 }}
           name={icon}
           size={22}
           color={active ? colors.red : colors.text2}

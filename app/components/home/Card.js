@@ -24,7 +24,7 @@ const Card = ({
           {description}
         </Text>
         {image !== "none" && <Image card source={image} />}
-        {image === "none" && <Separator />}
+        {image === "none" && <Divider />}
         <InteractionWrapper>
           <Interaction icon="share-outline" onPress={onShare} />
           <Interaction
@@ -60,7 +60,7 @@ const Details = styled.View`
   })}
 `;
 
-const Separator = styled.View`
+const Divider = styled.View`
   height: 1px;
 
   ${({ theme: { colors, space } }) => ({

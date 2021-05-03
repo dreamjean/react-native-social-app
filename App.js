@@ -33,8 +33,9 @@ export default function App() {
   }, []);
 
   const onAuthStateChanged = (userExist) => {
-    if (userExist) setUser(userExist);
-
+    if (userExist) {
+      setUser(userExist);
+    }
     if (initializing) setInitializing(false);
   };
 

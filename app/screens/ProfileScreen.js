@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ScrollView } from "react-native";
 import styled from "styled-components";
 
@@ -12,24 +12,61 @@ import { Image, Text } from "../styles";
 
 const ProfileScreen = ({ route, navigation }) => {
   const { user, setUser } = useContext(AuthContext);
-  // const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState(null);
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchUserInfo();
   }, [user]);
 
-  // const fectchPosts = async () => {
-  //   const listings = [];
+  const fectchPosts = async () => {
+    try {
+      const listings = [];
 
-  //   await db
-  //     .collection("posts")
-  //     .where("userId", "===", route.params ? route.params.userId : user.uid)
-  //     .orderBy("postTime", "desc")
-  //     .get()
-  //     .then((queryShapshot) => {
-  //       console.log("Total Posts: ", queryShapshot);
-  //     });
-  // };
+      await db
+        .collection("posts")
+        .where("userId", "==", route.params ? route.params.userId : user.uid)
+        .orderBy("postTime", "desc")
+        .get()
+        .then((queryShapshot) => {
+          console.log("Total Posts: ", queryShapshot);
+
+          queryShapshot.forEach((doc) => {
+            const {
+              userId,
+              post,
+              postImg,
+              postTime,
+              likes,
+              comments,
+            } = doc.data();
+
+            listings.push({
+              id: doc.id,
+              userId,
+              userName: "Test Name",
+              userImg:
+                "https://lh5.googleusercontent.com/-b0PKyNuQv5s/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuclxAM4M1SCBGAO7Rp-QP6zgBEUkOQ/s96-c/photo.jpg",
+              postTime,
+              post,
+              postImg,
+              liked: false,
+              likes,
+              comments,
+            });
+          });
+        });
+
+      setPosts(listings);
+
+      if (loading) setLoading(false);
+
+      console.log("Posts: ", posts);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const fetchUserInfo = async () => {
     await db

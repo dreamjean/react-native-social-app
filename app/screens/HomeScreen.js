@@ -1,10 +1,11 @@
 import Constants from "expo-constants";
-import React from "react";
+import React, { useEffect } from "react";
 import { FlatList, StatusBar, StyleSheet } from "react-native";
 import styled from "styled-components";
 
 import { Card, Icon } from "../components";
 import { colors, images } from "../config";
+import { db } from "../firebase";
 import routes from "../navigation/routes";
 import { Text } from "../styles";
 
@@ -72,6 +73,28 @@ const listings = [
 ];
 
 const HomeScreen = ({ navigation }) => {
+  // const [posts, setPosts] = useState(null);
+  // const [loading, setLoading] = useState(true);
+  // const [deleted, setDeleted] = useState(false);
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
+  const fetchPosts = async () => {
+    // const listings = [];
+
+    try {
+      db.collection("posts")
+        .get()
+        .then((queryShapshot) => {
+          console.log("total Posts: ", queryShapshot.size);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Container>
       <Header>

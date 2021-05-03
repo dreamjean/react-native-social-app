@@ -21,7 +21,7 @@ const ImageInputList = ({ images = [], onRemoveImage }) => {
             onRemoveImage={() => onRemoveImage(uri)}
           />
         ))}
-        <ImageInput />
+        {images.length !== 0 && <ImageInput />}
       </ScrollView>
     </Container>
   );
