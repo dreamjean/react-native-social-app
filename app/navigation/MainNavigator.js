@@ -41,9 +41,9 @@ const MainNavigator = () => (
       showLabel: false,
     }}
   >
+    <Tab.Screen name="Profile" component={ProfileScreen} />
     <Tab.Screen name="Home" component={HomeScreen} />
     <Tab.Screen name="Message" component={MessageScreen} />
-    <Tab.Screen name="Profile" component={ProfileScreen} />
   </Tab.Navigator>
 );
 

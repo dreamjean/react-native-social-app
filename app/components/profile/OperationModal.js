@@ -3,29 +3,29 @@ import { Modal } from "react-native";
 import styled from "styled-components";
 
 import { colors } from "../../config";
+import { Text } from "../../styles";
 import Button from "../Button";
+import Icon from "../Icon";
 
-function DraftModal({ visible, onSave, onUnsave, onCloseModal }) {
+function OperationModal({ visible, onDelete, onCloseModal }) {
   return (
     <Modal {...{ visible }} animationType="slide" transparent>
       <Container>
         <Box>
-          <Button
-            title="Save"
-            bgColor={colors.blue}
-            color={colors.white}
-            width={126}
-            onPress={onSave}
-          />
-
-          <Button
-            title="Don't save"
-            bgColor={colors.blue}
-            color={colors.white}
-            width={126}
-            onPress={onUnsave}
-          />
+          <Wrapper>
+            <Icon
+              name="trash-can-outline"
+              size={50}
+              backgroundColor={colors.light2}
+              color={colors.grey2}
+              onPress={onDelete}
+            />
+            <Text medium marginTop={5} style={{ color: colors.grey2 }}>
+              delete
+            </Text>
+          </Wrapper>
         </Box>
+        <Seperator />
         <CancleBox>
           <Button
             title="cancle"
@@ -41,7 +41,7 @@ function DraftModal({ visible, onSave, onUnsave, onCloseModal }) {
 
 const Container = styled.View`
   width: 100%;
-  height: 135px;
+  height: 180px;
   position: absolute;
   bottom: 0;
   justify-content: flex-end;
@@ -55,17 +55,36 @@ const Container = styled.View`
 
 const Box = styled.View`
   flex-direction: row;
-  justify-content: space-around;
   align-items: center;
 
   ${({ theme: { space } }) => ({
     margin: space.m2,
-    marginBottom: 0,
+  })}
+`;
+
+const Wrapper = styled.View`
+  align-items: center;
+  justify-content: center;
+
+  ${({ theme: { space } }) => ({
+    padding: space.s1,
+    marginRight: space.m1,
+  })}
+`;
+
+const Seperator = styled.View`
+  width: 100%;
+  height: 6px;
+
+  ${({ theme: { colors } }) => ({
+    backgroundColor: colors.grey,
   })}
 `;
 
 const CancleBox = styled.View`
   align-items: center;
+  justify-content: center;
+  height: 55px;
 `;
 
-export default DraftModal;
+export default OperationModal;

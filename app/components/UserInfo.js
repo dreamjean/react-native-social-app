@@ -6,8 +6,8 @@ import { Image, Text } from "../styles";
 
 const UserInfo = ({
   avatar,
-  name,
-  caption,
+  title,
+  subtitle,
   rightTopComponent,
   onMessage,
   onPersonalPage,
@@ -16,17 +16,17 @@ const UserInfo = ({
     <Pressable onPress={onMessage}>
       <Container>
         <Pressable onPress={onPersonalPage}>
-          <Image avatar source={avatar} />
+          <Image avatar source={{ uri: avatar }} />
         </Pressable>
         <TextBox>
           <Details>
             <Text title numberOfLines={1}>
-              {name}
+              {title}
             </Text>
             {rightTopComponent}
           </Details>
-          <Text medium numberOfLines={1} marginTop={6}>
-            {caption}
+          <Text medium numberOfLines={1} marginTop={4}>
+            {subtitle}
           </Text>
         </TextBox>
       </Container>

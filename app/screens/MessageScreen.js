@@ -62,8 +62,8 @@ const MessageScreen = ({ navigation }) => {
         renderItem={({ item }) => (
           <UserInfo
             avatar={item.userImg}
-            name={item.userName}
-            caption={item.messageText}
+            title={item.userName}
+            subtitle={item.messageText}
             rightTopComponent={
               <Text tiny style={{ textTransform: "none" }}>
                 {item.messageTime}

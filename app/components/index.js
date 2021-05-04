@@ -8,5 +8,7 @@ export { default as Icon } from "./Icon";
 export { default as DraftModal } from "./post/DraftModal";
 export { default as ImageInputList } from "./post/ImageInputList";
 export { default as UploadModal } from "./post/UploadModal";
+export { default as OperationModal } from "./profile/OperationModal";
+export { default as ProfileCard } from "./profile/ProfileCard";
 export { default as Theme } from "./Theme";
 export { default as UserInfo } from "./UserInfo";

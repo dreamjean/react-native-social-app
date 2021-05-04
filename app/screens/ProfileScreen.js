@@ -1,33 +1,43 @@
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 import { StatusBar } from "expo-status-bar";
 import React, { useContext, useEffect, useState } from "react";
-import { ScrollView } from "react-native";
+import { Alert, ScrollView } from "react-native";
 import styled from "styled-components";
 
 import AuthContext from "../auth/authContext";
-import { Button, Icon } from "../components";
+import { Button, Icon, OperationModal, ProfileCard } from "../components";
 import { colors, images } from "../config";
+import listings from "../data/listings";
 import { auth, db } from "../firebase";
 import routes from "../navigation/routes";
 import { Image, Text } from "../styles";
 
+dayjs.extend(relativeTime);
+
 const ProfileScreen = ({ route, navigation }) => {
   const { user, setUser } = useContext(AuthContext);
-  const [userData, setUserData] = useState(null);
-  const [posts, setPosts] = useState([]);
+  // const [currentUser, setCurrentUser] = useState(null);
+  const [userPosts, setUserPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     fetchUserInfo();
-  }, [user]);
+  }, []);
 
-  const fectchPosts = async () => {
+  useEffect(() => {
+    fetchUserPosts();
+  }, [userPosts]);
+
+  const fetchUserPosts = async () => {
     try {
       const listings = [];
 
       await db
         .collection("posts")
         .where("userId", "==", route.params ? route.params.userId : user.uid)
-        .orderBy("postTime", "desc")
+        .orderBy("createdAt", "desc")
         .get()
         .then((queryShapshot) => {
           console.log("Total Posts: ", queryShapshot);
@@ -35,9 +45,9 @@ const ProfileScreen = ({ route, navigation }) => {
           queryShapshot.forEach((doc) => {
             const {
               userId,
-              post,
-              postImg,
-              postTime,
+              caption,
+              images,
+              createdAt,
               likes,
               comments,
             } = doc.data();
@@ -48,21 +58,23 @@ const ProfileScreen = ({ route, navigation }) => {
               userName: "Test Name",
               userImg:
                 "https://lh5.googleusercontent.com/-b0PKyNuQv5s/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuclxAM4M1SCBGAO7Rp-QP6zgBEUkOQ/s96-c/photo.jpg",
-              postTime,
-              post,
-              postImg,
+              createdAt,
+              caption,
+              images,
               liked: false,
               likes,
               comments,
             });
+
+            setUserPosts(listings);
           });
         });
 
-      setPosts(listings);
+      setUserPosts(listings);
 
       if (loading) setLoading(false);
 
-      console.log("Posts: ", posts);
+      console.log("Posts: ", userPosts);
     } catch (error) {
       console.log(error);
     }
@@ -90,29 +102,54 @@ const ProfileScreen = ({ route, navigation }) => {
     }
   };
 
+  // const DeletePost = (postId) => {
+  //   db.collection("posts")
+  //     .doc(postId)
+  //     .get()
+  //     .then((snapshot) => {
+  //       if (snapshot.exists) {
+  //         console.log(snapshot.data());
+  //       }
+  //     });
+  // };
+
+  const handleDelete = () => {
+    Alert.alert("Delete", "Are you shore you want to delete this post?", [
+      { text: "Yes", onPress: () => {} },
+      { text: "No" },
+    ]);
+  };
+
   return (
-    <ScrollView
-      contentContainerStyle={{ flex: 1, padding: 20, justifyContent: "center" }}
-      showsVerticalScrollIndicator={false}
-    >
-      <HeaderContainer>
-        <Icon
-          name="close-octagon-outline"
-          size={50}
-          style={{ position: "absolute", top: 0, left: -12 }}
-          color={colors.text2}
-          onPress={() => navigation.goBack()}
-        />
-        <ProfilePhoto>
-          <Image avatar2 source={images[4]} />
-        </ProfilePhoto>
-        <Text title2 marginTop={16} opacity={0.8}>
-          Jenny Doe
-        </Text>
-        <Text small center marginTop={6}>
-          Lore ipsum dolor sit amet, consectetur adipiscing elit. Mauris a elit
-          nisl.
-        </Text>
+    <Container>
+      <ScrollView
+        contentContainerStyle={{
+          paddingVertical: 20,
+          justifyContent: "center",
+        }}
+        showsVerticalScrollIndicator={false}
+      >
+        <HeaderContainer>
+          {route?.params && (
+            <Icon
+              name="close-octagon-outline"
+              size={50}
+              style={{ position: "absolute", top: 0, left: 10 }}
+              color={colors.text2}
+              onPress={() => navigation.goBack()}
+            />
+          )}
+          <ProfilePhoto>
+            <Image avatar2 source={images[4]} />
+          </ProfilePhoto>
+          <Text title2 marginTop={16} opacity={0.8}>
+            Jenny Doe
+          </Text>
+          <Text small center marginTop={6}>
+            Lore ipsum dolor sit amet, consectetur adipiscing elit. Mauris a
+            elit nisl.
+          </Text>
+        </HeaderContainer>
         {route?.params ? (
           <ButtonsContainer>
             <Button
@@ -168,18 +205,41 @@ const ProfileScreen = ({ route, navigation }) => {
           </Box>
         </StatsContainer>
 
-        <StatusBar style="dark" />
-      </HeaderContainer>
-    </ScrollView>
+        {listings.map((listing) => (
+          <ProfileCard
+            key={listing.id}
+            createdAt={listing.createdAt}
+            caption={listing.caption}
+            images={listing.images}
+            showOperation={!route.params}
+            onModalOpen={() => setModalVisible(true)}
+            onPostDetails={() => {}}
+          />
+        ))}
+      </ScrollView>
+
+      <OperationModal
+        visible={modalVisible}
+        onDelete={handleDelete}
+        onCloseModal={() => setModalVisible(false)}
+      />
+
+      <StatusBar style="dark" />
+    </Container>
   );
 };
+
+const Container = styled.View`
+  flex: 1;
+`;
 
 const HeaderContainer = styled.View`
   align-items: center;
   flex: 1;
 
   ${({ theme: { space } }) => ({
-    paddingTop: space.m3,
+    paddingHorizontal: space.m3,
+    paddingTop: space.m1 + space.m3,
   })}
 `;
 

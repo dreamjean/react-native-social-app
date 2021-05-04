@@ -1,4 +1,5 @@
 import React from "react";
+import { RectButton } from "react-native-gesture-handler";
 import styled from "styled-components";
 
 import { Image, Text } from "../../styles";
@@ -6,40 +7,45 @@ import UserInfo from "../UserInfo";
 import Interaction from "./Interaction";
 
 const Card = ({
-  description,
-  image,
+  caption,
+  images,
   likes,
   comments,
   isLike,
   onShare,
   onComment,
   onLike,
+  onPostDetails,
   ...rest
 }) => {
   return (
     <Container>
       <UserInfo {...rest} />
-      <Details>
-        <Text description numberOfLines={4}>
-          {description}
-        </Text>
-        {image !== "none" && <Image card source={image} />}
-        {image === "none" && <Divider />}
-        <InteractionWrapper>
-          <Interaction icon="share-outline" onPress={onShare} />
-          <Interaction
-            icon="chatbubble-ellipses-outline"
-            number={comments}
-            onPress={onComment}
-          />
-          <Interaction
-            active={isLike}
-            icon={isLike ? "heart" : "heart-outline"}
-            number={likes}
-            onPress={onLike}
-          />
-        </InteractionWrapper>
-      </Details>
+      <RectButton onPress={onPostDetails}>
+        <Details>
+          <Text description numberOfLines={4}>
+            {caption}
+          </Text>
+          {!images.length && <Divider />}
+          {images.map(({ uri }) => (
+            <Image key={uri} card source={{ uri }} />
+          ))}
+          <InteractionWrapper>
+            <Interaction icon="share-outline" onPress={onShare} />
+            <Interaction
+              icon="chatbubble-ellipses-outline"
+              number={comments}
+              onPress={onComment}
+            />
+            <Interaction
+              active={isLike}
+              icon={isLike ? "heart" : "heart-outline"}
+              number={likes}
+              onPress={onLike}
+            />
+          </InteractionWrapper>
+        </Details>
+      </RectButton>
     </Container>
   );
 };

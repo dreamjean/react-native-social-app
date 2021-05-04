@@ -4,6 +4,7 @@ import {
 } from "@react-navigation/stack";
 import React from "react";
 
+import { colors } from "../config";
 import {
   ChatScreen,
   EditProfileScreen,
@@ -37,6 +38,13 @@ const AppNavigator = () => (
       name="EditProfile"
       component={EditProfileScreen}
       options={{
+        title: "Edit Profile",
+        headerTitleAlign: "center",
+        headerStyle: {
+          backgroundColor: colors.white,
+          shadowColor: colors.white,
+          elevation: 0,
+        },
         headerBackTitleVisible: false,
         headerStatusBarHeight: undefined,
         ...TransitionPresets.SlideFromRightIOS,

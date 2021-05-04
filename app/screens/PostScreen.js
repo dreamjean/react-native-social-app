@@ -81,7 +81,7 @@ const PostScreen = ({ navigation, route }) => {
   };
 
   const uploadImages = async () => {
-    if (!images.length) return savePost([]);
+    if (!images.length) savePost();
 
     const imagesBlob = [];
     setUploadVisible(true);

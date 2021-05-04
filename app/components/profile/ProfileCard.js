@@ -1,48 +1,63 @@
 import React from "react";
+import { RectButton } from "react-native-gesture-handler";
 import styled from "styled-components";
 
-// import { images } from "../../config";
+import { colors } from "../../config";
 import { Image, Text } from "../../styles";
-import { colors } from "../../styles";
 import Icon from "../Icon";
 
-const ProfileCard = ({ postTime, description, onPress, images }) => {
+const ProfileCard = ({
+  createdAt,
+  caption,
+  images,
+  onModalOpen,
+  onPostDetails,
+  showOperation = false,
+}) => {
   return (
     <Container>
       <PostTimeContainer>
-        <Text>{postTime}</Text>
-        <Icon
-          name="dots-vertical"
-          color={colors.text}
-          size={24}
-          {...{ onPress }}
-        />
+        <Text small>{createdAt}</Text>
+        {showOperation && (
+          <Icon
+            name="dots-vertical"
+            color={colors.text}
+            size={30}
+            onPress={onModalOpen}
+          />
+        )}
       </PostTimeContainer>
-      <Text description>{description}</Text>
-      <Images>
-        {images.map(({ uri }) => (
-          <Image key={uri} source={uri} />
-        ))}
-      </Images>
+      <RectButton onPress={onPostDetails}>
+        <TextWraper>
+          <Text description style={{ color: colors.grey2 }}>
+            {caption}
+          </Text>
+        </TextWraper>
+        {images && <Image card2 source={images} />}
+      </RectButton>
     </Container>
   );
 };
 
 const Container = styled.View`
-  flex: 1;
-  align-items: center;
-  justify-content: center;
+  ${({ theme: { space } }) => ({
+    padding: space.m1,
+    marginTop: space.s2,
+  })}
 `;
 
 const PostTimeContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 
   ${({ theme: { space } }) => ({
     paddingVertical: space.s2,
   })}
 `;
 
-const Images = styled.View``;
+const TextWraper = styled.View`
+  width: 100%;
+`;
 
 export default ProfileCard;

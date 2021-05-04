@@ -1,95 +1,66 @@
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 import Constants from "expo-constants";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FlatList, StatusBar, StyleSheet } from "react-native";
 import styled from "styled-components";
 
 import { Card, Icon } from "../components";
-import { colors, images } from "../config";
+import { colors } from "../config";
 import { db } from "../firebase";
 import routes from "../navigation/routes";
 import { Text } from "../styles";
 
-const listings = [
-  {
-    id: 1,
-    userName: "Jenny Doe",
-    userImg: images[6],
-    postTime: "4 mins ago",
-    post:
-      "Hey there, this is my test for a post of my social app in React Native.",
-    postImg: images[15],
-    liked: true,
-    likes: "14",
-    comments: "5",
-  },
-  {
-    id: 2,
-    userName: "John Doe",
-    userImg: images[4],
-    postTime: "2 hours ago",
-    post:
-      "Hey there, this is my test for a post of my social app in React Native.",
-    postImg: "none",
-    liked: false,
-    likes: "8",
-    comments: "0",
-  },
-  {
-    id: 3,
-    userName: "Ken William",
-    userImg: images[7],
-    postTime: "1 hours ago",
-    post:
-      "Hey there, this is my test for a post of my social app in React Native.",
-    postImg: images[14],
-    liked: true,
-    likes: "1",
-    comments: "0",
-  },
-  {
-    id: 4,
-    userName: "Selina Paul",
-    userImg: images[9],
-    postTime: "1 day ago",
-    post:
-      "Hey there, this is my test for a post of my social app in React Native.",
-    postImg: images[16],
-    liked: true,
-    likes: "22",
-    comments: "4",
-  },
-  {
-    id: 5,
-    userName: "Christy Alex",
-    userImg: images[10],
-    postTime: "2 days ago",
-    post:
-      "Hey there, this is my test for a post of my social app in React Native.",
-    postImg: "none",
-    liked: false,
-    likes: "0",
-    comments: "0",
-  },
-];
+dayjs.extend(relativeTime);
 
 const HomeScreen = ({ navigation }) => {
-  // const [posts, setPosts] = useState(null);
-  // const [loading, setLoading] = useState(true);
-  // const [deleted, setDeleted] = useState(false);
+  const [posts, setPosts] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchPosts();
-  }, []);
+  }, [posts]);
 
   const fetchPosts = async () => {
-    // const listings = [];
+    const listings = [];
 
     try {
-      db.collection("posts")
+      await db
+        .collection("posts")
+        .orderBy("createdAt", "desc")
         .get()
         .then((queryShapshot) => {
-          console.log("total Posts: ", queryShapshot.size);
+          queryShapshot.forEach((doc) => {
+            const {
+              userId,
+              caption,
+              images,
+              createdAt,
+              likes,
+              comments,
+            } = doc.data();
+
+            listings.push({
+              id: doc.id,
+              userId,
+              userName: "Test Name",
+              userImg:
+                "https://lh5.googleusercontent.com/-b0PKyNuQv5s/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuclxAM4M1SCBGAO7Rp-QP6zgBEUkOQ/s96-c/photo.jpg",
+              createdAt,
+              caption,
+              images,
+              liked: false,
+              likes,
+              comments,
+            });
+          });
         });
+
+      setPosts(listings);
+
+      if (loading) setLoading(false);
+
+      // console.log("listings: ", listings);
     } catch (error) {
       console.log(error);
     }
@@ -104,22 +75,24 @@ const HomeScreen = ({ navigation }) => {
       </Header>
       <Listings>
         <FlatList
-          data={listings}
+          data={posts}
           contentContainerStyle={{ paddingBottom: 18 }}
           keyExtractor={(listing) => listing.id.toString()}
           renderItem={({ item }) => (
             <Card
               key={item.id}
-              name={item.userName}
+              title={item.userName}
               avatar={item.userImg}
-              caption={item.postTime}
-              image={item.postImg}
-              description={item.post}
+              subtitle={dayjs(dayjs.unix(item.createdAt.seconds)).fromNow()}
+              images={item.images}
+              caption={item.caption}
               likes={item.likes}
               comments={item.comments}
               isLike={item.liked}
               onPersonalPage={() =>
-                navigation.navigate(routes.USER_PROFILE, item)
+                navigation.navigate(routes.USER_PROFILE, {
+                  userId: item.userId,
+                })
               }
               onLike={() => true}
               onShare={() => true}
@@ -127,6 +100,8 @@ const HomeScreen = ({ navigation }) => {
             />
           )}
           showsVerticalScrollIndicator={false}
+          onRefresh={fetchPosts}
+          refreshing={loading}
         />
       </Listings>
       <Icon
