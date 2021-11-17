@@ -1,102 +1,96 @@
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { StatusBar } from "expo-status-bar";
-import React, { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import { Alert, ScrollView } from "react-native";
-import styled from "styled-components";
+import styled from "styled-components/native";
 
-import AuthContext from "../auth/authContext";
+import { auth } from "../api";
+// import AuthContext from "../auth/authContext";
 import { Button, Icon, OperationModal, ProfileCard } from "../components";
 import { colors, images } from "../config";
 import listings from "../data/listings";
-import { auth, db } from "../firebase";
 import routes from "../navigation/routes";
 import { Image, Text } from "../styles";
 
 dayjs.extend(relativeTime);
 
 const ProfileScreen = ({ route, navigation }) => {
-  const { user, setUser } = useContext(AuthContext);
+  // const { user, setUser } = useContext(AuthContext);
   // const [currentUser, setCurrentUser] = useState(null);
-  const [userPosts, setUserPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // const [userPosts, setUserPosts] = useState([]);
+  // const [loading, setLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
 
-  useEffect(() => {
-    fetchUserInfo();
-  }, []);
+  // useEffect(() => {
+  //   fetchUserInfo();
+  // }, []);
 
-  useEffect(() => {
-    fetchUserPosts();
-  }, [userPosts]);
+  // useEffect(() => {
+  //   fetchUserPosts();
+  // }, [userPosts]);
 
-  const fetchUserPosts = async () => {
-    try {
-      const listings = [];
+  // const fetchUserPosts = async () => {
+  //   try {
+  //     const listings = [];
 
-      await db
-        .collection("posts")
-        .where("userId", "==", route.params ? route.params.userId : user.uid)
-        .orderBy("createdAt", "desc")
-        .get()
-        .then((queryShapshot) => {
-          console.log("Total Posts: ", queryShapshot);
+  //     await db
+  //       .collection("posts")
+  //       .where("userId", "==", route.params ? route.params.userId : user.uid)
+  //       .orderBy("createdAt", "desc")
+  //       .get()
+  //       .then((queryShapshot) => {
+  //         console.log("Total Posts: ", queryShapshot);
 
-          queryShapshot.forEach((doc) => {
-            const {
-              userId,
-              caption,
-              images,
-              createdAt,
-              likes,
-              comments,
-            } = doc.data();
+  //         queryShapshot.forEach((doc) => {
+  //           const { userId, caption, images, createdAt, likes, comments } =
+  //             doc.data();
 
-            listings.push({
-              id: doc.id,
-              userId,
-              userName: "Test Name",
-              userImg:
-                "https://lh5.googleusercontent.com/-b0PKyNuQv5s/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuclxAM4M1SCBGAO7Rp-QP6zgBEUkOQ/s96-c/photo.jpg",
-              createdAt,
-              caption,
-              images,
-              liked: false,
-              likes,
-              comments,
-            });
+  //           listings.push({
+  //             id: doc.id,
+  //             userId,
+  //             userName: "Test Name",
+  //             userImg:
+  //               "https://lh5.googleusercontent.com/-b0PKyNuQv5s/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuclxAM4M1SCBGAO7Rp-QP6zgBEUkOQ/s96-c/photo.jpg",
+  //             createdAt,
+  //             caption,
+  //             images,
+  //             liked: false,
+  //             likes,
+  //             comments,
+  //           });
 
-            setUserPosts(listings);
-          });
-        });
+  //           setUserPosts(listings);
+  //         });
+  //       });
 
-      setUserPosts(listings);
+  //     setUserPosts(listings);
 
-      if (loading) setLoading(false);
+  //     if (loading) setLoading(false);
 
-      console.log("Posts: ", userPosts);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     console.log("Posts: ", userPosts);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  const fetchUserInfo = async () => {
-    await db
-      .collection("users")
-      .doc(route?.params?.uid ? route?.params?.uid : user.uid)
-      .get()
-      .then((snapshot) => {
-        if (snapshot.exists) {
-          // console.log("User Data", snapshot.data());
-          setUser(snapshot.data());
-        }
-      });
-  };
+  // const fetchUserInfo = async () => {
+  //   await db
+  //     .collection("users")
+  //     .doc(route?.params?.uid ? route?.params?.uid : user.uid)
+  //     .get()
+  //     .then((snapshot) => {
+  //       if (snapshot.exists) {
+  //         // console.log("User Data", snapshot.data());
+  //         setUser(snapshot.data());
+  //       }
+  //     });
+  // };
 
   const handleLogout = async () => {
     try {
       await auth.signOut();
-      setUser(null);
+      // setUser(null);
     } catch (error) {
       console.log("Error Logout: ", error.message);
     }

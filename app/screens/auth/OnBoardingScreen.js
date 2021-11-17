@@ -1,8 +1,7 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
 import { Pressable } from "react-native";
 import Onboarding from "react-native-onboarding-swiper";
-import styled from "styled-components";
+import styled from "styled-components/native";
 
 import { images, theme } from "../../config";
 import routes from "../../navigation/routes";

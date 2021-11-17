@@ -1,22 +1,24 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Platform, Pressable } from "react-native";
-import styled from "styled-components";
+import styled from "styled-components/native";
 
-import { colors } from "../config";
-import { Image } from "../styles";
+import { colors } from "../../config";
+import { Image } from "../../styles";
+import PermissionModal from "./PermissionModal";
 
 const ImageInput = ({ image, onChangeImage }) => {
+  const [modalVisible, setModalVisible] = useState(false);
+
   useEffect(() => {
     requestPermission();
   }, []);
 
   const requestPermission = async () => {
     if (Platform.OS !== "web") {
-      const {
-        granted,
-      } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      const { granted } =
+        await ImagePicker.requestMediaLibraryPermissionsAsync();
 
       if (!granted)
         alert("You need to enable permission to access the library.");
@@ -36,6 +38,25 @@ const ImageInput = ({ image, onChangeImage }) => {
     } catch (error) {
       console.log("Error @pickImage", error);
     }
+
+    setModalVisible(false);
+  };
+
+  const takePhotoFromCamera = async () => {
+    try {
+      const result = await ImagePicker.launchCameraAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 0.5,
+      });
+
+      if (!result.cancelled) onChangeImage(result.uri);
+    } catch (error) {
+      console.log("Error @pickImage", error);
+    }
+
+    setModalVisible(false);
   };
 
   return (
@@ -45,18 +66,23 @@ const ImageInput = ({ image, onChangeImage }) => {
         alignItems: "center",
         justifyContent: "center",
       })}
-      onPress={selectImage}
+      onPress={() => setModalVisible(true)}
     >
       <Container>
         {image && <Image source={{ uri: image }} />}
-
         <MaterialCommunityIcons
           name="camera-plus-outline"
-          size={40}
-          color={colors.white}
+          size={50}
+          color={colors.lightWhite2}
           style={{ position: "absolute" }}
         />
       </Container>
+      <PermissionModal
+        visible={modalVisible}
+        onCloseModal={() => setModalVisible(false)}
+        onCameraRollPermission={selectImage}
+        onCameraPermission={takePhotoFromCamera}
+      />
     </Pressable>
   );
 };

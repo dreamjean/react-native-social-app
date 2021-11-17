@@ -1,11 +1,12 @@
 import { Feather } from "@expo/vector-icons";
 import { Camera } from "expo-camera";
 import * as ImagePicker from "expo-image-picker";
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { Platform } from "react-native";
 import KeyboardSpacer from "react-native-keyboard-spacer";
-import styled from "styled-components";
+import styled from "styled-components/native";
 
+import { auth, db, firebase } from "../api";
 import AuthContext from "../auth/authContext";
 import {
   Button,
@@ -15,7 +16,6 @@ import {
   UploadModal,
 } from "../components";
 import { colors } from "../config";
-import { auth, db, firebase } from "../firebase";
 import routes from "../navigation/routes";
 import { Image } from "../styles";
 

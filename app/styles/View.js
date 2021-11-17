@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import styled, { css } from "styled-components";
+import styled, { css } from "styled-components/native";
 
 const separatorStyle = css`
   height: ${StyleSheet.hairlineWidth}px;

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
-import styled from "styled-components";
+import styled from "styled-components/native";
 import * as Yup from "yup";
 
 import {
@@ -17,7 +17,7 @@ const validationSchema = Yup.object().shape({
   phone: Yup.number().positive().integer().label("Phone"),
   country: Yup.string(),
   city: Yup.string(),
-  userImg: Yup.string().nullable().required().label("Photo"),
+  userImg: Yup.string().nullable().label("Photo"),
 });
 
 const EditProfileScreen = () => {

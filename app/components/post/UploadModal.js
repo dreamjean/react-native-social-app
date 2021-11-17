@@ -1,7 +1,6 @@
 import LottieView from "lottie-react-native";
-import React from "react";
 import * as Progress from "react-native-progress";
-import styled from "styled-components";
+import styled from "styled-components/native";
 
 const UploadModal = ({
   visible = false,

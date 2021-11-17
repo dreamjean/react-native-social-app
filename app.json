@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "social-app",
-    "slug": "social-app",
+    "name": "SocialApp",
+    "slug": "SocialApp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./app/assets/icon.png",
@@ -16,9 +16,6 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "facebookAppId": "2590868754550621",
-    "facebookDisplayName": "SocialApp",
-    "facebookScheme": "fb2590868754550621",
     "ios": {
       "supportsTablet": true
     },

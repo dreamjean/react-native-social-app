@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Keyboard } from "react-native";
 import * as Yup from "yup";
 
+import { auth } from "../../api";
+import loginWithFacebookAsync from "../../api/loginWithFacebook";
+import loginWithGoogleAsync from "../../api/loginWithGoogle";
 import { Button, Container, SocialButton, TextLinking } from "../../components";
 import {
   ErrorMessage,
@@ -10,9 +13,6 @@ import {
   SubmitButton,
 } from "../../components/form";
 import { colors, images } from "../../config";
-import { auth } from "../../firebase";
-import loginWithFacebookAsync from "../../firebase/loginWithFacebook";
-import loginWithGoogleAsync from "../../firebase/loginWithGoogle";
 import routes from "../../navigation/routes";
 
 const validationSchema = Yup.object().shape({

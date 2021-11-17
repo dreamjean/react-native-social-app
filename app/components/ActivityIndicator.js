@@ -1,6 +1,5 @@
 import LottieView from "lottie-react-native";
-import React from "react";
-import styled from "styled-components";
+import styled from "styled-components/native";
 
 const ActivityIndicator = ({ visible = false }) => {
   if (!visible) return null;

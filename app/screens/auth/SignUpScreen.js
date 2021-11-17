@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Keyboard } from "react-native";
-import styled from "styled-components";
+import styled from "styled-components/native";
 import * as Yup from "yup";
 
+import { auth, db } from "../../api";
+import loginWithFacebookAsync from "../../api/loginWithFacebook";
+import loginWithGoogleAsync from "../../api/loginWithGoogle";
 import {
   ActivityIndicator,
   Container,
@@ -16,9 +19,6 @@ import {
   SubmitButton,
 } from "../../components/form";
 import { colors } from "../../config";
-import { auth, db } from "../../firebase";
-import loginWithFacebookAsync from "../../firebase/loginWithFacebook";
-import loginWithGoogleAsync from "../../firebase/loginWithGoogle";
 import routes from "../../navigation/routes";
 import { Text } from "../../styles";
 
@@ -90,7 +90,7 @@ const SignUpScreen = ({ navigation }) => {
           keyboardType="default"
           name="name"
           onSubmitEditing={() => focusNextField("email")}
-          placeholder="name"
+          placeholder="Name"
           returnKeyLabel="next"
           returnKeyType="next"
           textContentType="name"

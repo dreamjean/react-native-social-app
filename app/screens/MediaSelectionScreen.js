@@ -1,7 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { AssetsSelector } from "expo-images-picker";
-import React from "react";
-import styled from "styled-components";
+import styled from "styled-components/native";
 
 import { theme } from "../config";
 import routes from "../navigation/routes";

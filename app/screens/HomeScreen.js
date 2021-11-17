@@ -1,13 +1,13 @@
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Constants from "expo-constants";
-import React, { useEffect, useState } from "react";
-import { FlatList, StatusBar, StyleSheet } from "react-native";
-import styled from "styled-components";
+import { useEffect, useState } from "react";
+import { StatusBar, StyleSheet } from "react-native";
+import styled from "styled-components/native";
 
+import { db } from "../api";
 import { Card, Icon } from "../components";
 import { colors } from "../config";
-import { db } from "../firebase";
 import routes from "../navigation/routes";
 import { Text } from "../styles";
 
@@ -31,14 +31,8 @@ const HomeScreen = ({ navigation }) => {
         .get()
         .then((queryShapshot) => {
           queryShapshot.forEach((doc) => {
-            const {
-              userId,
-              caption,
-              images,
-              createdAt,
-              likes,
-              comments,
-            } = doc.data();
+            const { userId, caption, images, createdAt, likes, comments } =
+              doc.data();
 
             listings.push({
               id: doc.id,
@@ -73,8 +67,8 @@ const HomeScreen = ({ navigation }) => {
           RN Social
         </Text>
       </Header>
-      <Listings>
-        <FlatList
+      <ListingBox>
+        <Listing
           data={posts}
           contentContainerStyle={{ paddingBottom: 18 }}
           keyExtractor={(listing) => listing.id.toString()}
@@ -103,7 +97,7 @@ const HomeScreen = ({ navigation }) => {
           onRefresh={fetchPosts}
           refreshing={loading}
         />
-      </Listings>
+      </ListingBox>
       <Icon
         name="pen-plus"
         backgroundColor={colors.blue}
@@ -140,8 +134,10 @@ const Header = styled.View`
   })}
 `;
 
-const Listings = styled.View`
+const ListingBox = styled.View`
   flex: 1;
 `;
+
+const Listing = styled.FlatList``;
 
 export default HomeScreen;

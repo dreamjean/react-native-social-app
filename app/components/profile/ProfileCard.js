@@ -1,6 +1,5 @@
-import React from "react";
 import { RectButton } from "react-native-gesture-handler";
-import styled from "styled-components";
+import styled from "styled-components/native";
 
 import { colors } from "../../config";
 import { Image, Text } from "../../styles";

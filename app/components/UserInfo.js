@@ -1,6 +1,5 @@
-import React from "react";
 import { Pressable } from "react-native";
-import styled from "styled-components";
+import styled from "styled-components/native";
 
 import { Image, Text } from "../styles";
 

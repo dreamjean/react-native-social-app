@@ -1,5 +1,4 @@
 import { useFormikContext } from "formik";
-import React from "react";
 
 import { colors } from "../../config";
 import Button from "../Button";

@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from "styled-components/native";
 
 const avatarStyle = css`
   width: 50px;

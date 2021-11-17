@@ -1,6 +1,5 @@
-import React from "react";
 import { Modal } from "react-native";
-import styled from "styled-components";
+import styled from "styled-components/native";
 
 import { colors } from "../../config";
 import { Text } from "../../styles";

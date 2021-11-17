@@ -1,9 +1,9 @@
-export const images = [
-  require("../assets/images/rn-social-logo.png"),
+export const assets = [
+  require("../assets/rn-social-logo.png"),
   require("../assets/images/onboarding1.png"),
   require("../assets/images/onboarding2.png"),
   require("../assets/images/onboarding3.png"),
-  // users 4~12
+  require("../assets/users/avatar-default.jpg"),
   require("../assets/users/user-1.jpg"),
   require("../assets/users/user-2.jpg"),
   require("../assets/users/user-3.jpg"),
@@ -12,12 +12,11 @@ export const images = [
   require("../assets/users/user-6.jpg"),
   require("../assets/users/user-7.jpg"),
   require("../assets/users/user-8.jpg"),
-  // posts 13~18
-  require("../assets/posts/post-img-1.jpg"),
-  require("../assets/posts/post-img-2.jpg"),
-  require("../assets/posts/post-img-3.jpg"),
-  require("../assets/posts/post-img-4.jpg"),
-  require("../assets/posts/post-img-5.jpg"),
+  require("../assets/images/post-img-1.jpg"),
+  require("../assets/images/post-img-2.jpg"),
+  require("../assets/images/post-img-3.jpg"),
+  require("../assets/images/post-img-4.jpg"),
+  require("../assets/images/post-img-5.jpg"),
 ];
 
 export const fonts = {

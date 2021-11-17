@@ -1,5 +1,4 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import React from "react";
 
 import { colors } from "../config";
 import { ChatScreen, MessageScreen } from "../screens";

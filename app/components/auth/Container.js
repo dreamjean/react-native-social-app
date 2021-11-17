@@ -1,9 +1,8 @@
 import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
-import React from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
-import styled from "styled-components";
+import styled from "styled-components/native";
 
 import { colors } from "../../config";
 import { Image, Text } from "../../styles";

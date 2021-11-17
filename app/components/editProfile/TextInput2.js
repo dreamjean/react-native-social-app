@@ -1,6 +1,6 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import React, { forwardRef } from "react";
-import styled from "styled-components";
+import { forwardRef } from "react";
+import styled from "styled-components/native";
 
 import { colors, constants } from "../../config";
 

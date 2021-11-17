@@ -1,7 +1,6 @@
 import { FontAwesome } from "@expo/vector-icons";
-import React from "react";
 import { RectButton } from "react-native-gesture-handler";
-import styled from "styled-components";
+import styled from "styled-components/native";
 
 import { constants } from "../../config";
 import { Text } from "../../styles";
