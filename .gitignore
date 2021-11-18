@@ -17,4 +17,4 @@ web-build/
 .eslintcache
 
 # keys
-app/api/keys.js
+.env

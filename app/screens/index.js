@@ -1,4 +1,3 @@
-export { default as OnBoardingScreen } from "./auth/OnBoardingScreen";
 export { default as SignInScreen } from "./auth/SignInScreen";
 export { default as SignUpScreen } from "./auth/SignUpScreen";
 export { default as ChatScreen } from "./ChatScreen";
@@ -6,5 +5,6 @@ export { default as EditProfileScreen } from "./EditProfileScreen";
 export { default as HomeScreen } from "./HomeScreen";
 export { default as MediaSelectionScreen } from "./MediaSelectionScreen";
 export { default as MessageScreen } from "./MessageScreen";
+export { default as OnBoardingScreen } from "./onBoarding/OnBoardingScreen";
 export { default as PostScreen } from "./PostScreen";
 export { default as ProfileScreen } from "./ProfileScreen";

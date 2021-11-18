@@ -3,9 +3,8 @@ import { Keyboard } from "react-native";
 import styled from "styled-components/native";
 import * as Yup from "yup";
 
-import { auth, db } from "../../api";
-import loginWithFacebookAsync from "../../api/loginWithFacebook";
-import loginWithGoogleAsync from "../../api/loginWithGoogle";
+import authApi from "../../api/auth";
+import usersApi from "../../api/users";
 import {
   ActivityIndicator,
   Container,
@@ -46,20 +45,9 @@ const SignUpScreen = ({ navigation }) => {
     setLoading(true);
 
     try {
-      const result = await auth.createUserWithEmailAndPassword(
-        userInfo.email,
-        userInfo.password
-      );
-
-      await db.collection("users").doc(result.user.uid).set({
-        email: userInfo.email,
-        firstName: "",
-        lastName: "",
-        createdAt: new Date(),
-        userImg: null,
-      });
-    } catch (error) {
-      setError(error.message);
+      await usersApi.register(userInfo.email, userInfo.password);
+    } catch ({ message }) {
+      setError(message);
     }
 
     setLoading(false);
@@ -147,14 +135,14 @@ const SignUpScreen = ({ navigation }) => {
         title="Sign In with Facebook"
         backgroundColor={colors.light}
         color={colors.blue2}
-        onPress={loginWithFacebookAsync}
+        onPress={authApi.loginWithFacebookAsync}
       />
       <SocialButton
         socialIcon="google"
         title="Sign In with Google"
         backgroundColor={colors.lightRed}
         color={colors.red}
-        onPress={loginWithGoogleAsync}
+        onPress={authApi.loginWithGoogleAsync}
       />
       <TextLinking
         blue

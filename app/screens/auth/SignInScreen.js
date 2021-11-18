@@ -2,9 +2,7 @@ import { useState } from "react";
 import { Keyboard } from "react-native";
 import * as Yup from "yup";
 
-import { auth } from "../../api";
-import loginWithFacebookAsync from "../../api/loginWithFacebook";
-import loginWithGoogleAsync from "../../api/loginWithGoogle";
+import authApi from "../../api/auth";
 import { Button, Container, SocialButton, TextLinking } from "../../components";
 import {
   ErrorMessage,
@@ -14,6 +12,7 @@ import {
 } from "../../components/form";
 import { colors, images } from "../../config";
 import routes from "../../navigation/routes";
+import useAuth from "../auth/useAuth";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -29,17 +28,19 @@ const validationSchema = Yup.object().shape({
 const SignInScreen = ({ navigation }) => {
   const [error, setError] = useState();
   const [inputs] = useState([]);
+  const auth = useAuth();
 
   const focusNextField = (nextField) => inputs[nextField].focus();
 
   const handleSubmit = async ({ email, password }) => {
     Keyboard.dismiss();
 
-    await auth
-      .signInWithEmailAndPassword(email, password)
-      .catch(function (error) {
-        setError(error.message);
-      });
+    try {
+      const { user } = await authApi.login(email, password);
+      auth.logIn(user);
+    } catch ({ message }) {
+      setError(message);
+    }
   };
 
   return (
@@ -96,14 +97,14 @@ const SignInScreen = ({ navigation }) => {
         title="Sign In with Facebook"
         backgroundColor={colors.light}
         color={colors.blue2}
-        onPress={loginWithFacebookAsync}
+        onPress={authApi.loginWithFacebookAsync}
       />
       <SocialButton
         socialIcon="google"
         title="Sign In with Google"
         backgroundColor={colors.lightRed}
         color={colors.red}
-        onPress={loginWithGoogleAsync}
+        onPress={authApi.loginWithGoogleAsync}
       />
       <TextLinking
         blue
