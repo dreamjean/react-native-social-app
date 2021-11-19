@@ -4,7 +4,6 @@ import styled from "styled-components/native";
 import * as Yup from "yup";
 
 import authApi from "../../api/auth";
-import usersApi from "../../api/users";
 import {
   ActivityIndicator,
   Container,
@@ -45,7 +44,7 @@ const SignUpScreen = ({ navigation }) => {
     setLoading(true);
 
     try {
-      await usersApi.register(userInfo.email, userInfo.password);
+      await authApi.register(userInfo.email, userInfo.password);
     } catch ({ message }) {
       setError(message);
     }

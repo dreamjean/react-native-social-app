@@ -16,5 +16,5 @@ web-build/
 # eslint cache
 .eslintcache
 
-# keys
-.env
+# firebase keys
+app/api/keys.js

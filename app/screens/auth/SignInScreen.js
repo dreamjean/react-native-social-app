@@ -3,6 +3,7 @@ import { Keyboard } from "react-native";
 import * as Yup from "yup";
 
 import authApi from "../../api/auth";
+import useAuth from "../../auth/useAuth";
 import { Button, Container, SocialButton, TextLinking } from "../../components";
 import {
   ErrorMessage,
@@ -12,7 +13,6 @@ import {
 } from "../../components/form";
 import { colors, images } from "../../config";
 import routes from "../../navigation/routes";
-import useAuth from "../auth/useAuth";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),

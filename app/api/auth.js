@@ -1,11 +1,8 @@
-import "dotenv/config";
-
 import * as Facebook from "expo-facebook";
 import * as Google from "expo-google-app-auth";
 import {
   createUserWithEmailAndPassword,
   FacebookAuthProvider,
-  getAuth,
   GoogleAuthProvider,
   signInWithCredential,
   signInWithEmailAndPassword,
@@ -15,7 +12,8 @@ import {
   updateProfile,
 } from "firebase/auth";
 
-const firebaseAuth = getAuth();
+import { firebaseAuth } from "./";
+import keys from "./keys";
 
 const login = async (email, password) =>
   await signInWithEmailAndPassword(firebaseAuth, email, password);
@@ -25,7 +23,7 @@ const logout = async () => await signOut(firebaseAuth);
 const loginWithFacebookAsync = async () => {
   try {
     await Facebook.initializeAsync({
-      appId: process.env.FACEBOOK_APP_ID,
+      appId: keys.FACEBOOK_APP_ID,
     });
 
     const { type, token } = await Facebook.logInWithReadPermissionsAsync({
@@ -48,8 +46,8 @@ const loginWithFacebookAsync = async () => {
 const loginWithGoogleAsync = async () => {
   try {
     const { type, idToken, accessToken } = await Google.logInAsync({
-      iosClientId: process.env.GOOGLe_IOS_CLIENT_ID_FOR_EXPO,
-      androidClientId: process.env.GOOGLE_ANDROID_CLIENT_ID_FOR_EXPO,
+      iosClientId: keys.GOOGLe_IOS_CLIENT_ID_FOR_EXPO,
+      androidClientId: keys.GOOGLE_ANDROID_CLIENT_ID_FOR_EXPO,
     });
 
     if (type === "success") {
