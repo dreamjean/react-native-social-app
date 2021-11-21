@@ -14,7 +14,7 @@ export default {
   lightWhite: "rgba(255, 255, 255, 0.15)",
   lightWhite2: "rgba(255, 255, 255, 0.85)",
   lightBlue: "#2e64e515",
-  lightBlue2: "rgba(46, 100, 229, 0.35)",
+  lightBlue2: "rgba(46, 100, 229, 0.45)",
   medium: "rgba(0, 0, 0, 0.3)",
   white: "#fff",
   white2: "#f9fafd",

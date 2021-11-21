@@ -18,6 +18,11 @@ const avatar2Style = css`
   })}
 `;
 
+const boardingStyle = css`
+  width: ${320}px;
+  height: ${420}px;
+`;
+
 const cardStyle = css`
   width: 100%;
   height: 150px;
@@ -47,11 +52,9 @@ const logoStyle = css`
 `;
 
 const Image = styled.Image`
-  width: 100%;
-  height: 100%;
-
   ${({ avatar }) => avatar && avatarStyle}
   ${({ avatar2 }) => avatar2 && avatar2Style}
+  ${({ boarding }) => boarding && boardingStyle}
   ${({ card }) => card && cardStyle}
   ${({ card2 }) => card2 && card2Style}
   ${({ logo }) => logo && logoStyle}

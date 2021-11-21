@@ -10,7 +10,6 @@ const Button = ({
   bgColor = colors.transparent,
   borderColor,
   color = colors.blue,
-  disabled,
   title,
   margin,
   width = 100,
@@ -18,7 +17,7 @@ const Button = ({
 }) => {
   return (
     <Pressable
-      {...{ disabled, onPress }}
+      {...{ onPress }}
       style={({ pressed }) => ({
         borderRadius: 5,
         opacity: pressed ? 0.5 : 1,

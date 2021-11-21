@@ -25,6 +25,15 @@ const title2Style = css`
   })}
 `;
 
+const title3Style = css`
+  ${({ theme: { colors, size, fonts } }) => ({
+    fontSize: size.l,
+    fontFamily: fonts[1],
+    color: colors.text,
+    opacity: 0.75,
+  })}
+`;
+
 const mediumStyle = css`
   ${({ theme: { size, fonts, colors } }) => ({
     fontSize: size.s3,
@@ -129,6 +138,7 @@ const Text = styled.Text`
   ${({ statNum }) => statNum && statNumStyle}
   ${({ title }) => title && titleStyle}
   ${({ title2 }) => title2 && title2Style}
+  ${({ title3 }) => title3 && title3Style}
   ${({ tiny }) => tiny && tinyStyle}
 `;
 

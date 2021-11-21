@@ -5,6 +5,8 @@ export { default as TextLinking } from "./auth/TextLinking";
 export { default as Button } from "./Button";
 export { default as Card } from "./home/Card";
 export { default as Icon } from "./Icon";
+export { default as PaginationDot } from "./onBoarding/PaginationDot";
+export { default as SlideItem } from "./onBoarding/SlideItem";
 export { default as DraftModal } from "./post/DraftModal";
 export { default as ImageInputList } from "./post/ImageInputList";
 export { default as UploadModal } from "./post/UploadModal";
