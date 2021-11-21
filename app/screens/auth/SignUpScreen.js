@@ -4,19 +4,13 @@ import styled from "styled-components/native";
 import * as Yup from "yup";
 
 import authApi from "../../api/auth";
-import {
-  ActivityIndicator,
-  Container,
-  SocialButton,
-  TextLinking,
-} from "../../components";
+import { ActivityIndicator, Container, TextLinking } from "../../components";
 import {
   ErrorMessage,
   Form,
   FormField,
   SubmitButton,
 } from "../../components/form";
-import { colors } from "../../config";
 import routes from "../../navigation/routes";
 import { Text } from "../../styles";
 
@@ -55,7 +49,15 @@ const SignUpScreen = ({ navigation }) => {
   if (loading) return <ActivityIndicator visible={loading} />;
 
   return (
-    <Container small title="Create an account">
+    <Container
+      blue
+      title="Create an account"
+      linkingCaption="Already have an account?"
+      linkingTitle="Sign In"
+      onFacebookLogin={authApi.loginWithFacebookAsync}
+      onGoogleLogin={authApi.loginWithGoogleAsync}
+      onNavigation={() => navigation.navigate(routes.SIGNIN)}
+    >
       <Form
         initialValues={{
           name: "",
@@ -129,26 +131,6 @@ const SignUpScreen = ({ navigation }) => {
           onPress={() => true}
         />
       </Description>
-      <SocialButton
-        socialIcon="facebook"
-        title="Sign In with Facebook"
-        backgroundColor={colors.light}
-        color={colors.blue2}
-        onPress={authApi.loginWithFacebookAsync}
-      />
-      <SocialButton
-        socialIcon="google"
-        title="Sign In with Google"
-        backgroundColor={colors.lightRed}
-        color={colors.red}
-        onPress={authApi.loginWithGoogleAsync}
-      />
-      <TextLinking
-        blue
-        caption="Already have an account?"
-        title="Sign In"
-        onPress={() => navigation.navigate(routes.SIGNIN)}
-      />
     </Container>
   );
 };

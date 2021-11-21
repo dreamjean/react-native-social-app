@@ -31,6 +31,7 @@ const SocialButton = ({
 const Touchable = styled(RectButton)`
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   height: ${ROW_HEIGHT}px;
 
   ${({ backgroundColor, theme: { space, radii } }) => ({
@@ -44,16 +45,14 @@ const IconBox = styled.View`
   width: 50px;
   justify-content: center;
   align-items: center;
-
-  ${({ theme: { space } }) => ({
-    padding: space.s2,
-  })}
 `;
 
 const TextBox = styled.View`
-  flex: 1;
-  justify-content: center;
   align-items: center;
+
+  ${({ theme: { space } }) => ({
+    marginRight: space.m3,
+  })}
 `;
 
 export default SocialButton;

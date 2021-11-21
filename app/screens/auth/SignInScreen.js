@@ -4,15 +4,17 @@ import * as Yup from "yup";
 
 import authApi from "../../api/auth";
 import useAuth from "../../auth/useAuth";
-import { Button, Container, SocialButton, TextLinking } from "../../components";
+import { Button, Container } from "../../components";
 import {
   ErrorMessage,
   Form,
   FormField,
   SubmitButton,
 } from "../../components/form";
-import { colors, images } from "../../config";
+import { images, theme } from "../../config";
 import routes from "../../navigation/routes";
+
+const { colors, size } = theme;
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -44,7 +46,16 @@ const SignInScreen = ({ navigation }) => {
   };
 
   return (
-    <Container big title="RN Social APP" logo={images[0]}>
+    <Container
+      big
+      title="RN Social APP"
+      logo={images.logo}
+      linkingCaption="Don't have an account? "
+      linkingTitle="Create here"
+      onFacebookLogin={authApi.loginWithFacebookAsync}
+      onGoogleLogin={authApi.loginWithGoogleAsync}
+      onNavigation={() => navigation.navigate(routes.SIGNUP)}
+    >
       <Form
         initialValues={{ email: "", password: "" }}
         onSubmit={handleSubmit}
@@ -91,26 +102,7 @@ const SignInScreen = ({ navigation }) => {
         title="Forgot Password?"
         borderColor={colors.transparent}
         width="100%"
-      />
-      <SocialButton
-        socialIcon="facebook"
-        title="Sign In with Facebook"
-        backgroundColor={colors.light}
-        color={colors.blue2}
-        onPress={authApi.loginWithFacebookAsync}
-      />
-      <SocialButton
-        socialIcon="google"
-        title="Sign In with Google"
-        backgroundColor={colors.lightRed}
-        color={colors.red}
-        onPress={authApi.loginWithGoogleAsync}
-      />
-      <TextLinking
-        blue
-        caption="Don't have an account? "
-        title="Create here"
-        onPress={() => navigation.navigate(routes.SIGNUP)}
+        textStyle={{ fontSize: size.s3, opacity: 0.75 }}
       />
     </Container>
   );
